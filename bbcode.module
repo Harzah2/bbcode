@@ -318,42 +318,51 @@ END_HELP_TEXT;
 
 function bbcode_filter($body) {
   $preg = array(
-    // Font and text manipulation ( [color] [size] [font] [align] )
-    '/\[color=(.*?)(?::\w+)?\](.*?)\[\/color(?::\w+)?\]/si'   => "<span style=\"color:\\1\">\\2</span>",
-    '/\[size=(.*?)(?::\w+)?\](.*?)\[\/size(?::\w+)?\]/si'     => "<span style=\"font-size:\\1\">\\2</span>",
-    '/\[font=(.*?)(?::\w+)?\](.*?)\[\/font(?::\w+)?\]/si'     => "<span style=\"font-family:\\1\">\\2</span>",
-    '/\[align=(.*?)(?::\w+)?\](.*?)\[\/align(?::\w+)?\]/si'   => "<div style=\"text-align:\\1\">\\2</div>",
-    '/\[b(?::\w+)?\](.*?)\[\/b(?::\w+)?\]/si'                 => "<b>\\1</b>",
-    '/\[i(?::\w+)?\](.*?)\[\/i(?::\w+)?\]/si'                 => "<i>\\1</i>",
-    '/\[u(?::\w+)?\](.*?)\[\/u(?::\w+)?\]/si'                 => "<u>\\1</u>",
-    '/\[center(?::\w+)?\](.*?)\[\/center(?::\w+)?\]/si'       => "<div style=\"text-align:center\">\\1</div>",
-    '/\[code(?::\w+)?\](.*?)\[\/code(?::\w+)?\]/si'           => "<code>\\1</code>",
-    // [email]
-    '/\[email(?::\w+)?\](.*?)\[\/email(?::\w+)?\]/si'         => "<a href=\"mailto:\\1\" class=\"bb_email\">\\1</a>",
-    '/\[email=(.*?)(?::\w+)?\](.*?)\[\/email(?::\w+)?\]/si'   => "<a href=\"mailto:\\1\" class=\"bb_email\">\\2</a>",
-    // [url]
-    '/\[url(?::\w+)?\]www\.(.*?)\[\/url(?::\w+)?\]/si'        => "<a href=\"http://www.\\1\" class=\"bb_url\">\\1</a>",
-    '/\[url(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'             => "<a href=\"\\1\" class=\"ng_url\">\\1</a>",
-    '/\[url=(.*?)(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'       => "<a href=\"\\1\" class=\"ng_url\">\\2</a>",
-    // [img]
-    '/\[img(?::\w+)?\](.*?)\[\/img(?::\w+)?\]/si'             => "<img src=\"\\1\" border=\"0\" />",
-    '/\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[\/img(?::\w+)?\]/si' => "<img width=\"\\1\" height=\"\\2\" src=\"\\3\" border=\"0\" />",
-    // [quote]
-    '/\[quote(?::\w+)?\](.*?)\[\/quote(?::\w+)?\]/si'         => "<div class=\"bb_quote\">Quote:<div class=\"bb_quote_body\">\\1</div></div>",
-    '/\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](.*?)\[\/quote(?::\w+)?\]/si'   => "<div class=\"bb_quote\">Quote \\1:<div class=\"bb_quote_body\">\\2</div></div>",
-    // [list]
-    '/\[\*(?::\w+)?\]\s*([^\[]*)/si'                          => "<li>\\1</li>",
-    '/\[list(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/si'           => "<ul class=\"bb_list\">\\1</ul>",
-    '/\[list(?::\w+)?\](.*?)\[\/list:u(?::\w+)?\]/s'          => "<ul class=\"bb_list\">\\1</ul>",
-    '/\[list=1(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/si'         => "<ol class=\"bb_list\" style=\"list-style-type:decimal;\">\\1</ol>",
-    '/\[list=i(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/s'          => "<ol class=\"bb_list\" style=\"list-style-type:lower-roman;\">\\1</ol>",
-    '/\[list=I(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/s'          => "<ol class=\"bb_list\" style=\"list-style-type:upper-roman;\">\\1</ol>",
-    '/\[list=a(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/s'          => "<ol class=\"bb_list\" style=\"list-style-type:lower-alpha;\">\\1</ol>",
-    '/\[list=A(?::\w+)?\](.*?)\[\/list(?::\w+)?\]/s'          => "<ol class=\"bb_list\" style=\"list-style-type:upper-alpha;\">\\1</ol>",
-    '/\[list(?::\w+)?\](.*?)\[\/list:o(?::\w+)?\]/s'          => "<ol class=\"bb_list\" style=\"list-style-type:decimal;\">\\1</ol>",
-    // the following lines clean up our output a bit
-    '/<ol(.*?)>(?:.*?)<li(.*?)>/si'         => "<ol\\1><li\\2>",
-    '/<ul(.*?)>(?:.*?)<li(.*?)>/si'         => "<ul\\1><li\\2>"
+    
+    // Font, text and alignment
+    '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
+    '#\[size=(.*?)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1">\\2</span>',
+    '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
+    '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
+    '#\[b(?::\w+)?\](.*?)\[/b(?::\w+)?\]#si'                 => '<b>\\1</b>',
+    '#\[i(?::\w+)?\](.*?)\[/i(?::\w+)?\]#si'                 => '<i>\\1</i>',
+    '#\[u(?::\w+)?\](.*?)\[/u(?::\w+)?\]#si'                 => '<u>\\1</u>',
+    '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<div style="text-align:center">\\1</div>',
+    '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
+    '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
+    '#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si'           => '<code>\\1</code>',
+    
+    // Email addresses without and with good looking text
+    '#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'         => '<a href="mailto:\\1" class="bb_email">\\1</a>',
+    '#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'   => '<a href="mailto:\\1" class="bb_email">\\2</a>',
+    
+    // Links without a protocol, with a protocol and with good looking text
+    '#\[url(?::\w+)?\]www\.(.*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb_url">\\1</a>',
+    '#\[url(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'             => '<a href="\\1" class="bb_url">\\1</a>',
+    '#\[url=(.*?)(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'       => '<a href="\\1" class="bb_url">\\2</a>',
+    
+    // Images without or with client-side sizing
+    '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" class="bb_image" />',
+    '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" src="\\3" class="bb_image" />',
+    
+    // Quoting with or without specifying the source
+    '#\[quote(?::\w+)?\](.*?)\[/quote(?::\w+)?\]#si'         => '<div class="bb_quote">Quote:<div class="bb_quote_body">\\1</div></div>',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb_quote">Quote \\1:<div class="bb_quote_body">\\2</div></div>',
+    
+    // Different kinds of lists and list items
+    '#\[\*(?::\w+)?\]\s*([^\[]*)#si'                         => '<li>\\1</li>',
+    '#\[list(?::\w+)?\](.*?)\[/list(?::\w+)?\]#si'           => '<ul class="bb_list">\\1</ul>',
+    '#\[list(?::\w+)?\](.*?)\[/list:u(?::\w+)?\]#s'          => '<ul class="bb_list">\\1</ul>',
+    '#\[list=1(?::\w+)?\](.*?)\[/list(?::\w+)?\]#si'         => '<ol class="bb_list" style="list-style-type:decimal;">\\1</ol>',
+    '#\[list=i(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => '<ol class="bb_list" style="list-style-type:lower-roman;">\\1</ol>',
+    '#\[list=I(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => '<ol class="bb_list" style="list-style-type:upper-roman;">\\1</ol>',
+    '#\[list=a(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => '<ol class="bb_list" style="list-style-type:lower-alpha;">\\1</ol>',
+    '#\[list=A(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => '<ol class="bb_list" style="list-style-type:upper-alpha;">\\1</ol>',
+    '#\[list(?::\w+)?\](.*?)\[/list:o(?::\w+)?\]#s'          => '<ol class="bb_list" style="list-style-type:decimal;">\\1</ol>',
+    
+    // Clean up the list output a bit
+    '#<ol(.*?)>(?:.*?)<li(.*?)>#si'         => '<ol\\1><li\\2>',
+    '#<ul(.*?)>(?:.*?)<li(.*?)>#si'         => '<ul\\1><li\\2>'
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 
