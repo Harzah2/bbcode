@@ -11,7 +11,7 @@ function bbcode_help($section) {
   }
    
   elseif ($section == 'filter#short-tip') {
-    return t("You can use <a href=\"%bbode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url('filter/tips', NULL, 'filter-bbcode')));
+    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url('filter/tips', NULL, 'filter-bbcode')));
   }
   
   elseif ($section == "filter#long-tip") {
