@@ -22,11 +22,12 @@ Installation
 Configuration
 ------------------------------------------------------------------------------
 
-This module needs no configuration. When enabled it filters all text
-displayed - you can turn it off by disabling the module. If you would
-like to use BBCode as a replacement for HTML, you should set Drupal to
-use the "Escape HTML" filter such that no HTML tags are allowed in posts,
-only BBCode tags.
+  - You can enable javascript encoding of emails in the configuration page
+    of the module.
+  - You can use bbcode filter by enabling it in an input format
+  - If you would like to use BBCode as a replacement for HTML, you should
+    set Drupal to use the "Filtered HTML" with escape tags setting along
+    with bbcode filter.
 
 Credits / Contact
 ------------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Credits / Contact
 The original author of this module is Alastair Maw, who can be reached at
 drupal-bbcode[at]almaw.com. Gabor Hojtsy (goba[at]php.net) also contributed
 to the module and is the active maintainer.
+Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
 
 TODO
 ------------------------------------------------------------------------------

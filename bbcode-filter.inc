@@ -34,10 +34,6 @@ function _bbcode_filter_process(&$body) {
     '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
     
-    // Email addresses without and with good looking text
-    '#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'         => '<a href="mailto:\\1" class="bb-email">\\1</a>',
-    '#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'   => '<a href="mailto:\\1" class="bb-email">\\2</a>',
-    
     // Links without a protocol, with a protocol and with good looking text
     '#\[url(?::\w+)?\]www\.(.*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb-url">\\1</a>',
     '#\[url(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'             => '<a href="\\1" class="bb-url">\\1</a>',
@@ -68,6 +64,10 @@ function _bbcode_filter_process(&$body) {
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
   
+  // Replacing email addresses with encoded html
+  $body = preg_replace_callback('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+  $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+
   // Horizontal delimiter
   $body = str_replace("[hr]", '<hr class="bb-hr" />', $body);
 
@@ -120,6 +120,23 @@ function _bbcode_filter_process(&$body) {
   $ret = substr($ret, 1);
 
   return $ret;
+}
+
+function _bbcode_encode_mailto($matches) {
+  $link = '<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>';
+
+  if (variable_get("bbcode_encode_mailto", 1)) {
+    $link = 'document.write(\'' . $link . '</a>\');';
+
+    $js_encode = '';
+    for ($x = 0; $x < strlen($link); $x++) {
+      $js_encode .= '%' . bin2hex($link{$x});
+    }
+
+    $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+  }
+
+  return $link;
 }
 
 function _bbcode_list_tag($type = NULL) {

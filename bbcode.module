@@ -20,3 +20,13 @@ function bbcode_filter($op, $text = "") {
   include_once 'bbcode-filter.inc';
   return _bbcode_filter($op, $text);
 }
+
+function bbcode_settings() {
+  $output = "";
+  $output .= form_select(
+    t("Email address encoding"),
+    "bbcode_encode_mailto", variable_get("bbcode_encode_mailto", 1),
+    array(t("Disabled"), t("Enabled")),
+    t("Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them."));
+  return $output;
+}
