@@ -37,13 +37,12 @@ Credits / Contact
 
 The original author of this module is Alastair Maw, who can be reached at
 drupal-bbcode[at]almaw.com. Gabor Hojtsy (goba[at]php.net) also contributed
-to the module.
+to the module and is the active maintainer.
 
 TODO
 ------------------------------------------------------------------------------
 
  - Do not allow users to disrupt the HTML output with malicious
    parameters (color, size, url, etc.).
- - Support block level [code] formatting, as shown on the help screen.
  - Support [php] code blocks (syntax highlighted).
  - Configuration of which bbcode tags are allowed.
