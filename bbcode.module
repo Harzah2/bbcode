@@ -12,6 +12,7 @@ function bbcode_compose_tips() {
 function bbcode_help($type) {
   switch ($type) {
     case "compose_tips":
+    default:
       return "This site lets you use bbcode to format your posts. This is easier to use than HTML. For a full guide, please <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">look here</a>.";
   }
 }
