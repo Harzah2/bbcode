@@ -432,4 +432,14 @@ function _bbcode_list_tag($type = NULL) {
   }
 }
 
+function bbcode_conf_filters() {
+  if (function_exists("compose_tips_page")) {
+    $help = t("The bbcode filter is enabled. You can get more information about the possible formatting rules on the <a href=\"%compose_tips\">Compose Tips</a> page.", array("%compose_tips" => url("compose_tips")));
+  }
+  else {
+    $help = t("The bbcode filter is enabled. By installing the compose_tips.module, you can provide detailed information to your visitors about the formatting offered by this filter.");
+  }
+  return form_group(t("BBCode filter"), $help);
+}
+
 ?>
