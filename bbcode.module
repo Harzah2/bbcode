@@ -325,6 +325,7 @@ function bbcode_filter($body) {
     '#\[size=(.*?)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1">\\2</span>',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
+    '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<div style="float:\\1">\\2</div>',
     '#\[b(?::\w+)?\](.*?)\[/b(?::\w+)?\]#si'                 => '<b>\\1</b>',
     '#\[i(?::\w+)?\](.*?)\[/i(?::\w+)?\]#si'                 => '<i>\\1</i>',
     '#\[u(?::\w+)?\](.*?)\[/u(?::\w+)?\]#si'                 => '<u>\\1</u>',
@@ -365,6 +366,9 @@ function bbcode_filter($body) {
     '#<ul(.*?)>(?:.*?)<li(.*?)>#si'         => '<ul\\1><li\\2>'
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
+  
+  // Horizontal delimiter
+  $body = str_replace("[hr]", '<hr class="bb_hr" />', $body);
 
   // Find all [code] tags and check if they contain a newline. In case we find a newline,
   // that [code] should be rendered as a block, otherwise it will still be inline
@@ -374,7 +378,7 @@ function bbcode_filter($body) {
               $code_tag[1] = str_replace(array("\n ", "  "), array("\n&nbsp;", " &nbsp;"), $code_tag[1]);
               $code_block = '<div class="bb_code_block">%s</div>';
           } else {
-              $code_block = '<code class="bb_code">%s</class>';
+              $code_block = '<code class="bb_code">%s</code>';
           }
           $body = str_replace($code_tag[0], sprintf($code_block, trim($code_tag[1])), $body);
       }
