@@ -1,4 +1,4 @@
-Drupal bbcode.module README
+Drupal bbcode.module README.txt
 ==============================================================================
 
 The Drupal bbcode.module adds a BBCode filter to Drupal. This allows you
