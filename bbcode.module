@@ -370,7 +370,7 @@ function bbcode_filter($body) {
   if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
       foreach ($code_tags as $code_tag) {
           if (strpos($code_tag[1], "\n") !== FALSE) {
-              $code_tag[1] = str_replace("  ", " &nbsp;", $code_tag[1]);
+              $code_tag[1] = str_replace(array("\n ", "  "), array("\n&nbsp;", " &nbsp;"), $code_tag[1]);
               $code_block = '<div class="bb_code_block">%s</div>';
           } else {
               $code_block = '<code class="bb_code">%s</class>';
