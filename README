@@ -23,8 +23,3 @@ Bugs/comments/suggestions/patches to drupal-bbcode@almaw.com
 
 
 TODO: - Configuration of which bbcode tags are allowed.
-      - Add [list][*] support.
-      - Add code to make sure tags are properly closed and nested
-        (although this will make things too slow for use as an
-         on-output filter, so probably needs to wait until the
-         filter system gets an overhaul in 4.3)
