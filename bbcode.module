@@ -366,7 +366,7 @@ function _bbcode_filter_process($body) {
     '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb_quote">'.$quote_user.':<div class="bb_quote_body">\\2</div></div>',
     
     // Different kinds of lists and list items
-    '#\[\*(?::\w+)?\]\s*([^\[]*)#si'                         => '<li>\\1</li>',
+    '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1</li>',
     '#\[list(?::\w+)?\](.*?)\[/list(?::\w+)?\]#si'           => _bbcode_list_tag(),
     '#\[list(?::\w+)?\](.*?)\[/list:u(?::\w+)?\]#s'          => _bbcode_list_tag(),
     '#\[list(?::\w+)?\](.*?)\[/list:o(?::\w+)?\]#s'          => _bbcode_list_tag('decimal'),
