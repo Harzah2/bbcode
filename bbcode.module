@@ -319,6 +319,10 @@ END_HELP_TEXT;
 }
 
 function bbcode_filter($body) {
+  
+  $quote_text = t('Quote');
+  $quote_user = t('Quote \\1');
+
   $preg = array(
     
     // Font, text and alignment
@@ -348,8 +352,8 @@ function bbcode_filter($body) {
     '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" src="\\3" class="bb_image" />',
     
     // Quoting with or without specifying the source
-    '#\[quote(?::\w+)?\](.*?)\[/quote(?::\w+)?\]#si'         => '<div class="bb_quote">Quote:<div class="bb_quote_body">\\1</div></div>',
-    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb_quote">Quote \\1:<div class="bb_quote_body">\\2</div></div>',
+    '#\[quote(?::\w+)?\](.*?)\[/quote(?::\w+)?\]#si'         => '<div class="bb_quote">'.$quote_text.':<div class="bb_quote_body">\\1</div></div>',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb_quote">'.$quote_user.':<div class="bb_quote_body">\\2</div></div>',
     
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\]\s*([^\[]*)#si'                         => '<li>\\1</li>',
