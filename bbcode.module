@@ -1,4 +1,5 @@
 <?php
+// $Id$
 
 function bbcode_compose_tips() {
   return array(bbcode_help("compose_tips#bbcode"));
