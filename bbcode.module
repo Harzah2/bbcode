@@ -1,21 +1,21 @@
 <?php
 
-function bbcode_system($field) {
-  $system["description"] = t("Use bbcode in your posts.");
-  return $system[$field];
-}
-
 function bbcode_compose_tips() {
-  return array(bbcode_help());
+  return array(bbcode_help("compose_tips#bbcode"));
 }
 
 // When configuration of which tags are allowed is implemented,
 // this help text should be made modular such that only the enabled
 // tags have their corresponding help displayed.
-// 
-function bbcode_help () {
+function bbcode_help($section) {
 
-  $bbcode_help = <<<END_HELP_TEXT
+  if ($section == "admin/system/modules#description") {
+    return t("Use bbcode in your posts.");
+  }
+   
+  elseif ($section == "compose_tips#bbcode") {
+
+    $bbcode_help = <<<END_HELP_TEXT
 <h1>BBCode Guide</h1>
 
 <h2>Introduction</h2>
@@ -313,7 +313,8 @@ An HTML title example:<br />
  to all list items by wrapping the list with that formatting tag.
 </p>
 END_HELP_TEXT;
-  return t($bbcode_help);
+    return t($bbcode_help);
+  }
 }
 
 function bbcode_filter($body) {
