@@ -22,9 +22,9 @@ Installation
 Configuration
 ------------------------------------------------------------------------------
 
-  - You can enable javascript encoding of emails in the configuration page
-    of the module.
   - You can use bbcode filter by enabling it in an input format
+  - You can enable javascript encoding of emails in the configuration page
+    of the input format in which BBCode is enabled.
   - If you would like to use BBCode as a replacement for HTML, you should
     set Drupal to use the "Filtered HTML" with escape tags setting along
     with bbcode filter.

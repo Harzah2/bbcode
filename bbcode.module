@@ -2,31 +2,42 @@
 // $Id$
 
 function bbcode_help($section) {
-  if ($section == "admin/system/modules#description") {
-    return t("Use bbcode in your posts.");
+  if ($section == "admin/modules#description") {
+    return t("Allow the use of bbcode in your posts.");
   }
-   
-  elseif ($section == 'filter#short-tip') {
-    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url('filter/tips', NULL, 'filter-bbcode')));
-  }
-  
-  elseif ($section == "filter#long-tip") {
+}
+
+function bbcode_filter_tips($delta, $format, $long = false) {
+  if ($long) {
     include_once 'bbcode-help.inc';
     return _bbcode_filter_tip();
   }
+  else {
+    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url('filter/tips', NULL, 'filter-bbcode')));
+  }
 }
 
-function bbcode_filter($op, $text = "") {
-  include_once 'bbcode-filter.inc';
-  return _bbcode_filter($op, $text);
-}
-
-function bbcode_settings() {
-  $output = "";
-  $output .= form_select(
-    t("Email address encoding"),
-    "bbcode_encode_mailto", variable_get("bbcode_encode_mailto", 1),
-    array(t("Disabled"), t("Enabled")),
-    t("Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them."));
-  return $output;
+function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
+  switch ($op) {
+    case 'list':
+      return array(0 => t('BBCode'));
+    
+    case 'description':
+      return t('Converts BBCode to html.');
+      
+    case 'process':
+      include_once 'bbcode-filter.inc';
+      return _bbcode_filter_process($text, $format);
+      
+    case 'settings':
+      $output = form_group(t("BBCode filter"),
+        form_select(t("Email address encoding"),
+          "bbcode_encode_mailto_$format", variable_get("bbcode_encode_mailto_$format", 1),
+          array(t("Disabled"), t("Enabled")),
+          t("Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.")));
+      return $output;
+      
+    default:
+      return $text;
+  }
 }

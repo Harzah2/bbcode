@@ -1,20 +1,7 @@
 <?php
 // $Id$
 
-function _bbcode_filter($op, &$text) {
-  switch ($op) {
-    case "name":
-      return t("BBCode filter");
-    case "process":
-      return _bbcode_filter_process($text);
-    case "settings":
-      return _bbcode_filter_settings($text);
-    default:
-      return $text;
-  }
-}
-
-function _bbcode_filter_process(&$body) {
+function _bbcode_filter_process(&$body, $format = -1) {
   
   $quote_text = t('Quote');
   $quote_user = t('Quote \\1');
@@ -63,10 +50,19 @@ function _bbcode_filter_process(&$body) {
     '#<ul(.*?)>(?:.*?)<li(.*?)>#si'         => '<ul\\1><li\\2>'
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
-  
-  // Replacing email addresses with encoded html
-  $body = preg_replace_callback('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
-  $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+
+  // We cannot evaluate the variable in callback function because there is no way to pass the $format variable
+  if (variable_get("bbcode_encode_mailto_$format", 1)) {
+    // Replacing email addresses with encoded html
+    $body = preg_replace_callback('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+    $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+  }
+  else {
+    $body = preg_replace(
+      array('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si','#\[email=(.*?)(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'),
+      array('<a href="mailto:\\1" class="bb-email">\\1</a>', '<a href="mailto:\\1" class="bb-email">\\2</a>'),
+      $body);
+  }
 
   // Horizontal delimiter
   $body = str_replace("[hr]", '<hr class="bb-hr" />', $body);
@@ -114,7 +110,12 @@ function _bbcode_filter_process(&$body) {
 
   // matches an email@domain type address at the start of a line, or after a space.
   // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
-  $ret = preg_replace_callback("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
+  if (variable_get("bbcode_encode_mailto_$format", 1)) {
+    $ret = preg_replace_callback("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
+  }
+  else {
+    $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
+  }
 
   // Remove our padding..
   $ret = substr($ret, 1);
@@ -124,23 +125,18 @@ function _bbcode_filter_process(&$body) {
 
 function _bbcode_encode_mailto($matches) {
   if (isset($matches[3])) {
-    $link = '<a href="mailto:' . $matches[2].'@'.$matches[3] . '">' . $matches[2].'@'.$matches[3] . '</a>';
+    $link = 'document.write(\'<a href="mailto:' . $matches[2].'@'.$matches[3] . '">' . $matches[2].'@'.$matches[3] . '</a>\');';
   }
   else {
-    $link = '<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>';
+    $link = 'document.write(\'<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>\');';
   }
 
-  if (variable_get("bbcode_encode_mailto", 1)) {
-    $link = 'document.write(\'' . $link . '\');';
-
-    $js_encode = '';
-    for ($x = 0; $x < strlen($link); $x++) {
-      $js_encode .= '%' . bin2hex($link{$x});
-    }
-
-    $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+  $js_encode = '';
+  for ($x = 0; $x < strlen($link); $x++) {
+    $js_encode .= '%' . bin2hex($link{$x});
   }
 
+  $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
   if (isset($matches[3])) {
     $link = $matches[1] . $link;
   }
@@ -155,8 +151,4 @@ function _bbcode_list_tag($type = NULL) {
   else {
     return '<ul class="bb-list">\\1</ul>';
   }
-}
-
-function _bbcode_filter_settings() {
-  return form_group(t("BBCode filter"), t("The bbcode filter is enabled. You can get more information about the possible formatting rules on the <a href=\"%filter_tips\">Compose Tips</a> page.", array("%filter_tips" => url("filter/tips", NULL, 'filter-bbcode'))));
 }
