@@ -1,37 +1,36 @@
 Drupal bbcode.module README
 ==============================================================================
 
-The Drupal bbcode.module adds a BBCode filter to Drupal, with which you
-can use HTML like tags as an alternative of HTML itself to add markup
-to your posts. BBCode is easier then HTML and blocks malicious users
-most of the time from screwing up the site formatting.
+The Drupal bbcode.module adds a BBCode filter to Drupal. This allows you
+to use HTML-like tags as an alternative to HTML itself for adding markup
+to your posts. BBCode is easier to use than HTML and helps to prevent
+malicious users from disrupting your site's formatting.
 
-See the help screen of the module (or the code) for information on what
-tags and variants are supported. The implementation is not necessarily the
+See the help screen of the module (or the code) for information on which
+tags and variants are supported. This implementation is not necessarily the
 same as the original BBCode implementaion.
  
 Note that this filter also recognizes and converts URLs and email addresses
-to links.
+to links automatically.
 
 Installation
 ------------------------------------------------------------------------------
  
  Required:
   - Copy bbcode.module to modules/
-  - Enable the module as usual from Drupal's admin pages
+  - Enable the module as usual from Drupal's admin pages.
  
  Optional:
-  - Install the compose_tips module in order to inform your
-    users about the possibility of BBCode usage
+  - Install the compose_tips module to inform your users about BBCode usage.
 
 Configuration
 ------------------------------------------------------------------------------
 
-This module needs no configuration. After enabled it filters all text
-displayed, so you can turn it off by disabling the module. If you would
-like to use BBCode as an alternative to HTML, you should set Drupal to
-use the "Escape HTML" filter, so no HTML tags will be allowed in posts,
-just BBCode tags.
+This module needs no configuration. When enabled it filters all text
+displayed - you can turn it off by disabling the module. If you would
+like to use BBCode as a replacement for HTML, you should set Drupal to
+use the "Escape HTML" filter such that no HTML tags are allowed in posts,
+only BBCode tags.
 
 Credits / Contact
 ------------------------------------------------------------------------------
@@ -43,8 +42,8 @@ to the module.
 TODO
 ------------------------------------------------------------------------------
 
- - Do not allow users to screw up the HTML output with
-   malicious parameters (color, size, url, etc.)
- - Support block level [code] formatting, as shown on the help screen
- - Support [php] code blocks (syntax highlighted)
- - Configuration of which bbcode tags are allowed
+ - Do not allow users to disrupt the HTML output with malicious
+   parameters (color, size, url, etc.).
+ - Support block level [code] formatting, as shown on the help screen.
+ - Support [php] code blocks (syntax highlighted).
+ - Configuration of which bbcode tags are allowed.
