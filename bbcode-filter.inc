@@ -114,7 +114,7 @@ function _bbcode_filter_process(&$body) {
 
   // matches an email@domain type address at the start of a line, or after a space.
   // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
-  $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
+  $ret = preg_replace_callback("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
 
   // Remove our padding..
   $ret = substr($ret, 1);
@@ -123,10 +123,15 @@ function _bbcode_filter_process(&$body) {
 }
 
 function _bbcode_encode_mailto($matches) {
-  $link = '<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>';
+  if (isset($matches[3])) {
+    $link = '<a href="mailto:' . $matches[2].'@'.$matches[3] . '">' . $matches[2].'@'.$matches[3] . '</a>';
+  }
+  else {
+    $link = '<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>';
+  }
 
   if (variable_get("bbcode_encode_mailto", 1)) {
-    $link = 'document.write(\'' . $link . '</a>\');';
+    $link = 'document.write(\'' . $link . '\');';
 
     $js_encode = '';
     for ($x = 0; $x < strlen($link); $x++) {
@@ -134,6 +139,10 @@ function _bbcode_encode_mailto($matches) {
     }
 
     $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+  }
+
+  if (isset($matches[3])) {
+    $link = $matches[1] . $link;
   }
 
   return $link;
