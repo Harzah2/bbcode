@@ -330,7 +330,6 @@ function bbcode_filter($body) {
     '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<div style="text-align:center">\\1</div>',
     '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
-    '#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si'           => '<code>\\1</code>',
     
     // Email addresses without and with good looking text
     '#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si'         => '<a href="mailto:\\1" class="bb_email">\\1</a>',
@@ -366,6 +365,20 @@ function bbcode_filter($body) {
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 
+  // Find all [code] tags and check if they contain a newline. In case we find a newline,
+  // that [code] should be rendered as a block, otherwise it will still be inline
+  if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
+      foreach ($code_tags as $code_tag) {
+          if (strpos($code_tag[1], "\n") !== FALSE) {
+              $code_tag[1] = str_replace("  ", " &nbsp;", $code_tag[1]);
+              $code_block = '<div class="bb_code_block">%s</div>';
+          } else {
+              $code_block = '<code class="bb_code">%s</class>';
+          }
+          $body = str_replace($code_tag[0], sprintf($code_block, trim($code_tag[1])), $body);
+      }
+  }
+  
   /**
    * - Goes through the given string, and replaces xxxx://yyyy with an HTML <a> tag linking
    *  to that URL
