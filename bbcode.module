@@ -104,7 +104,7 @@ many users do not appreciate lots of images being shown in posts
  <br /><br />would generate:<br />
  <br /><a href="http://www.phpbb.com/" target="_blank"><img src="http://www.phpbb.com/images/phplogo.gif" border="0" alt="" /></a></p>
 
-<?
+<?php
 $o = ob_get_contents();
 ob_end_clean();
 return $o;
