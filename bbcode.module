@@ -9,10 +9,10 @@ function bbcode_compose_tips() {
   return array(bbcode_help());
 }
 
-// Note that there are some plans to make this text modular,
-// displayiny only the parts of the help correspondnig to the
-// current situation (after the restriction feature on bbcode
-// tags will be implemented)
+// When configuration of which tags are allowed is implemented,
+// this help text should be made modular such that only the enabled
+// tags have their corresponding help displayed.
+// 
 function bbcode_help () {
 
   $bbcode_help = <<<END_HELP_TEXT
@@ -21,16 +21,16 @@ function bbcode_help () {
 <h2>Introduction</h2>
 
 <p>
- BBCode allows you to specify formatting to some parts of your text,
- even if you are not allowed to use HTML in your posts. BBCode is
+ BBCode allows you to specify formatting rules for your text,
+ even if you are not allowed to use HTML in your posts. BBCode
  originated from the forum software named PHPBB, and Drupal has a
  special implementation of it.
 </p>
 <p>
  In BBCode terms, you use "tags" to add formatting to your text. Every
- tag is enclosed in [ and ]. In case you need to mark some region in
+ tag is enclosed in [ and ]. If you want to mark some region in
  your text, you need to use an opening tag and a closing tag. Closing
- tags start with [/, as you will see in the examples below. In case you
+ tags start with [/, as you will see in the examples below. If you
  mistype a tag or forget to close it, you will not get the desired
  formatting.
 </p>
@@ -42,10 +42,10 @@ function bbcode_help () {
  context by adding <strong>[b]</strong>old, <strong>[i]</strong>talic
  and <strong>[u]</strong>nderlined formatting to them. The
  <strong>[color]</strong> and <strong>[size]</strong> tags allow you to
- change the color and size of some portion of the text you enclose with
- these tags. Both require a parameter, which you can define after the name
- of the tag and an equal sing. You should not repeat the parameter in the
- closing tag!
+ change the color and size of portions of the text you enclose with
+ these tags. Both require a parameter (which colour or how big) that is
+ suffixed to the name of the tag by an equals sign (example below).
+ You should not repeat the parameter in the closing tag!
 </p>
 
 <p>
@@ -53,8 +53,8 @@ function bbcode_help () {
  or a hexadecimal color value (#CDCDCD, #FFFFFF, etc.) as the parameter of
  a <strong>[color]</strong> tag. The <strong>[size]</strong> tag allows you
  to set the font size between 10 and 30, 10 being the smallest size.
- Note that using too big text is often considered shouting and it is most
- of the time not a good idea to try to drive more attention to your post
+ Note that using very large text is considered by many to be annoying, and
+ it is seldom a good idea to try to drive more attention to your post in
  this way.
 </p>
 
@@ -92,7 +92,7 @@ function bbcode_help () {
 
 <p>
  You have multiple options to specify links to other destinations in
- your posts. All external links will open in new windows.
+ your posts.
 </p>
 
 <p>
@@ -103,15 +103,15 @@ function bbcode_help () {
  (eg. example.com).
 </p>
 <p>
- Drupal also recognizes email addresses in posts automatically, but for compatbility
+ Drupal also recognizes email addresses in posts automatically, but for compatibility
  with the common BBCode implementations, also provides the <strong>[email]</strong> tag
  to mark email addresses. There is no spam protection applied to the email addresses!
 </p>
 <p>
  You can use the <strong>[url]</strong> tag with a parameter to specify a link with
- a meaningful text to click on. If you use the url tag without the parameter,
+ meaningful text to click on. If you use the url tag without the parameter,
  then the enclosed text is assumed to be an URL, and a link is created to that
- destination.  
+ destination.
 </p>
 
 <table>
@@ -148,19 +148,19 @@ function bbcode_help () {
 
 <p>
  The <strong>[img]</strong> tag allows you to display an image in your
- post. You need to specify an URL to the image, so it needs to be
- accessible somewhere on the internet. Beware of adding too big
+ post. You need to specify a URL to the image, so it needs to be
+ accessible somewhere on the internet. Beware of adding very large
  images to your text, or otherwise the page will load very slowly!
 </p>
 
 <p>
- If you enclose an URL in an <strong>[img]</strong> tag, then it will
+ If you enclose a URL in an <strong>[img]</strong> tag, then it will
  be replaced with code to display the image. For example <code>A good
  screenshot: [img]http://example.com/screenshot.png[/img]</code>
  will show you the screenshot (if it exists). 
 </p>
 <p>
- You can also specify the desired display dimensions of the image with
+ You can also specify the desired display dimensions of the image by
  adding a dimension parameter to the <strong>[img]</strong> tag. <code>A
  good screenshot: [img=640x480]http://example.com/screenshot.png[/img]</code>
  will display the image in 640x480 (though the full image will be
@@ -332,9 +332,9 @@ function bbcode_filter($body) {
     '/\[email(?::\w+)?\](.*?)\[\/email(?::\w+)?\]/si'         => "<a href=\"mailto:\\1\" class=\"bb_email\">\\1</a>",
     '/\[email=(.*?)(?::\w+)?\](.*?)\[\/email(?::\w+)?\]/si'   => "<a href=\"mailto:\\1\" class=\"bb_email\">\\2</a>",
     // [url]
-    '/\[url(?::\w+)?\]www\.(.*?)\[\/url(?::\w+)?\]/si'        => "<a href=\"http://www.\\1\"  class=\"bb_url\">\\1</a>",
-    '/\[url(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'             => "<a href=\"\\1\"  class=\"ng_url\">\\1</a>",
-    '/\[url=(.*?)(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'       => "<a href=\"\\1\"  class=\"ng_url\">\\2</a>",
+    '/\[url(?::\w+)?\]www\.(.*?)\[\/url(?::\w+)?\]/si'        => "<a href=\"http://www.\\1\" class=\"bb_url\">\\1</a>",
+    '/\[url(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'             => "<a href=\"\\1\" class=\"ng_url\">\\1</a>",
+    '/\[url=(.*?)(?::\w+)?\](.*?)\[\/url(?::\w+)?\]/si'       => "<a href=\"\\1\" class=\"ng_url\">\\2</a>",
     // [img]
     '/\[img(?::\w+)?\](.*?)\[\/img(?::\w+)?\]/si'             => "<img src=\"\\1\" border=\"0\" />",
     '/\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[\/img(?::\w+)?\]/si' => "<img width=\"\\1\" height=\"\\2\" src=\"\\3\" border=\"0\" />",
