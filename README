@@ -16,13 +16,9 @@ to links automatically.
 Installation
 ------------------------------------------------------------------------------
  
- Required:
-  - Copy bbcode.module to modules/
+  - Copy bbcode.module, bbcode-help.inc and bbcode-filter.inc to modules/bbcode/
   - Enable the module as usual from Drupal's admin pages.
  
- Optional:
-  - Install the compose_tips module to inform your users about BBCode usage.
-
 Configuration
 ------------------------------------------------------------------------------
 
