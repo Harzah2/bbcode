@@ -1,0 +1,24 @@
+README for bbcode
+=================
+
+This module lets users use bbcode in their posts. This is a safer way
+of letting people include quite flexible HTML in their posts, along
+with it being slightly easier for people to get the hang of.
+
+In accordance with standard bbcode, this module automagically creates
+links from typed URLs (you don't have to go [url]).
+
+Installation
+============
+ - Copy bbcode.module to modules/
+ - Enable the module as usual from Drupal's admin pages.
+
+Configuration
+=============
+There is no configuration. It just works. :)
+To turn it on and off, enable/disable the module.
+
+Bugs/comments/suggestions/patches to drupal-bbcode@almaw.com
+
+
+TODO: Configuration of which bbcode tags are allowed.
