@@ -1,25 +1,50 @@
-README for bbcode
-=================
+Drupal bbcode.module README
+==============================================================================
 
-This module lets users use bbcode in their posts. This is a safer way
-of letting people include quite flexible HTML in their posts, along
-with it being slightly easier for people to get the hang of.
+The Drupal bbcode.module adds a BBCode filter to Drupal, with which you
+can use HTML like tags as an alternative of HTML itself to add markup
+to your posts. BBCode is easier then HTML and blocks malicious users
+most of the time from screwing up the site formatting.
 
-In accordance with standard bbcode, this module automagically creates
-links from typed URLs (you don't have to go [url]).
+See the help screen of the module (or the code) for information on what
+tags and variants are supported. The implementation is not necessarily the
+same as the original BBCode implementaion.
+ 
+Note that this filter also recognizes and converts URLs and email addresses
+to links.
 
 Installation
-============
- - Copy bbcode.module to modules/
- - Enable the module as usual from Drupal's admin pages.
- - Optional. Install the compose_tips module in order to inform your users about bbcode
+------------------------------------------------------------------------------
+ 
+ Required:
+  - Copy bbcode.module to modules/
+  - Enable the module as usual from Drupal's admin pages
+ 
+ Optional:
+  - Install the compose_tips module in order to inform your
+    users about the possibility of BBCode usage
 
 Configuration
-=============
-There is no configuration. It just works. :)
-To turn it on and off, enable/disable the module.
+------------------------------------------------------------------------------
 
-Bugs/comments/suggestions/patches to drupal-bbcode@almaw.com
+This module needs no configuration. After enabled it filters all text
+displayed, so you can turn it off by disabling the module. If you would
+like to use BBCode as an alternative to HTML, you should set Drupal to
+use the "Escape HTML" filter, so no HTML tags will be allowed in posts,
+just BBCode tags.
 
+Credits / Contact
+------------------------------------------------------------------------------
 
-TODO: - Configuration of which bbcode tags are allowed.
+The original author of this module is Alastair Maw, who can be reached at
+drupal-bbcode[at]almaw.com. Gabor Hojtsy (goba[at]php.net) also contributed
+to the module.
+
+TODO
+------------------------------------------------------------------------------
+
+ - Do not allow users to screw up the HTML output with
+   malicious parameters (color, size, url, etc.)
+ - Support block level [code] formatting, as shown on the help screen
+ - Support [php] code blocks (syntax highlighted)
+ - Configuration of which bbcode tags are allowed
