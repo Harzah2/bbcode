@@ -2,9 +2,9 @@
 // $Id$
 
 function _bbcode_filter_tip() {
-  return t("<h1>BBCode Guide</h1>
+  return t("<a id=\"filter-bbcode\"></a><h2>BBCode Guide</h2>
 
-<h2>Introduction</h2>
+<h3>Introduction</h3>
 
 <p>
  BBCode allows you to specify formatting rules for your text,
@@ -21,7 +21,7 @@ function _bbcode_filter_tip() {
  formatting.
 </p>
 
-<h2>Simple text formatting</h2>
+<h3>Simple text formatting</h3>
 
 <p>
  BBCode allows you to make some parts of your texts stand out from the
@@ -74,7 +74,7 @@ function _bbcode_filter_tip() {
  </tr>
 </table>
 
-<h2>Creating Links</h2>
+<h3>Creating Links</h3>
 
 <p>
  You have multiple options to specify links to other destinations in
@@ -130,7 +130,7 @@ function _bbcode_filter_tip() {
  </tr>
 </table>
 
-<h2>Displaying images</h2>
+<h3>Displaying images</h3>
 
 <p>
  The <strong>[img]</strong> tag allows you to display an image in your
@@ -159,7 +159,7 @@ function _bbcode_filter_tip() {
  [url=http://example.com][img]http://example.com/screenshot.png[/img][/url]</code>.
 </p>
 
-<h2>Ordered and unordered lists</h2>
+<h3>Ordered and unordered lists</h3>
 
 <p>
  The simplest list type is the unordered list, which means that there is
@@ -236,7 +236,7 @@ I love
  </tr>
 </table>
 
-<h2>Fixed-width text and block formatting</h2>
+<h3>Fixed-width text and block formatting</h3>
 
 <p>
  You can use the <strong>[code]</strong> tag to add an inline fixed-width
@@ -274,7 +274,7 @@ An HTML title example:<br />
  </tr>
 </table>
 
-<h2>Text and block alignment</h2>
+<h3>Text and block alignment</h3>
 
 <p>
  You can also set the alignment of the text by using <code>[left]</code>,
@@ -284,7 +284,7 @@ An HTML title example:<br />
  <code>[float=left]</code> and <code>[float=right]</code>.
 </p>
 
-<h2>Using multiple formatting tags</h2>
+<h3>Using multiple formatting tags</h3>
 
 <p>
  You can apply more than one formatting specification to a portion of some
