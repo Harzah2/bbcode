@@ -5,6 +5,17 @@ function bbcode_system($field) {
   return $system[$field];
 }
 
+function bbcode_compose_tips() {
+  return array(bbcode_help("compose_tips"));
+}
+
+function bbcode_help($type) {
+  switch ($type) {
+    case "compose_tips":
+      return "This site lets you use bbcode to format your posts. This is easier to use than HTML. For a full guide, please <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">look here</a>.";
+  }
+}
+
 function bbcode_filter($body) {
   $rnd = substr(md5($body.time()), 0, 4);
 
@@ -56,7 +67,7 @@ function bbcode_filter($body) {
     $body = preg_replace("/\[\/(color|size)\]/i", "</span>", $body);
 
     // fiddle with white space around quote and code tags.
-    $body=preg_replace("/\s*(\[\/*(code|quote)\])\s*/", "$1", $body);
+    $body = preg_replace("/\s*(\[\/*(code|quote)\])\s*/", "$1", $body);
 
     // replace simple tag replacements
     $search = array("[b]",
@@ -92,13 +103,6 @@ function bbcode_filter($body) {
     $body = str_replace($search, $replace, $body);
   }
   return $body;
-}
-
-function bbcode_compose_tips() {
-  $items[] = t("You are welcome to format your post using <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">bbcode</a>. This is great for
-              changing font <span style=color:red>color</span> and <span style=font-size:large>size</span>, and using <b>bold</b> and <i>italic</i>.
-              <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">Here is a complete guide</a>");
-  return $items;
 }
 
 ?>
