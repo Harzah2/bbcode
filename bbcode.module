@@ -12,13 +12,13 @@ function bbcode_filter($body) {
   // the haystack has to have a space in front of it for the preg to work.
   $body = preg_replace("/([^='\"(\[url\]|\[img\])])((http|https|ftp):\/\/[a-z0-9;\/\?:@=\&\$\-_\.\+!*'\(\),~%#]+)/i", "$1<$rnd>$2</$rnd>", " $body");
 
-  // strip puncuation from urls
+  // strip punctuation from urls
   if(preg_match_all("/<$rnd>(.+?)<\/$rnd>/i", $body, $match)) {
     $urls = array_unique($match[1]);
 
     foreach($urls as $key => $url) {
 
-      // stip puncuation from urls
+      // stip punctuation from urls
       if(preg_match("|[^a-z0-9=&/\+_]+$|", $url, $match)) {
 
         $url = substr($url, 0, -1 * (strlen($match[0])));
@@ -93,4 +93,12 @@ function bbcode_filter($body) {
   }
   return $body;
 }
+
+function bbcode_compose_tips() {
+  $items[] = t("You are welcome to format your post using <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">bbcode</a>. This is great for
+              changing font <span style=color:red>color</span> and <span style=font-size:large>size</span>, and using <b>bold</b> and <i>italic</i>.
+              <a href=\"http://www.icehousedesigns.com/community/faq.php?mode=bbcode\">Here is a complete guide</a>");
+  return $items;
+}
+
 ?>

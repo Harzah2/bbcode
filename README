@@ -12,6 +12,7 @@ Installation
 ============
  - Copy bbcode.module to modules/
  - Enable the module as usual from Drupal's admin pages.
+ - Optional. Install the compose_tips module in order to inform your users about bbcode
 
 Configuration
 =============
