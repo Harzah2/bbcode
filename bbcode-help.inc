@@ -274,6 +274,16 @@ An HTML title example:<br />
  </tr>
 </table>
 
+<h2>Text and block alignment</h2>
+
+<p>
+ You can also set the alignment of the text by using <code>[left]</code>,
+ <code>[right]</code> and <code>[center]</code> tags. The <code>[float]</code>
+ tag can be used to place floating boxes in the text (especially handy for
+ images). You can specify the direction of the floating with
+ <code>[float=left]</code> and <code>[float=right]</code>.
+</p>
+
 <h2>Using multiple formatting tags</h2>
 
 <p>

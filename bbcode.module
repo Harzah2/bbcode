@@ -13,7 +13,7 @@ function bbcode_filter_tips($delta, $format, $long = false) {
     return _bbcode_filter_tip();
   }
   else {
-    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url('filter/tips', NULL, 'filter-bbcode')));
+    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url("filter/tips/$format", NULL, 'filter-bbcode')));
   }
 }
 
@@ -21,14 +21,14 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
   switch ($op) {
     case 'list':
       return array(0 => t('BBCode'));
-    
+
     case 'description':
       return t('Converts BBCode to html.');
-      
+
     case 'process':
       include_once 'bbcode-filter.inc';
       return _bbcode_filter_process($text, $format);
-      
+
     case 'settings':
       $output = form_group(t("BBCode filter"),
         form_select(t("Email address encoding"),
@@ -36,7 +36,7 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
           array(t("Disabled"), t("Enabled")),
           t("Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.")));
       return $output;
-      
+
     default:
       return $text;
   }
