@@ -22,9 +22,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
     
     // Links without a protocol, with a protocol and with good looking text
-    '#\[url(?::\w+)?\]www\.(.*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb-url">\\1</a>',
-    '#\[url(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'             => '<a href="\\1" class="bb-url">\\1</a>',
-    '#\[url=(.*?)(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'       => '<a href="\\1" class="bb-url">\\2</a>',
+    '#\[url\]www\.(.*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb-url">\\1</a>',
+    '#\[url\](.*?)\[/url(?::\w+)?\]#si'             => '<a href="\\1" class="bb-url">\\1</a>',
+    '#\[url=(.*?)\](.*?)\[/url(?::\w+)?\]#si'       => '<a href="\\1" class="bb-url">\\2</a>',
     
     // Images without or with client-side sizing
     '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" class="bb-image" />',
