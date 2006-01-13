@@ -30,12 +30,19 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
       return _bbcode_filter_process($text, $format);
 
     case 'settings':
-      $output = form_group(t("BBCode filter"),
-        form_select(t("Email address encoding"),
-          "bbcode_encode_mailto_$format", variable_get("bbcode_encode_mailto_$format", 1),
-          array(t("Disabled"), t("Enabled")),
-          t("Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.")));
-      return $output;
+      $form = array();
+      $form['bbcode_filter'] = array(
+        '#type' => 'fieldset', 
+        '#title' => t('BBCode filter'), 
+        '#collapsible' => TRUE, 
+        '#collapsed' => TRUE);
+      $form['bbcode_filter']["bbcode_encode_mailto_$format"] = array(
+        '#type' => 'select', 
+        '#title' => t('Email address encoding'), 
+        '#default_value' => variable_get("bbcode_encode_mailto_$format", 'match'), 
+        '#options' => array(t("Disabled"), t("Enabled")), 
+        '#description' => t('Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.'));
+      return $form;
 
     default:
       return $text;
