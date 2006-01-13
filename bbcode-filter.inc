@@ -10,7 +10,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
-    '#\[size=(.*?)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1">\\2</span>',
+    '#\[size=(.*?)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1px">\\2</span>',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
     '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<div style="float:\\1">\\2</div>',
