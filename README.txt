@@ -36,6 +36,8 @@ The original author of this module is Alastair Maw, who can be reached at
 drupal-bbcode[at]almaw.com. Gabor Hojtsy (goba[at]php.net) also contributed
 to the module and is the active maintainer.
 Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
+Frank Naude converted this module to the Drupal 4.7 Forms API and added 
+support for more BBCode tags.
 
 TODO
 ------------------------------------------------------------------------------
@@ -44,3 +46,4 @@ TODO
    parameters (color, size, url, etc.).
  - Support [php] code blocks (syntax highlighted).
  - Configuration of which bbcode tags are allowed.
+ - Allow nested tags for lists, quotes, etc.

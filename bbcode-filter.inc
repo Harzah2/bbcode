@@ -4,7 +4,7 @@
 function _bbcode_filter_process(&$body, $format = -1) {
   
   $quote_text = t('Quote');
-  $quote_user = t('Quote \\1');
+  $quote_user = t('\\1 wrote');
 
   $preg = array(
 
@@ -37,7 +37,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[url=www\.(.*?)\](.*?)\[/url(?::\w+)?\]#si'           => '<a href="http://www.\\1" class="bb-url">\\2</a>',
     '#\[url=(.*?)\](.*?)\[/url(?::\w+)?\]#si'                => '<a href="\\1" class="bb-url">\\2</a>',
 
-    // Anchors tags for linking within documents
+    // Anchor tags for linking within documents
     '#\[anchor=(.*?)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
     
     // Images without or with client-side sizing
