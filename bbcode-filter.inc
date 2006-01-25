@@ -7,6 +7,12 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_user = t('Quote \\1');
 
   $preg = array(
+
+    // Headings - articles will almost always need headings
+    '#\[h1(?::\w+)?\](.*?)\[/h1(?::\w+)?\]#si'               => '<h1>\\1</h1>',
+    '#\[h2(?::\w+)?\](.*?)\[/h2(?::\w+)?\]#si'               => '<h2>\\1</h2>',
+    '#\[h3(?::\w+)?\](.*?)\[/h3(?::\w+)?\]#si'               => '<h3>\\1</h3>',
+    '#\[h4(?::\w+)?\](.*?)\[/h4(?::\w+)?\]#si'               => '<h4>\\1</h4>',
     
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
@@ -30,6 +36,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[url(?::\w+)?\](.*?)\[/url(?::\w+)?\]#si'             => '<a href="\\1" class="bb-url">\\1</a>',
     '#\[url=www\.(.*?)\](.*?)\[/url(?::\w+)?\]#si'           => '<a href="http://www.\\1" class="bb-url">\\2</a>',
     '#\[url=(.*?)\](.*?)\[/url(?::\w+)?\]#si'                => '<a href="\\1" class="bb-url">\\2</a>',
+
+    // Anchors tags for linking within documents
+    '#\[anchor=(.*?)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
     
     // Images without or with client-side sizing
     '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" class="bb-image" />',
@@ -71,6 +80,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
   // Horizontal delimiter
   $body = str_replace("[hr]", '<hr class="bb-hr" />', $body);
+  // Force line break
+  $body = str_replace("[br]", '<br class="bb-br" />', $body);
 
   // Find all [code] tags and check if they contain a newline. In case we find a newline,
   // that [code] should be rendered as a block, otherwise it will still be inline
