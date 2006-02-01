@@ -90,7 +90,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
           if (strpos($code_tag[1], "\n") !== FALSE) {
               $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array("<br />&nbsp;", " &nbsp;", "<br />"), trim($code_tag[1]));
               $code_block = '<div class="bb-code-block">%s</div>';
-          } else {
+          } 
+          else {
               $code_block = '<code class="bb-code">%s</code>';
           }
           $body = str_replace($code_tag[0], sprintf($code_block, $code_tag[1]), $body);
