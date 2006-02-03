@@ -41,8 +41,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[anchor=(.*?)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
     
     // Images without or with client-side sizing
-    '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" class="bb-image" />',
-    '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" src="\\3" class="bb-image" />',
+    '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" alt="" class="bb-image" />',
+    '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
     
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'         => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">\\1</div></div>',
@@ -79,16 +79,16 @@ function _bbcode_filter_process(&$body, $format = -1) {
   }
 
   // Horizontal delimiter
-  $body = str_replace("[hr]", '<hr class="bb-hr" />', $body);
+  $body = str_replace('[hr]', '<hr class="bb-hr" />', $body);
   // Force line break
-  $body = str_replace("[br]", '<br class="bb-br" />', $body);
+  $body = str_replace('[br]', '<br class="bb-br" />', $body);
 
   // Find all [code] tags and check if they contain a newline. In case we find a newline,
   // that [code] should be rendered as a block, otherwise it will still be inline
   if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
       foreach ($code_tags as $code_tag) {
           if (strpos($code_tag[1], "\n") !== FALSE) {
-              $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array("<br />&nbsp;", " &nbsp;", "<br />"), trim($code_tag[1]));
+              $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
               $code_block = '<div class="bb-code-block">%s</div>';
           } 
           else {
