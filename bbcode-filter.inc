@@ -6,6 +6,39 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote');
   $quote_user = t('\\1 wrote');
 
+  if (variable_get("bbcode_paragraph_breaks", 0)) {	// BBCode paragraph breaks
+
+    // Step 1: strip preformatted code blocks from text
+    $pre = array(); $i = 0;
+    while ($pre_str = stristr($body, '[code]')) {
+      $pre_str = substr($pre_str, 0, strpos(strtolower($pre_str), '[/code]')+7);
+      $body    = str_replace($pre_str, "***pRe_sTrInG$i***", $body);
+      $pre_str = str_replace('<', '&lt;', $pre_str);
+      $pre[$i] = str_replace('>', '&gt;', $pre_str);
+      $i++;
+    }
+
+    // Step 2: Convert paragraph breaks (skipping preformatted code blocks)
+    $body  = preg_replace("/(\r\n|\n|\r)/", "\n", $body);
+    $body  = preg_replace("/\n\n+/", "\n\n", $body);
+    $parts = explode("\n\n", $body);
+    for ($i=0; $i<sizeof($parts); $i++) {
+       if ( $br ) {
+         $parts[$i] = preg_replace("/\n/", "<br />\n", $parts[$i]);
+       }
+       if ( !preg_match("/^<(?:table|ol|ul|pre|select|form|blockquote)/", $parts[$i]) ) {
+         $parts[$i] = "<p>$parts[$i]</p>";
+       }
+    }
+    $body = implode("\n\n", $parts);
+
+    // Step 3: Reinsert preformatted code blocks
+    $cp = count($pre)-1;
+    for ($i=0; $i <= $cp; $i++) {
+       $body = str_replace("***pRe_sTrInG$i***", '<pre>'.substr($pre[$i],6,-7).'</pre>', $body);
+    }
+  }
+
   $preg = array(
 
     // Headings - articles will almost always need headings
