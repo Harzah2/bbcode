@@ -68,9 +68,7 @@ TODO List
 ------------------------------------------------------------------------------
 
  - Do not allow users to disrupt the HTML output with malicious
-   parameters (color, size, url, etc.).
-
- - Support [php] code blocks (syntax highlighted).
+   parameters (color, url, etc.).
 
  - Configuration of which bbcode tags are allowed.
 

@@ -42,11 +42,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $preg = array(
 
     // Headings - articles will almost always need them
-    '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'      => '<h\\1>\\2</h\\1>',
+    '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'     => '<h\\1>\\2</h\\1>',
     
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
-    '#\[size=([0-9]{1,2})(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1px">\\2</span>',
+    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
     '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<div style="float:\\1">\\2</div>',
@@ -75,8 +75,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
     
     // Quoting with or without specifying the source
-    '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'         => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">\\1</div></div>',
+    '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'  => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">\\1</div></div>',
     '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb-quote">'.$quote_user.':<div class="bb-quote-body">\\2</div></div>',
+
+    // PHP code blocks (syntax highlighted)
+    '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => 'highlight_string(\'\\1\', true)',
     
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1</li>',
@@ -204,3 +207,12 @@ function _bbcode_list_tag($type = NULL) {
     return '<ul class="bb-list">\\1</ul>';
   }
 }
+
+function _bbcode_size_tag($size = NULL, $text = NULL) {
+  if ($size < 6)
+    $size = 6;
+  if ($size > 48)
+    $size = 48;
+  return '<span style="font-size:'.$size.'px">'.$text.'</span>';
+}
+
