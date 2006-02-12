@@ -16,34 +16,63 @@ to links automatically.
 Installation
 ------------------------------------------------------------------------------
  
-  - Copy bbcode.module, bbcode-help.inc and bbcode-filter.inc to modules/bbcode/
-  - Enable the module as usual from Drupal's admin pages.
+  - Download the BBCode module from http://drupal.org/project/bbcode
+
+  - Copy bbcode.module, bbcode-help.inc and bbcode-filter.inc to your modules
+    directory (suggestion: .../modules/bbcode/)
+
+  - Enable the module as usual from Drupal's admin pages 
+    (Administer -> Modules)
  
 Configuration
 ------------------------------------------------------------------------------
 
-  - You can use bbcode filter by enabling it in an input format
-  - You can enable javascript encoding of emails in the configuration page
-    of the input format in which BBCode is enabled.
+  - Before using BBCode you need to enable the BBCode filter in an input format (see 
+    Administer -> Input formats)
+
+  - You can enable/ disable the following features in the configuration page
+    of the input format in which BBCode is enabled:
+    * Javascript encoding of emails
+    * Smart paragraph and line breaks
+    * Print debugging info
+
   - If you would like to use BBCode as a replacement for HTML, you should
     set Drupal to use the "Filtered HTML" with escape tags setting along
     with bbcode filter.
 
-Credits / Contact
+Complementing Modules
 ------------------------------------------------------------------------------
 
-The original author of this module is Alastair Maw, who can be reached at
-drupal-bbcode[at]almaw.com. Gabor Hojtsy (goba[at]php.net) also contributed
-to the module and is the active maintainer.
-Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
-Frank Naude converted this module to the Drupal 4.7 Forms API and added 
-support for more BBCode tags.
+The following optional modules may be used to enhance your BBCode 
+installation:
 
-TODO
+  - BBCode Formatting Bar - http://drupal.org/node/24875
+
+  - Smileys module - http://drupal.org/project/smileys
+
+Credits / Contacts
+------------------------------------------------------------------------------
+
+  - The original author of this module is Alastair Maw, who can be reached at
+    drupal-bbcode[at]almaw.com. 
+
+  - Gabor Hojtsy (goba[at]php.net) also contributed to the module and is the 
+    active maintainer.
+
+  - Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
+
+  - Frank Naude converted this module to the Drupal 4.7 Forms API and added 
+    support for more BBCode tags.
+
+TODO List
 ------------------------------------------------------------------------------
 
  - Do not allow users to disrupt the HTML output with malicious
    parameters (color, size, url, etc.).
+
  - Support [php] code blocks (syntax highlighted).
+
  - Configuration of which bbcode tags are allowed.
+
  - Allow nested tags for lists, quotes, etc.
+

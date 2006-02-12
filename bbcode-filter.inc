@@ -6,7 +6,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote');
   $quote_user = t('\\1 wrote');
 
-  if (variable_get("bbcode_paragraph_breaks", 0)) {	// BBCode paragraph breaks
+  if (variable_get("bbcode_paragraph_breaks", 0)) {  // BBCode paragraph breaks
 
     // Step 1: strip preformatted code blocks from text
     $pre = array(); $i = 0;
@@ -41,15 +41,12 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
   $preg = array(
 
-    // Headings - articles will almost always need headings
-    '#\[h1(?::\w+)?\](.*?)\[/h1(?::\w+)?\]#si'               => '<h1>\\1</h1>',
-    '#\[h2(?::\w+)?\](.*?)\[/h2(?::\w+)?\]#si'               => '<h2>\\1</h2>',
-    '#\[h3(?::\w+)?\](.*?)\[/h3(?::\w+)?\]#si'               => '<h3>\\1</h3>',
-    '#\[h4(?::\w+)?\](.*?)\[/h4(?::\w+)?\]#si'               => '<h4>\\1</h4>',
+    // Headings - articles will almost always need them
+    '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'      => '<h\\1>\\2</h\\1>',
     
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
-    '#\[size=(.*?)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1px">\\2</span>',
+    '#\[size=([0-9]{1,2})(?::\w+)?\](.*?)\[/size(?::\w+)?\]#si'     => '<span style="font-size:\\1px">\\2</span>',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
     '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<div style="float:\\1">\\2</div>',
@@ -98,6 +95,16 @@ function _bbcode_filter_process(&$body, $format = -1) {
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 
+  $str = array(
+    // Horizontal delimiter
+    '[hr]'   => '<hr class="bb-hr" />',
+    // Force line break
+    '[br]'   => '<br class="bb-br" />',
+    // Force space
+    '[sp]'   => '&nbsp;',
+  );
+  $body = str_replace(array_keys($str), array_values($str), $body);
+
   // We cannot evaluate the variable in callback function because there is no way to pass the $format variable
   if (variable_get("bbcode_encode_mailto_$format", 1)) {
     // Replacing email addresses with encoded html
@@ -110,11 +117,6 @@ function _bbcode_filter_process(&$body, $format = -1) {
       array('<a href="mailto:\\1" class="bb-email">\\1</a>', '<a href="mailto:\\1" class="bb-email">\\2</a>'),
       $body);
   }
-
-  // Horizontal delimiter
-  $body = str_replace('[hr]', '<hr class="bb-hr" />', $body);
-  // Force line break
-  $body = str_replace('[br]', '<br class="bb-br" />', $body);
 
   // Find all [code] tags and check if they contain a newline. In case we find a newline,
   // that [code] should be rendered as a block, otherwise it will still be inline
