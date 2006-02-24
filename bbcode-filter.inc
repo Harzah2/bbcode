@@ -48,17 +48,17 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
     '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
-    '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<div style="text-align:\\1">\\2</div>',
-    '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<div style="float:\\1">\\2</div>',
+    '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
+    '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<span style="float:\\1">\\2</span>',
     '#\[b(?::\w+)?\](.*?)\[/b(?::\w+)?\]#si'                 => '<span style="font-weight:bold">\\1</span>',
     '#\[i(?::\w+)?\](.*?)\[/i(?::\w+)?\]#si'                 => '<span style="font-style:italic">\\1</span>',
     '#\[u(?::\w+)?\](.*?)\[/u(?::\w+)?\]#si'                 => '<span style="text-decoration:underline">\\1</span>',
     '#\[s(?::\w+)?\](.*?)\[/s(?::\w+)?\]#si'                 => '<s>\\1</s>',
     '#\[sup(?::\w+)?\](.*?)\[/sup(?::\w+)?\]#si'             => '<sup>\\1</sup>',
     '#\[sub(?::\w+)?\](.*?)\[/sub(?::\w+)?\]#si'             => '<sub>\\1</sub>',
-    '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<div style="text-align:center">\\1</div>',
-    '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
-    '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
+    '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<span style="text-align:center">\\1</span>',
+    '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<span style="text-align:left">\\1</span>',
+    '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<span style="text-align:right">\\1</span>',
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
     
     // Links without a protocol, with a protocol and with good looking text
@@ -73,10 +73,13 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Images without or with client-side sizing
     '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" alt="" class="bb-image" />',
     '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
+
+    // Flash animations
+    '#\[flash=(.*?)x(.*?)(?::\w+)?\](.*?)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
     
     // Quoting with or without specifying the source
-    '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'  => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">\\1</div></div>',
-    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'   => '<div class="bb-quote">'.$quote_user.':<div class="bb-quote-body">\\2</div></div>',
+    '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'  => '<span class="bb-quote">'.$quote_text.':<span class="bb-quote-body">\\1</span></span>',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'   => '<span class="bb-quote">'.$quote_user.':<span class="bb-quote-body">\\2</span></span>',
 
     // PHP code blocks (syntax highlighted)
     '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => 'highlight_string(\'\\1\', true)',
@@ -127,7 +130,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
       foreach ($code_tags as $code_tag) {
           if (strpos($code_tag[1], "\n") !== FALSE) {
               $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
-              $code_block = '<div class="bb-code-block">%s</div>';
+              $code_block = '<span class="bb-code-block">%s</span>';
           } 
           else {
               $code_block = '<code class="bb-code">%s</code>';
