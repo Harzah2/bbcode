@@ -26,7 +26,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
        if ( $br ) {
          $parts[$i] = preg_replace("/\n/", "<br />\n", $parts[$i]);
        }
-       if ( !preg_match("/^<(?:table|ol|ul|pre|select|form|blockquote)/", $parts[$i]) ) {
+       if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote)/", $parts[$i]) ) {
          $parts[$i] = "<p>$parts[$i]</p>";
        }
     }
