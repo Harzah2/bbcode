@@ -23,11 +23,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $body  = preg_replace("/\n\n+/", "\n\n", $body);
     $parts = explode("\n\n", $body);
     for ($i=0; $i<sizeof($parts); $i++) {
-       if ( $br ) {
-         $parts[$i] = preg_replace("/\n/", "<br />\n", $parts[$i]);
-       }
        if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote)/", $parts[$i]) ) {
-         $parts[$i] = "<p>$parts[$i]</p>";
+         $parts[$i] = '<p>'. str_replace("\n", '<br \>', $parts[$i]) .'</p>';
        }
     }
     $body = implode("\n\n", $parts);
