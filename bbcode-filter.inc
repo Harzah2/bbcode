@@ -53,10 +53,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[s(?::\w+)?\](.*?)\[/s(?::\w+)?\]#si'                 => '<s>\\1</s>',
     '#\[sup(?::\w+)?\](.*?)\[/sup(?::\w+)?\]#si'             => '<sup>\\1</sup>',
     '#\[sub(?::\w+)?\](.*?)\[/sub(?::\w+)?\]#si'             => '<sub>\\1</sub>',
-    '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<span style="text-align:center">\\1</span>',
-    '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<span style="text-align:left">\\1</span>',
-    '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<span style="text-align:right">\\1</span>',
-    '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
+    '#\[center(?::\w+)?\](.*?)\[/center(?::\w+)?\]#si'       => '<div style="text-align:center">\\1</div>',
+    '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
+    '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
     
     // Links without a protocol, with a protocol and with good looking text
     '#\[url(?::\w+)?\]www\.(.*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb-url">\\1</a>',
@@ -71,8 +70,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[img(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si'             => '<img src="\\1" alt="" class="bb-image" />',
     '#\[img=(.*?)x(.*?)(?::\w+)?\](.*?)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
 
-    // Flash animations
+    // Flash animations and other special effects
     '#\[flash=(.*?)x(.*?)(?::\w+)?\](.*?)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
+    '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
     
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'  => '<span class="bb-quote">'.$quote_text.':<span class="bb-quote-body">\\1</span></span>',

@@ -23,7 +23,7 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
       return array(0 => t('BBCode'));
 
     case 'description':
-      return t('Converts BBCode to html.');
+      return t('Converts BBCode to HTML.');
 
     case 'process':
       include_once 'bbcode-filter.inc';
@@ -55,8 +55,8 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
         '#description' => t('Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.'));
       $form['bbcode_filter']["bbcode_paragraph_breaks"] = array(
         '#type' => 'select',
-        '#title' => t('Intelligent paragraph breaks:'),
-        '#default_value' => variable_get("bbcode_paragraph_breaks", 0),
+        '#title' => t('Smart paragraph and line breaks'),
+        '#default_value' => variable_get("bbcode_paragraph_breaks", 1),
         '#options' => array(t("Disabled"), t("Enabled")),
         '#description' => t('Add paragraph and line breaks to text - excluding text in preformatted code blocks.'));
       $form['bbcode_filter']["bbcode_debug"] = array(

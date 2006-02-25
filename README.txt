@@ -27,18 +27,25 @@ Installation
 Configuration
 ------------------------------------------------------------------------------
 
-  - Before using BBCode you need to enable the BBCode filter in an input format (see 
-    Administer -> Input formats)
+  - Before using BBCode you need to enable the BBCode filter in an input
+    format (see Administer -> Input formats -> add input format)
 
   - You can enable/ disable the following features in the configuration page
     of the input format in which BBCode is enabled:
+
     * Javascript encoding of emails
     * Smart paragraph and line breaks
     * Print debugging info
 
-  - If you would like to use BBCode as a replacement for HTML, you should
-    set Drupal to use the "Filtered HTML" with escape tags setting along
-    with bbcode filter.
+  - If you've disabled "smart paragraph and line breaks", you need to enable
+    Drupal's "Line break converter" with the BBCode filter. Don't use both
+    together!
+
+  - If you would like to use BBCode as a replacement for HTML, you could
+    enable Drupal's "HTML filter" to remove or escape user entered HTML tags.
+
+  - If you've enabled multiple filters, you may need to rearrange them to
+    ensure they execute in the correct order.
 
 Complementing Modules
 ------------------------------------------------------------------------------
@@ -49,6 +56,9 @@ installation:
   - BBCode Formatting Bar - http://drupal.org/node/24875
 
   - Smileys module - http://drupal.org/project/smileys
+
+Note: these are different indpendent projects. Please do not report issues
+with them as BBCode problems!
 
 Credits / Contacts
 ------------------------------------------------------------------------------
