@@ -1,0 +1,158 @@
+This document uses (almost) all BBCode tags - handy for testing:
+
+Normal text formatting:
+Test [b]bold[/b] text
+Test [i]italic[/i] text
+Test [u]undelined[/u] text
+Test [s]strikeout[/s] text
+Test [sub]subscript[/sub] text
+Test [sup]superscript[/sup] text
+
+Font colors:
+Test [color=blue]blue[/color] text
+Test [color=red]red[/color] text
+Test [color=green]green[/color] text
+
+Font sizes:
+Test [size=1]too small[/size] text - normalized to 7px
+Test [size=12]12px[/size] text
+Test [size=24]24px[/size] text
+Test [size=100]too big[/size] text - normalized to 48px
+
+Font faces:
+Test [font=arial]Arial[/font] text
+Test [font=verdana]Verdana[/font] text
+Test [font=sans-serif]Sans-serif[/font] text
+
+Text allignment:
+[left]Left hand side of the screen[/left]
+[right]Right hand side of the screen[/right]
+[center]Centered[/center]
+
+Image:
+[img]http://drupal.org/themes/bluebeach/logo.png[/img]
+
+Resized image:
+[img=100x50]http://drupal.org/themes/bluebeach/logo.png[/img]
+
+Let's test some URL's:
+www.test-url.com
+http://test-url.com/
+[url=http://test-url.com/]Test URL[/url]
+[anchor=TEST]URL Anchor[/anchor]
+
+Let's test some E-mail addresses:
+test@mail.com
+[email]joe@example.com[/email]
+
+Test headings:
+[h1]Level 1 Heading[/h1]
+[h2]Level 2 Heading[/h2]
+[h3]Level 3 Heading[/h3]
+[h4]Level 4 Heading[/h4]
+
+Test marquee:
+[move]Move tag[/move]
+
+A code block:
+[code]x := y + z;[/code]
+
+Color highlighted PHP code:
+[php]
+<?php
+  echo "Sample PHP code";
+?>
+[/php]
+
+Quotes:
+[quote]This is a quoted message[/quote]
+
+Quote with source:
+[quote=Frank]This is a quoted message[/quote]
+
+Nested quotes:
+[quote=Gabor]This is a quoted message
+   [quote=Alastair]This is a nested quote[/quote]
+[/quote]
+
+A normal list:
+[list]
+[*]x
+[*]y
+[*]z
+[/list]
+
+List with discs:
+[list=d]
+[*]x
+[*]y
+[*]z
+[/list]
+
+List with squares:
+[list=s]
+[*]x
+[*]y
+[*]z
+[/list]
+
+Numeric list:
+[list=1]
+[*]x
+[*]y
+[*]z
+[/list]
+
+Roman lowecase list:
+[list=i]
+[*]x
+[*]y
+[*]z
+[/list]
+
+Roman uppercase list:
+[list=I]
+[*]x
+[*]y
+[/list]
+
+Alfa lowercase list:
+[list=a]
+[*]x
+[*]y
+[/list]
+
+Alfa uppercase list:
+[list=A]
+[*]x
+[*]y
+[/list]
+
+A nested list:
+[list]
+[*]x
+[*][list]
+   [*]x.1
+   [*]x.2
+   [/list]
+[*]y
+[*]z
+[/list]
+
+Horizontal delimiter:
+[hr]
+
+Force line break:
+[br]
+
+Force space:
+[sp]
+
+Some broken tags to show that they will not disrupt your site's HTML:
+
+Broken [b]bold text...
+
+[list]
+[*]A broken list...
+
+[quote]A broken quote..
