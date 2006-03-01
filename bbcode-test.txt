@@ -14,7 +14,7 @@ Test [color=red]red[/color] text
 Test [color=green]green[/color] text
 
 Font sizes:
-Test [size=1]too small[/size] text - normalized to 7px
+Test [size=1]too small[/size] text - normalized to 6px
 Test [size=12]12px[/size] text
 Test [size=24]24px[/size] text
 Test [size=100]too big[/size] text - normalized to 48px
@@ -114,18 +114,21 @@ Roman uppercase list:
 [list=I]
 [*]x
 [*]y
+[*]z
 [/list]
 
 Alfa lowercase list:
 [list=a]
 [*]x
 [*]y
+[*]z
 [/list]
 
 Alfa uppercase list:
 [list=A]
 [*]x
 [*]y
+[*]z
 [/list]
 
 A nested list:
@@ -148,6 +151,20 @@ Force line break:
 Force space:
 [sp]
 
+Test notag:
+[notag]These tags are [b]not[/b] converted![/notag]
+
+Test tag nesting:
+[color=red][size=20]large red text[/size][/color]
+[size=20][color=red]again - large red test with different tag order[/color][/size]
+ 
+Test multi-line tags:
+[size=20]
+  [color=red]
+    test
+  [/color]
+[/size]
+
 Some broken tags to show that they will not disrupt your site's HTML:
 
 Broken [b]bold text...
@@ -155,4 +172,4 @@ Broken [b]bold text...
 [list]
 [*]A broken list...
 
-[quote]A broken quote..
+[quote]A broken quote...

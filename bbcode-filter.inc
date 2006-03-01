@@ -28,7 +28,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
          $parts[$i] = nl2br($parts[$i]);
 
 	 // Some tags may not be in paragraph blocks
-         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote)/i", $parts[$i]) ) 
+         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
            $parts[$i] = '<p>'. $parts[$i] .'</p>';
        }
     }
@@ -60,12 +60,15 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
   $preg = array(
 
+    // Implement [notag]...
+    '#\[notag(?::\w+)?\](.*?)\[/notag(?::\w+)?\]#sie'        => '_bbcode_notag_tag("\\1")',
+
     // Headings - articles will almost always need them
     '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'     => '<h\\1>\\2</h\\1>',
-    
+
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
-    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
+    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, "\\2")',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
     '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<span style="float:\\1">\\2</span>',
@@ -130,7 +133,6 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '[br]'   => '<br class="bb-br" />',
     // Force space
     '[sp]'   => '&nbsp;',
-
   );
   $body = str_replace(array_keys($str), array_values($str), $body);
 
@@ -231,5 +233,9 @@ function _bbcode_size_tag($size = NULL, $text = NULL) {
   if ($size > 48)
     $size = 48;
   return '<span style="font-size:'.$size.'px">'.$text.'</span>';
+}
+
+function _bbcode_notag_tag($text = NULL) {
+  return str_replace( array('[', ']'), array('&#91;', '&#93;'), $text);
 }
 
