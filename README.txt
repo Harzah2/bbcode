@@ -57,7 +57,7 @@ installation:
 
   - Smileys module - http://drupal.org/project/smileys
 
-Note: these are different indpendent projects. Please do not report issues
+Note: these are different independent projects. Please do not report issues
 with them as BBCode problems!
 
 Credits / Contacts
@@ -81,6 +81,4 @@ TODO List
    parameters (color, url, etc.).
 
  - Configuration of which bbcode tags are allowed.
-
- - Allow nested tags for lists, quotes, etc.
 

@@ -23,8 +23,13 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $body  = preg_replace("/\n\n+/", "\n\n", $body);
     $parts = explode("\n\n", $body);
     for ($i=0; $i<sizeof($parts); $i++) {
-       if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote)/", $parts[$i]) ) {
-         $parts[$i] = '<p>'. str_replace("\n", '<br \>', $parts[$i]) .'</p>';
+       // No linebreaks if paragraph starts with a tag
+       if ( !preg_match("/^(?:<|\[)/", $parts[$i]) ) {
+         $parts[$i] = nl2br($parts[$i]);
+
+	 // Some tags may not be in paragraph blocks
+         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote)/i", $parts[$i]) ) 
+           $parts[$i] = '<p>'. $parts[$i] .'</p>';
        }
     }
     $body = implode("\n\n", $parts);
@@ -35,6 +40,23 @@ function _bbcode_filter_process(&$body, $format = -1) {
        $body = str_replace("***pRe_sTrInG$i***", '<pre>'.substr($pre[$i],6,-7).'</pre>', $body);
     }
   }
+
+  // Add closing tags to prevent users from disruping your site's HTML
+  // (required for nestable tags only: [list] and [quote])
+  preg_match_all ('/\[quote/i', $body, $matches);
+  $opentags = count($matches['0']);
+  preg_match_all ('/\[\/quote\]/i', $body, $matches);
+  $unclosed = $opentags - count($matches['0']);
+  for ($i = 0; $i < $unclosed; $i++) {
+     $body .= '[/quote]';
+  } 
+  preg_match_all ('/\[list/i', $body, $matches);
+  $opentags = count($matches['0']);
+  preg_match_all ('/\[\/list\]/i', $body, $matches);
+  $unclosed = $opentags - count($matches['0']);
+  for ($i = 0; $i < $unclosed; $i++) {
+     $body .= '[/list]';
+  } 
 
   $preg = array(
 
@@ -75,22 +97,25 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
     
     // Quoting with or without specifying the source
-    '#\[quote(?::\w+)?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'  => '<span class="bb-quote">'.$quote_text.':<span class="bb-quote-body">\\1</span></span>',
-    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\](?:[\r\n])*(.*?)\[/quote(?::\w+)?\]#si'   => '<span class="bb-quote">'.$quote_user.':<span class="bb-quote-body">\\2</span></span>',
+    '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote">'.$quote_user.':<div class="bb-quote-body">',
+    '#\[/quote(?::\w+)?\]#si'                                  => '</div></div>',
 
     // PHP code blocks (syntax highlighted)
     '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => 'highlight_string(\'\\1\', true)',
     
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1</li>',
-    '#\[list(?::\w+)?\](.*?)\[/list(?::\w+)?\]#si'           => _bbcode_list_tag(),
-    '#\[list(?::\w+)?\](.*?)\[/list:u(?::\w+)?\]#s'          => _bbcode_list_tag(),
-    '#\[list(?::\w+)?\](.*?)\[/list:o(?::\w+)?\]#s'          => _bbcode_list_tag('decimal'),
-    '#\[list=1(?::\w+)?\](.*?)\[/list(?::\w+)?\]#si'         => _bbcode_list_tag('decimal'),
-    '#\[list=i(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => _bbcode_list_tag('lower-roman'),
-    '#\[list=I(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => _bbcode_list_tag('upper-roman'),
-    '#\[list=a(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => _bbcode_list_tag('lower-alpha'),
-    '#\[list=A(?::\w+)?\](.*?)\[/list(?::\w+)?\]#s'          => _bbcode_list_tag('upper-alpha'),
+    '#\[list(?::\w+)?\]#si'                                  => '<ol class="bb-list" style="list-style-type:circle;">',
+    '#\[list=c(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:circle;">',
+    '#\[list=d(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:disc;">',
+    '#\[list=s(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:square;;">',
+    '#\[list=1(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:decimal;">',
+    '#\[list=i(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:lower-roman;">',
+    '#\[list=I(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-roman;">',
+    '#\[list=a(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
+    '#\[list=A(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
+    '#\[/list(?::\w+)?\]#si'                                 => '</ol>',
     
     // Clean up the list output a bit
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'         => '<ol\\1><li\\2>',
@@ -105,6 +130,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '[br]'   => '<br class="bb-br" />',
     // Force space
     '[sp]'   => '&nbsp;',
+
   );
   $body = str_replace(array_keys($str), array_values($str), $body);
 
@@ -197,15 +223,6 @@ function _bbcode_encode_mailto($matches) {
   }
 
   return $link;
-}
-
-function _bbcode_list_tag($type = NULL) {
-  if (isset($type)) {
-    return '<ol class="bb-list" style="list-style-type:' . $type . ';">\\1</ol>';
-  }
-  else {
-    return '<ul class="bb-list">\\1</ul>';
-  }
 }
 
 function _bbcode_size_tag($size = NULL, $text = NULL) {

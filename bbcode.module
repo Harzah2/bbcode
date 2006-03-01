@@ -3,7 +3,7 @@
 
 function bbcode_help($section) {
   if ($section == "admin/modules#description") {
-    return t("Allow the use of bbcode in your posts.");
+    return t("Allow the use of BBCode in your posts.");
   }
 }
 
