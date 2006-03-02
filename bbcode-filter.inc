@@ -13,8 +13,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     while ($pre_str = stristr($body, '[code]')) {
       $pre_str = substr($pre_str, 0, strpos(strtolower($pre_str), '[/code]')+7);
       $body    = str_replace($pre_str, "***pRe_sTrInG$i***", $body);
-      $pre_str = str_replace('<', '&lt;', $pre_str);
-      $pre[$i] = str_replace('>', '&gt;', $pre_str);
+      $pre[$i] = str_replace(array('<', '>'), array('&lt;', '&gt;'), $pre_str);
       $i++;
     }
 

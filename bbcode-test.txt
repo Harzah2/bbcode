@@ -1,4 +1,4 @@
-This document uses (almost) all BBCode tags - handy for testing:
+This document uses (almost) all BBCode tags supported by Drupal's BBCode module. You can cut and paste this document into a node to test Drupal's BBCode implementation or to perform some benchmarks.
 
 Normal text formatting:
 Test [b]bold[/b] text
@@ -12,17 +12,19 @@ Font colors:
 Test [color=blue]blue[/color] text
 Test [color=red]red[/color] text
 Test [color=green]green[/color] text
+Test [color=#eeff00]#eeff00[/color] text
 
 Font sizes:
-Test [size=1]too small[/size] text - normalized to 6px
+Test [size=1]1px[/size] - too small, normalized to 6px
 Test [size=12]12px[/size] text
 Test [size=24]24px[/size] text
-Test [size=100]too big[/size] text - normalized to 48px
+Test [size=100]100px[/size] - too big, normalized to 48px
 
 Font faces:
-Test [font=arial]Arial[/font] text
-Test [font=verdana]Verdana[/font] text
-Test [font=sans-serif]Sans-serif[/font] text
+Test [font=arial]Arial typeface[/font] text
+Test [font=verdana]Verdana typeface[/font] text
+Test [font=Times New Roman]Times New Roman typeface[/font] text
+Test [font=impact]Impact typeface[/font] text
 
 Text allignment:
 [left]Left hand side of the screen[/left]
@@ -31,6 +33,9 @@ Text allignment:
 
 Image:
 [img]http://drupal.org/themes/bluebeach/logo.png[/img]
+
+Float image right:
+[float=right][img]http://drupal.org/themes/bluebeach/logo.png[/img][/float]
 
 Resized image:
 [img=100x50]http://drupal.org/themes/bluebeach/logo.png[/img]
@@ -52,7 +57,7 @@ Test headings:
 [h4]Level 4 Heading[/h4]
 
 Test marquee:
-[move]Move tag[/move]
+[move]Move tag - creates a scrolling display[/move]
 
 A code block:
 [code]x := y + z;[/code]
@@ -146,19 +151,20 @@ Horizontal delimiter:
 [hr]
 
 Force line break:
-[br]
+-->[br]<--
 
 Force space:
-[sp]
+-->[sp]<--
 
 Test notag:
-[notag]These tags are [b]not[/b] converted![/notag]
+[notag]These BBCode tags are [b]not[/b] converted to HTML![/notag]
 
 Test tag nesting:
 [color=red][size=20]large red text[/size][/color]
 [size=20][color=red]again - large red test with different tag order[/color][/size]
- 
+
 Test multi-line tags:
+
 [size=20]
   [color=red]
     test
