@@ -19,7 +19,7 @@ Installation
   - Download the BBCode module from http://drupal.org/project/bbcode
 
   - Copy bbcode.module, bbcode-help.inc and bbcode-filter.inc to your modules
-    directory (suggestion: .../modules/bbcode/)
+    directory (suggestion: create a subdirectory .../modules/bbcode/)
 
   - Enable the module as usual from Drupal's admin pages 
     (Administer -> Modules)

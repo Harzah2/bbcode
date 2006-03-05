@@ -6,7 +6,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote');
   $quote_user = t('\\1 wrote');
 
-  if (variable_get("bbcode_paragraph_breaks", 0)) {  // BBCode paragraph breaks
+  if (variable_get("bbcode_paragraph_breaks", 1)) {  // BBCode paragraph breaks
 
     // Step 1: strip preformatted code blocks from text
     $pre = array(); $i = 0;
@@ -23,43 +23,38 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $parts = explode("\n\n", $body);
     for ($i=0; $i<sizeof($parts); $i++) {
        // No linebreaks if paragraph starts with a tag
-       if ( !preg_match("/^(?:<|\[)/", $parts[$i]) ) {
+       if ( !preg_match("/^(?:<|\[)/", $parts[$i]) ) 
          $parts[$i] = nl2br($parts[$i]);
 
-	 // Some tags may not be in paragraph blocks
-         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
-           $parts[$i] = '<p>'. $parts[$i] .'</p>';
-       }
+       // Some tags may not be in paragraph blocks
+       if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
+         $parts[$i] = '<p>'. $parts[$i] .'</p>';
     }
     $body = implode("\n\n", $parts);
 
     // Step 3: Reinsert preformatted code blocks
     $cp = count($pre)-1;
-    for ($i=0; $i <= $cp; $i++) {
+    for ($i=0; $i <= $cp; $i++) 
        $body = str_replace("***pRe_sTrInG$i***", '<pre>'.substr($pre[$i],6,-7).'</pre>', $body);
-    }
   }
 
   // Add closing tags to prevent users from disruping your site's HTML
   // (required for nestable tags only: [list] and [quote])
-  preg_match_all ('/\[quote/i', $body, $matches);
+  preg_match_all('/\[quote/i', $body, $matches);
   $opentags = count($matches['0']);
-  preg_match_all ('/\[\/quote\]/i', $body, $matches);
+  preg_match_all('/\[\/quote\]/i', $body, $matches);
   $unclosed = $opentags - count($matches['0']);
-  for ($i = 0; $i < $unclosed; $i++) {
+  for ($i = 0; $i < $unclosed; $i++)
      $body .= '[/quote]';
-  } 
-  preg_match_all ('/\[list/i', $body, $matches);
+  preg_match_all('/\[list/i', $body, $matches);
   $opentags = count($matches['0']);
-  preg_match_all ('/\[\/list\]/i', $body, $matches);
+  preg_match_all('/\[\/list\]/i', $body, $matches);
   $unclosed = $opentags - count($matches['0']);
-  for ($i = 0; $i < $unclosed; $i++) {
+  for ($i = 0; $i < $unclosed; $i++) 
      $body .= '[/list]';
-  } 
 
   $preg = array(
-
-    // Implement [notag]...
+    // Implement [notag]
     '#\[notag(?::\w+)?\](.*?)\[/notag(?::\w+)?\]#sie'        => '_bbcode_notag_tag("\\1")',
 
     // Headings - articles will almost always need them
@@ -151,16 +146,15 @@ function _bbcode_filter_process(&$body, $format = -1) {
   // Find all [code] tags and check if they contain a newline. In case we find a newline,
   // that [code] should be rendered as a block, otherwise it will still be inline
   if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
-      foreach ($code_tags as $code_tag) {
-          if (strpos($code_tag[1], "\n") !== FALSE) {
-              $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
-              $code_block = '<span class="bb-code-block">%s</span>';
-          } 
-          else {
-              $code_block = '<code class="bb-code">%s</code>';
-          }
-          $body = str_replace($code_tag[0], sprintf($code_block, $code_tag[1]), $body);
-      }
+    foreach ($code_tags as $code_tag) {
+      if (strpos($code_tag[1], "\n") !== FALSE) {
+          $code_tag[1] = str_replace(array("\n ", "  ", "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
+          $code_block = '<span class="bb-code-block">%s</span>';
+      } 
+      else 
+          $code_block = '<code class="bb-code">%s</code>';
+      $body = str_replace($code_tag[0], sprintf($code_block, $code_tag[1]), $body);
+    }
   }
   
   /**
@@ -192,12 +186,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
   // matches an email@domain type address at the start of a line, or after a space.
   // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
-  if (variable_get("bbcode_encode_mailto_$format", 1)) {
+  if (variable_get("bbcode_encode_mailto_$format", 1))
     $ret = preg_replace_callback("#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
-  }
-  else {
+  else 
     $ret = preg_replace("#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
-  }
 
   // Remove our padding..
   $ret = substr($ret, 1);
@@ -206,22 +198,18 @@ function _bbcode_filter_process(&$body, $format = -1) {
 }
 
 function _bbcode_encode_mailto($matches) {
-  if (isset($matches[3])) {
+  if (isset($matches[3])) 
     $link = 'document.write(\'<a href="mailto:' . $matches[2].'@'.$matches[3] . '">' . $matches[2].'@'.$matches[3] . '</a>\');';
-  }
-  else {
+  else 
     $link = 'document.write(\'<a href="mailto:' . $matches[1] . '" class="bb-email">' . (isset($matches[2]) ? $matches[2] : $matches[1]) . '</a>\');';
-  }
 
   $js_encode = '';
-  for ($x = 0; $x < strlen($link); $x++) {
+  for ($x = 0; $x < strlen($link); $x++) 
     $js_encode .= '%' . bin2hex($link{$x});
-  }
 
   $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
-  if (isset($matches[3])) {
+  if (isset($matches[3]))
     $link = $matches[1] . $link;
-  }
 
   return $link;
 }
