@@ -22,8 +22,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $body  = preg_replace("/\n\n+/", "\n\n", $body);
     $parts = explode("\n\n", $body);
     for ($i=0; $i<sizeof($parts); $i++) {
-       // No linebreaks if paragraph starts with a tag
-       if ( !preg_match("/^(?:<|\[)/", $parts[$i]) ) 
+       // No linebreaks if paragraph starts with an HTML tag
+       if ( !preg_match("/^<.*>/", $parts[$i]) ) 
          $parts[$i] = nl2br($parts[$i]);
 
        // Some tags may not be in paragraph blocks
@@ -99,7 +99,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[/quote(?::\w+)?\]#si'                                  => '</div></div>',
 
     // PHP code blocks (syntax highlighted)
-    '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => 'highlight_string(\'\\1\', true)',
+    '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag("\\1")',
     
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1</li>',
@@ -226,3 +226,6 @@ function _bbcode_notag_tag($text = NULL) {
   return str_replace( array('[', ']'), array('&#91;', '&#93;'), $text);
 }
 
+function _bbcode_php_tag($text = NULL) {
+  return '<pre>'. highlight_string($text, true) .'</pre>';
+}

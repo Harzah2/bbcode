@@ -82,3 +82,5 @@ TODO List
 
  - Configuration of which bbcode tags are allowed.
 
+ - Translate this module into other languages.
+
