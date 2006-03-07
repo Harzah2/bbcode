@@ -6,7 +6,12 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote');
   $quote_user = t('\\1 wrote');
 
-  if (variable_get("bbcode_paragraph_breaks", 1)) {  // BBCode paragraph breaks
+  $mode = variable_get("bbcode_paragraph_breaks", 2);
+
+  if ($mode == 1) 	// Line breaks only
+    $body = nl2br($body);
+
+  if ($mode == 2) {	// Line and paragraph breaks
 
     // Step 1: strip preformatted code blocks from text
     $pre = array(); $i = 0;
@@ -114,7 +119,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[list=A(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
     '#\[/list(?::\w+)?\]#si'                                 => '</ol>',
     
-    // Clean up the list output a bit
+    // Clean up list output - "Line break converter" adds too many <br /> tags
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'         => '<ol\\1><li\\2>',
     '#<ul(.*?)>(?:.*?)<li(.*?)>#si'         => '<ul\\1><li\\2>'
   );

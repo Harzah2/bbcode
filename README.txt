@@ -57,8 +57,8 @@ installation:
 
   - Smileys module - http://drupal.org/project/smileys
 
-Note: these are different independent projects. Please do not report issues
-with them as BBCode problems!
+Note: these are independent projects. Please do not report issues with them 
+as BBCode problems!
 
 Credits / Contacts
 ------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ TODO List
  - Do not allow users to disrupt the HTML output with malicious
    parameters (color, url, etc.).
 
- - Configuration of which bbcode tags are allowed.
+ - Configuration of which BBCode tags are allowed.
 
  - Translate this module into other languages.
 
