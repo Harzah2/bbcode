@@ -7,11 +7,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_user = t('\\1 wrote');
 
   $mode = variable_get("bbcode_paragraph_breaks", 2);
-
-  if ($mode == 1) 	// Line breaks only
-    $body = nl2br($body);
-
-  if ($mode == 2) {	// Line and paragraph breaks
+  if ($mode) {		// Apply line and paragraph breaks
 
     // Step 1: strip preformatted code blocks from text
     $pre = array(); $i = 0;
@@ -22,20 +18,24 @@ function _bbcode_filter_process(&$body, $format = -1) {
       $i++;
     }
 
-    // Step 2: Convert paragraph breaks (skipping preformatted code blocks)
-    $body  = preg_replace("/(\r\n|\n|\r)/", "\n", $body);
-    $body  = preg_replace("/\n\n+/", "\n\n", $body);
-    $parts = explode("\n\n", $body);
-    for ($i=0; $i<sizeof($parts); $i++) {
-       // No linebreaks if paragraph starts with an HTML tag
-       if ( !preg_match("/^<.*>/", $parts[$i]) ) 
-         $parts[$i] = nl2br($parts[$i]);
+    // Step 2: Apply line and paragraph breaks (skipping preformatted code)
+    if ($mode == 1) 	// Line breaks only
+      $body = nl2br($body);
+    if ($mode == 2) {	// Line and paragraph breaks
+      $body  = preg_replace("/(\r\n|\n|\r)/", "\n", $body);
+      $body  = preg_replace("/\n\n+/", "\n\n", $body);
+      $parts = explode("\n\n", $body);
+      for ($i=0; $i<sizeof($parts); $i++) {
+         // No linebreaks if paragraph starts with an HTML tag
+         if ( !preg_match("/^<.*>/", $parts[$i]) ) 
+           $parts[$i] = nl2br($parts[$i]);
 
-       // Some tags may not be in paragraph blocks
-       if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
-         $parts[$i] = '<p>'. $parts[$i] .'</p>';
+         // Some tags may not be in paragraph blocks
+         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
+           $parts[$i] = '<p>'. $parts[$i] .'</p>';
+      }
+      $body = implode("\n\n", $parts);
     }
-    $body = implode("\n\n", $parts);
 
     // Step 3: Reinsert preformatted code blocks
     $cp = count($pre)-1;
