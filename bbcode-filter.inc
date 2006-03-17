@@ -228,7 +228,7 @@ function _bbcode_size_tag($size = NULL, $text = NULL) {
 }
 
 function _bbcode_notag_tag($text = NULL) {
-  return str_replace( array('[', ']', '@'), array('&#91;', '&#93;', '&64;'), $text);
+  return str_replace( array('[', ']', '@'), array('&#91;', '&#93;', '&#64;'), $text);
 }
 
 function _bbcode_php_tag($text = NULL) {
