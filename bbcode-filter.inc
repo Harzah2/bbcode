@@ -108,11 +108,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag("\\1")',
     
     // Different kinds of lists and list items
-    '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1</li>',
+    '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1',
     '#\[list(?::\w+)?\]#si'                                  => '<ol class="bb-list" style="list-style-type:circle;">',
     '#\[list=c(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:circle;">',
     '#\[list=d(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:disc;">',
-    '#\[list=s(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:square;;">',
+    '#\[list=s(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:square;">',
     '#\[list=1(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:decimal;">',
     '#\[list=i(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:lower-roman;">',
     '#\[list=I(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-roman;">',
@@ -120,9 +120,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[list=A(?::\w+)?\]#si'                                => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
     '#\[/list(?::\w+)?\]#si'                                 => '</ol>',
     
-    // Clean up list output - "Line break converter" adds too many <br /> tags
-    '#<ol(.*?)>(?:.*?)<li(.*?)>#si'         => '<ol\\1><li\\2>',
-    '#<ul(.*?)>(?:.*?)<li(.*?)>#si'         => '<ul\\1><li\\2>'
+    // Clean up list output and add closing </li> tags
+    '#(?=<li>|</ol>)#si'                                    => '</li>\\1',
+    '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 

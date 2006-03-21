@@ -30,6 +30,7 @@ Text allignment:
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
+[justify]This text is justified[/justify]
 
 Image:
 [img]http://drupal.org/themes/bluebeach/logo.png[/img]
@@ -80,7 +81,7 @@ Nested quotes:
    [quote=Alastair]This is a nested quote[/quote]
 [/quote]
 
-A normal list:
+A normal list (circular bullets, same as list=c):
 [list]
 [*]x
 [*]y
@@ -137,9 +138,9 @@ Alfa uppercase list:
 [/list]
 
 A nested list:
-[list]
+[list=s]
 [*]x
-[*][list]
+[*][list=d]
    [*]x.1
    [*]x.2
    [/list]
