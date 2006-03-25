@@ -14,37 +14,40 @@ function _bbcode_filter_tip() {
 </p>
 <p>
  In BBCode terms, you use \"tags\" to add formatting to your text. Every
- tag is enclosed in [ and ]. If you want to mark some region in
- your text, you need to use an opening tag and a closing tag. Closing
- tags start with [/, as you will see in the examples below. If you
- mistype a tag or forget to close it, you will not get the desired
- formatting.
+ tag is enclosed in <strong>[</strong> and <strong>]</strong> brackets. 
+ If you want to mark some region in your text, you need to use an opening 
+ tag and a closing tag. Closing tags start with <strong>[/</strong>, as
+ you will see in the examples below. If you mistype a tag or forget to 
+ close it, you will not get the desired formatting.
 </p>
 
 <h3>Simple text formatting</h3>
 
 <p>
  BBCode allows you to make some parts of your texts stand out from the
- context by adding <strong>[b]</strong>old, <strong>[i]</strong>talic
- and <strong>[u]</strong>nderlined formatting to them. The
- <strong>[color]</strong> and <strong>[size]</strong> tags allow you to
- change the color and size of portions of the text you enclose with
- these tags. Both require a parameter (which colour or how big) that is
- suffixed to the name of the tag by an equals sign (example below).
- You should not repeat the parameter in the closing tag!
+ context by adding <strong>[b]</strong>old, <strong>[i]</strong>talic,
+ <strong>[u]</strong>nderlined and <strong>[s]</strong>trikeout formatting 
+ to them. The <strong>[color]</strong>, <strong>[size]</strong> and 
+ <strong>[font]</strong> tags allow you to change the color, size and font 
+ of portions of the text you enclose with these tags. Both require a 
+ parameter (which colour, how big, what font) that is suffixed to the name 
+ of the tag by an equals sign (example below).  You should not repeat the 
+ parameter in the closing tag!
 </p>
 
 <p>
  You can specify any recognized color name (red, blue, green, white, etc.)
  or a hexadecimal color value (#CDCDCD, #FFFFFF, etc.) as the parameter of
  a <strong>[color]</strong> tag. The <strong>[size]</strong> tag allows you
- to set the font size between 10 and 30, 10 being the smallest size.
+ to set the font size between 6 and 48, 6 being the smallest size.
  Note that using very large text is considered by many to be annoying, and
  it is seldom a good idea to try to drive more attention to your post in
- this way.
+ this way. The <strong>[font]</strong> tag can be set to any valid font face
+ like Arial, Arial Black, Courier, Courier New, Helvetica, Impact, 
+ Times New Roman, Verdana, etc.
 </p>
 
-<table>
+<table width=\"98%\">
  <tr>
   <th>usage</th><th>display</th>
  </tr>
@@ -61,16 +64,24 @@ function _bbcode_filter_tip() {
   <td>I <span style=\"text-decoration: underline;\">would not like to</span> offend you</td>
  </tr>
  <tr>
+  <td>Let's correct this [s]mispelled[/s] misspelled word</td>
+  <td>Let's correct this <s>mispelled</s> misspelled word</td>
+ </tr>
+ <tr>
   <td>Jane was at [color=blue]the coast[/color]</td>
   <td>Jane was at <span style=\"color: blue;\">the coast</span></td>
  </tr>
  <tr>
-  <td>Joe was in [color=#00FF00]the forest[/color]</td>
-  <td>Joe was in <span style=\"color: #00FF00;\">the forest</span></td>
+  <td>Joe was in [color=#FF0000]the forest[/color]</td>
+  <td>Joe was in <span style=\"color: #FF0000;\">the forest</span></td>
  </tr>
  <tr>
-  <td>You said: [size=20]HEY![/size]</td>
-  <td>You said: <span style=\"font-size: 20px;\">HEY!</span></td>
+  <td>You said: [size=30]HEY![/size]</td>
+  <td>You said: <span style=\"font-size: 30px;\">HEY!</span></td>
+ </tr>
+ <tr>
+  <td>She said: [font=Courier]What?[/font]</td>
+  <td>She said: <span style=\"font-family: Courier;\">What?</span></td>
  </tr>
 </table>
 
@@ -100,7 +111,7 @@ function _bbcode_filter_tip() {
  destination.
 </p>
 
-<table>
+<table width=\"98%\">
  <tr>
   <th>usage</th><th>display</th>
  </tr>
@@ -172,11 +183,12 @@ function _bbcode_filter_tip() {
 <p>
  To create an ordered list, you should add a parameter to the [list]
  list tag specifying what type of ordered list you would like to see.
- The possible parameters are \"i\", \"I\", \"1\", \"a\", and \"A\" which all
- correspond to the display of the first list element.
+ The possible parameters are \"i\", \"I\", \"1\", \"a\", \"A\", \"c\",
+ \"d\" and \"s\" which all correspond to the display of the first list 
+ element.
 </p>
 
-<table>
+<table width=\"98%\">
  <tr>
   <th>usage</th><th>display</th>
  </tr>
@@ -245,14 +257,20 @@ I love
  will be displayed.
 </p>
 
-<table>
+<p>
+ Similarly, the <strong>[php]</strong> tag can be used to post PHP code. 
+ PHP code will automatically be syntax highlighted for easier readability.
+</p>
+
+<table width=\"98%\">
  <tr>
   <th>usage</th><th>display</th>
  </tr>
  <tr>
   <td>Edit your [code]robots.txt[/code] file</td>
   <td>Edit your <code>robots.txt</code> file</td>
-  </td>
+ </tr>
+ <tr>
  </tr>
  <tr>
   <td>
@@ -272,16 +290,77 @@ An HTML title example:<br />
 </code>
   </td>
  </tr>
+ <tr>
+ </tr>
+ <tr>
+  <td>
+Some PHP code:<br />
+[php]<br />
+&lt;?php<br />
+function hello()<br />
+{<br />
+&nbsp;&nbsp;echo \"Hello World!\";<br />
+}<br />
+?&gt;<br />
+[/php]
+  </td>
+  <td valign=top>
+Some PHP code:<br />
+<div class=\"codeblock\"><code>
+<font color=\"#000000\">
+<font color=\"#0000BB\">&lt;?php<br /></font><font color=\"#007700\">function </font><font color=\"#0000BB\">hello</font><font color=\"#007700\">()<br />{<br />&nbsp;&nbsp;echo </font><font color=\"#DD0000\">\"Hello World!\"</font><font color=\"#007700\">;<br />}<br /><font color=\"#0000BB\">?&gt;</font>
+</font>
+</code>
+  </td>
+ </tr>
 </table>
 
 <h3>Text and block alignment</h3>
 
 <p>
- You can also set the alignment of the text by using <code>[left]</code>,
- <code>[right]</code> and <code>[center]</code> tags. The <code>[float]</code>
- tag can be used to place floating boxes in the text (especially handy for
- images). You can specify the direction of the floating with
- <code>[float=left]</code> and <code>[float=right]</code>.
+ You can also set the alignment of the text by using <strong>[left]</strong>,
+ <strong>[right]</strong> and <strong>[center]</strong> tags. The 
+ <strong>[float]</strong> tag can be used to place floating boxes in the text 
+ (especially handy for images). You can specify the direction of the floating with
+ <strong>[float=left]</strong> and <strong>[float=right]</strong>. The 
+ <strong>[justify]</strong> tag can be used justify text on both sides of 
+ the page.
+</p>
+
+<h3>Other supported tags</h3>
+
+<p>
+ It is possible to quote something that has already been posted, by just 
+ putting <strong>[quote][/quote]</strong> tags around it. To quote a 
+ spesific person, use something like [quote=John]. Quote tags can 
+ be nested.
+</p>
+
+<p>
+  The <strong>[sub]</strong> and <strong>[sup]</strong> tags can be used 
+  to add subscript and superscript text.  Examples:
+  H[sub]2[/sub]O gives H<sub>2</sub>O, while 
+  X[sup]3[/sup] gives X<sup>3</sup>.
+</p>
+
+<p>
+ The <strong>[acronym]</strong> tag allow you to identify text as 
+ an acronym and provide a description when the user moves their mouse 
+ over the tag.  Example: 
+ [acronym=Structured Query Language]SQL[/acronym] produces 
+ <acronym title=\"Structured Query Language\">SQL</acronym>.
+</p>
+
+<p>
+ The <strong>[notag]</strong> tags prevent text inside the tags from being 
+ parsed. This allows you to give examples of BBcode and not have it 
+ converted to HTML. Example: [notag]These [b]tags[/b] are not rendered[/notag]
+ will produce \"These [b]tags[/b] are not rendered\".
+</p>
+
+<p>
+ The <strong>[hr]</strong> tag draws a horizontal line across the page. Handy
+ for separating chunks of text.
 </p>
 
 <h3>Using multiple formatting tags</h3>
@@ -297,16 +376,8 @@ An HTML title example:<br />
  Make sure that you take care of the proper order of the opening and closing
  tags. You should close the tags in the opposite order in which you opened
  them. Otherwise you might get very strange rendering results. Also check
- your post with the preview function before submiting it to discover possible
+ your post with the preview function before submitting it to discover possible
  formatting errors due to improper BBCode usage.
-</p>
-
-<p>
- There are some exceptions where you cannot add more BBCode tags. Examples
- of these include the contents of the <strong>[img]</strong> tag, which by
- definition should contain an URL only. BBCode tags are also disallowed
- inside <strong>[code]</strong> tags, and you cannot apply some formatting
- to all list items by wrapping the list with that formatting tag.
 </p>");
 
 }

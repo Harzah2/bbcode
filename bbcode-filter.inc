@@ -98,6 +98,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Flash animations and other special effects
     '#\[flash=(.*?)x(.*?)(?::\w+)?\](.*?)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
+
+    // Acronyms - show description when mouse moves over tag
+    '#\[acronym=(.*?)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si'=> '<acronym title="\\1">\\2</acronym>',
+
     
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">',
