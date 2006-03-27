@@ -6,7 +6,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote');
   $quote_user = t('\\1 wrote');
 
-  $mode = variable_get("bbcode_paragraph_breaks", 2);
+  $mode = variable_get("bbcode_paragraph_breaks_$format", 2);
   if ($mode) {		// Apply line and paragraph breaks
 
     // Step 1: strip preformatted code blocks from text
@@ -126,6 +126,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     
     // Clean up list output and add closing </li> tags
     '#(?=<li>|</ol>)#si'                                    => '</li>\\1',
+    '#<br />(\s+)</li>#si'                                  => '</li>\\1',
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);

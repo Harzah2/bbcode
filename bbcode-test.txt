@@ -5,8 +5,8 @@ Test [b]bold[/b] text
 Test [i]italic[/i] text
 Test [u]undelined[/u] text
 Test [s]strikeout[/s] text
-Test [sub]subscript[/sub] text
-Test [sup]superscript[/sup] text
+Test subscript text - H[sub]2[/sub]O
+Test superscript text - X[sup]3[/sup]
 
 Font colors:
 Test [color=blue]blue[/color] text
@@ -22,15 +22,19 @@ Test [size=100]100px[/size] - too big, normalized to 48px
 
 Font faces:
 Test [font=arial]Arial typeface[/font] text
-Test [font=verdana]Verdana typeface[/font] text
+Test [font=Arial Black]Arial typeface[/font] text
+Test [font=Courier]Courier typeface[/font] text
+Test [font=Courier New]Courier New typeface[/font] text
+Test [font=Impact]Impact typeface[/font] text
+Test [font=Helvetica]Helvetica typeface[/font] text
 Test [font=Times New Roman]Times New Roman typeface[/font] text
-Test [font=impact]Impact typeface[/font] text
+Test [font=verdana]Verdana typeface[/font] text
 
 Text allignment:
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
-[justify]This text is justified[/justify]
+[justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge you can use the justify tag.[/justify]
 
 Image:
 [img]http://drupal.org/themes/bluebeach/logo.png[/img]
@@ -57,11 +61,17 @@ Test headings:
 [h3]Level 3 Heading[/h3]
 [h4]Level 4 Heading[/h4]
 
+Test acronyms:
+[acronym=Application Programming Interface]API[/acronym]
+[acronym=Content Management System]CMS[/acronym]
+[acronym=Structured Query Language]SQL[/acronym]
+
 Test marquee:
 [move]Move tag - creates a scrolling display[/move]
 
 A code block:
-[code]x := y + z;[/code]
+[code]x := y + z;
+y := a - b;[/code]
 
 Color highlighted PHP code:
 [php]
@@ -88,49 +98,49 @@ A normal list (circular bullets, same as list=c):
 [*]z
 [/list]
 
-List with discs:
+List with discs (list=d):
 [list=d]
 [*]x
 [*]y
 [*]z
 [/list]
 
-List with squares:
+List with squares (list=s):
 [list=s]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Numeric list:
+Numeric list (list=1):
 [list=1]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Roman lowecase list:
+Roman lowecase list (list=i):
 [list=i]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Roman uppercase list:
+Roman uppercase list (list=I):
 [list=I]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Alfa lowercase list:
+Alfa lowercase list (list=a):
 [list=a]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Alfa uppercase list:
+Alfa uppercase list (list=A):
 [list=A]
 [*]x
 [*]y
@@ -172,7 +182,7 @@ Test multi-line tags:
   [/color]
 [/size]
 
-Some broken tags to show that they will not disrupt your site's HTML:
+Some broken tags - just to show that they will not disrupt your site's HTML:
 
 Broken [b]bold text...
 
@@ -180,3 +190,4 @@ Broken [b]bold text...
 [*]A broken list...
 
 [quote]A broken quote...
+

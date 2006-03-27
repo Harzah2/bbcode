@@ -9,8 +9,8 @@ function _bbcode_filter_tip() {
 <p>
  BBCode allows you to specify formatting rules for your text,
  even if you are not allowed to use HTML in your posts. BBCode
- originated from the forum software named PHPBB, and Drupal has a
- special implementation of it.
+ originated from the forum software named PHPBB, and this site
+ has a special implementation of it.
 </p>
 <p>
  In BBCode terms, you use \"tags\" to add formatting to your text. Every
@@ -41,9 +41,9 @@ function _bbcode_filter_tip() {
  a <strong>[color]</strong> tag. The <strong>[size]</strong> tag allows you
  to set the font size between 6 and 48, 6 being the smallest size.
  Note that using very large text is considered by many to be annoying, and
- it is seldom a good idea to try to drive more attention to your post in
- this way. The <strong>[font]</strong> tag can be set to any valid font face
- like Arial, Arial Black, Courier, Courier New, Helvetica, Impact, 
+ it is seldom a good idea to try to attract more attention to your post in
+ this way. The <strong>[font]</strong> tag can be set to any valid font face,
+ such as Arial, Arial Black, Courier, Courier New, Helvetica, Impact, 
  Times New Roman, Verdana, etc.
 </p>
 
@@ -56,8 +56,8 @@ function _bbcode_filter_tip() {
   <td>I <strong>need to do</strong> this by the weekend</td>
  </tr>
  <tr>
-  <td>John said, that [i]we should[/i] ask her</td>
-  <td>John said, that <em>we should</em> ask her</td>
+  <td>John said that [i]we should[/i] ask her</td>
+  <td>John said that <em>we should</em> ask her</td>
  </tr>
  <tr>
   <td>I [u]would not like to[/u] offend you</td>
@@ -85,7 +85,7 @@ function _bbcode_filter_tip() {
  </tr>
 </table>
 
-<h3>Creating Links</h3>
+<h3>Creating links</h3>
 
 <p>
  You have multiple options to specify links to other destinations in
@@ -93,22 +93,17 @@ function _bbcode_filter_tip() {
 </p>
 
 <p>
- Drupal recognizes URLs (Uniform Resource Locators) used in your posts, and
- automatically replaces them with links. For URLs starting with \"www\" or
- \"ftp\" (eg. www.example.com) there is no need for a protocol specification,
- but you need to specify a protocol for other types of addresses
- (eg. example.com).
+ URLs (Uniform Resource Locators) starting with \"www\" or \"ftp\" (eg.
+ www.example.com) are automatically recognized and replaced with links. 
+ You can also use the <strong>[url]</strong> tag with a parameter to 
+ specify a link with meaningful text to click on. If you use the url 
+ tag without the parameter, the enclosed text is assumed to be a URL,
+ and a link is created to that destination.
 </p>
 <p>
- Drupal also recognizes email addresses in posts automatically, but for compatibility
- with the common BBCode implementations, also provides the <strong>[email]</strong> tag
- to mark email addresses. There is no spam protection applied to the email addresses!
-</p>
-<p>
- You can use the <strong>[url]</strong> tag with a parameter to specify a link with
- meaningful text to click on. If you use the url tag without the parameter,
- then the enclosed text is assumed to be an URL, and a link is created to that
- destination.
+ Email addresses in posts are also automatically converted to email links. 
+ For compatibility with common BBCode implementations, an 
+ <strong>[email]</strong> tag is provided. 
 </p>
 
 <table width=\"98%\">
@@ -147,7 +142,7 @@ function _bbcode_filter_tip() {
  The <strong>[img]</strong> tag allows you to display an image in your
  post. You need to specify a URL to the image, so it needs to be
  accessible somewhere on the internet. Beware of adding very large
- images to your text, or otherwise the page will load very slowly!
+ images to your text, or the page will load very slowly!
 </p>
 
 <p>
@@ -166,7 +161,7 @@ function _bbcode_filter_tip() {
 
 <p>
  You are free to link an image to an external destination by enclosing
- the <strong>[img]</strong> tag with an <strong>[url]</strong> tag: <code>See
+ the <strong>[img]</strong> tag with a <strong>[url]</strong> tag: <code>See
  [url=http://example.com][img]http://example.com/screenshot.png[/img][/url]</code>.
 </p>
 
@@ -181,11 +176,11 @@ function _bbcode_filter_tip() {
 </p>
 
 <p>
- To create an ordered list, you should add a parameter to the [list]
- list tag specifying what type of ordered list you would like to see.
- The possible parameters are \"i\", \"I\", \"1\", \"a\", \"A\", \"c\",
- \"d\" and \"s\" which all correspond to the display of the first list 
- element.
+ To create an ordered list, you should add a parameter to the 
+ <strong>[list]</strong> list tag specifying what type of ordered list 
+ you would like to see. The possible parameters are \"i\", \"I\", \"1\", 
+ \"a\", \"A\", \"c\", \"d\" and \"s\" which all correspond to the display 
+ of the first list element.
 </p>
 
 <table width=\"98%\">
@@ -332,21 +327,21 @@ Some PHP code:<br />
 <p>
  It is possible to quote something that has already been posted, by just 
  putting <strong>[quote][/quote]</strong> tags around it. To quote a 
- spesific person, use something like [quote=John]. Quote tags can 
+ specific person, use something like [quote=John]. Quote tags can 
  be nested.
 </p>
 
 <p>
   The <strong>[sub]</strong> and <strong>[sup]</strong> tags can be used 
-  to add subscript and superscript text.  Examples:
+  to add subscript and superscript text. For example,
   H[sub]2[/sub]O gives H<sub>2</sub>O, while 
   X[sup]3[/sup] gives X<sup>3</sup>.
 </p>
 
 <p>
  The <strong>[acronym]</strong> tag allow you to identify text as 
- an acronym and provide a description when the user moves their mouse 
- over the tag.  Example: 
+ an acronym and provide a description when users move their mouse 
+ over the tag. For example,
  [acronym=Structured Query Language]SQL[/acronym] produces 
  <acronym title=\"Structured Query Language\">SQL</acronym>.
 </p>
@@ -354,8 +349,8 @@ Some PHP code:<br />
 <p>
  The <strong>[notag]</strong> tags prevent text inside the tags from being 
  parsed. This allows you to give examples of BBcode and not have it 
- converted to HTML. Example: [notag]These [b]tags[/b] are not rendered[/notag]
- will produce \"These [b]tags[/b] are not rendered\".
+ converted to HTML. For example: [notag]These [b]tags[/b] are not 
+ rendered[/notag] will produce \"These [b]tags[/b] are not rendered\".
 </p>
 
 <p>
@@ -368,15 +363,14 @@ Some PHP code:<br />
 <p>
  You can apply more than one formatting specification to a portion of some
  text. <code>I was at [b][i]the coast[/i][/b]</code> will be
- rendered as <code>I was at <strong><em>the coast</em></strong></code> for
- example.
+ rendered as <code>I was at <strong><em>the coast</em></strong></code>.
 </p>
 
 <p>
  Make sure that you take care of the proper order of the opening and closing
  tags. You should close the tags in the opposite order in which you opened
  them. Otherwise you might get very strange rendering results. Also check
- your post with the preview function before submitting it to discover possible
+ your post with the preview function before submitting it, in case there are
  formatting errors due to improper BBCode usage.
 </p>");
 

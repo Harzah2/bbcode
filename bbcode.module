@@ -2,8 +2,8 @@
 // $Id$
 
 function bbcode_help($section) {
-  if ($section == "admin/modules#description")
-    return t("Allow the use of BBCode in your posts.");
+  if ($section == 'admin/modules#description')
+    return t('Allow the use of BBCode in your posts.');
 }
 
 function bbcode_filter_tips($delta, $format, $long = false) {
@@ -12,7 +12,7 @@ function bbcode_filter_tips($delta, $format, $long = false) {
     return _bbcode_filter_tip();
   }
   else 
-    return t("You can use <a href=\"%bbcode_help\">BBCode tags</a> in the text, URLs will be automatically converted to links", array("%bbcode_help" => url("filter/tips/$format", NULL, 'filter-bbcode')));
+    return t('You can use <a href="%bbcode_help">BBCode tags</a> in the text, URLs will be automatically converted to links', array('%bbcode_help' => url("filter/tips/$format", NULL, 'filter-bbcode')));
 }
 
 function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
@@ -25,13 +25,13 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
 
     case 'process':
       include_once 'bbcode-filter.inc';
-      if (variable_get("bbcode_debug", 0)) {
+      if (variable_get("bbcode_debug_$format", 0)) {
         $timing_start = explode(' ', microtime());
         $ret = _bbcode_filter_process($text, $format);
         $timing_stop = explode(' ', microtime());
         $elapsed = $timing_stop[1] - $timing_start[1];
         $elapsed += $timing_stop[0] - $timing_start[0];
-        $ret .= '<hr /><a href="http://drupal.org/project/bbcode">BBCode</a> parsed on '.date('r').'<br />Execution time: '.$elapsed.' seconds.<hr />';
+        $ret .= '<hr />'. l('BBCode', "filter/tips/$format") .' parsed on '.date('r').'<br />Execution time: '.$elapsed.' seconds.<hr />';
         return $ret;
       }
       else 
@@ -48,20 +48,20 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
         '#type' => 'select', 
         '#title' => t('Email address encoding'), 
         '#default_value' => variable_get("bbcode_encode_mailto_$format", 1), 
-        '#options' => array(t("Disabled"), t("Enabled")), 
+        '#options' => array(t('Disabled'), t('Enabled')), 
         '#description' => t('Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them.'));
-      $form['bbcode_filter']["bbcode_paragraph_breaks"] = array(
+      $form['bbcode_filter']["bbcode_paragraph_breaks_$format"] = array(
         '#type' => 'select',
         '#title' => t('Smart paragraph and line breaks'),
-        '#default_value' => variable_get("bbcode_paragraph_breaks", 2),
-        '#options' => array(t("Disabled"), t("Line breaks only"), t("Line and paragraph breaks")),
+        '#default_value' => variable_get("bbcode_paragraph_breaks_$format", 2),
+        '#options' => array(t('Disabled'), t('Line breaks only'), t('Line and paragraph breaks')),
         '#description' => t('Add line and paragraph breaks to text, excluding text in preformatted code blocks. If you disable this option, you need to enable Drupal\'s "Line break converter". Don\'t use both together!'));
-      $form['bbcode_filter']["bbcode_debug"] = array(
+      $form['bbcode_filter']["bbcode_debug_$format"] = array(
         '#type' => 'select', 
         '#title' => t('Print debugging info'), 
-        '#default_value' => variable_get("bbcode_debug", 0), 
-        '#options' => array(t("Disabled"), t("Enabled")), 
-        '#description' => t('Print BBCode parse date and execution time. This option should never be enabled on production sites. You may want to clear the cache after changing this option.'));
+        '#default_value' => variable_get("bbcode_debug_$format", 0), 
+        '#options' => array(t('Disabled'), t('Enabled')), 
+        '#description' => t('Print BBCode parse date and execution time. This option should be disabled on production sites. You may need to clear the cache after changing this option.'));
       return $form;
 
     default:

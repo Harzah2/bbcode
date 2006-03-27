@@ -53,7 +53,7 @@ Complementing Modules
 The following optional modules may be used to enhance your BBCode 
 installation:
 
-  - BBCode Formatting Bar - http://drupal.org/node/24875
+  - BBCode Formatting Bar - http://drupal.org/node/24875 (Drupal 4.6 only!)
 
   - Smileys module - http://drupal.org/project/smileys
 
@@ -77,10 +77,13 @@ Credits / Contacts
 TODO List
 ------------------------------------------------------------------------------
 
- - Do not allow users to disrupt the HTML output with malicious
-   parameters (color, url, etc.).
+ - Translate this module into other languages.
+
+ - Convert the BBCode Formatting Bar module to Drupal 4.7 and integrate with 
+   this project.
 
  - Configuration of which BBCode tags are allowed.
 
- - Translate this module into other languages.
+ - Do not allow users to disrupt the HTML output with malicious
+   parameters (color, url, etc.).
 
