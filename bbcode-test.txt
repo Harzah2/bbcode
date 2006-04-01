@@ -47,7 +47,9 @@ Resized image:
 
 Let's test some URL's:
 www.test-url.com
+ftp.test-url.com
 http://test-url.com/
+ftp://test-url.com/
 [url=http://test-url.com/]Test URL[/url]
 [anchor=TEST]URL Anchor[/anchor]
 
@@ -162,10 +164,10 @@ Horizontal delimiter:
 [hr]
 
 Force line break:
--->[br]<--
+--&gt;[br]&lt;--
 
 Force space:
--->[sp]<--
+--&gt;[sp]&lt;--
 
 Test notag:
 [notag]These BBCode tags are [b]not[/b] converted to HTML![/notag]
