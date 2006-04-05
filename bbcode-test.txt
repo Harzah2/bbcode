@@ -63,10 +63,13 @@ Test headings:
 [h3]Level 3 Heading[/h3]
 [h4]Level 4 Heading[/h4]
 
-Test acronyms:
-[acronym=Application Programming Interface]API[/acronym]
-[acronym=Content Management System]CMS[/acronym]
+Test acronyms and abbreviations:
+[abbr=Application Programming Interface]API[/abbr]
+[abbr=Content Management System]CMS[/abbr]
+[abbr=World Wide Web]WWW[/abbr]
 [acronym=Structured Query Language]SQL[/acronym]
+[acronym=Graphics Interchange Format]GIF[/acronym]
+[acronym=Radio Detecting and Ranging]radar[/acronym]
 
 Test marquee:
 [move]Move tag - creates a scrolling display[/move]

@@ -99,8 +99,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[flash=(.*?)x(.*?)(?::\w+)?\](.*?)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
 
-    // Acronyms - show description when mouse moves over tag
+    // Acronyms & abbreviations - show description when mouse moves over tag
     '#\[acronym=(.*?)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si'=> '<acronym title="\\1">\\2</acronym>',
+    '#\[abbr=(.*?)(?::\w+)?\](.*?)\[/abbr(?::\w+)?\]#si'=> '<abbr title="\\1">\\2</abbr>',
 
     
     // Quoting with or without specifying the source
@@ -238,5 +239,5 @@ function _bbcode_notag_tag($text = NULL) {
 }
 
 function _bbcode_php_tag($text = NULL) {
-  return '<pre>'. highlight_string($text, true) .'</pre>';
+  return '<pre>'. highlight_string( str_replace('<br />', '', $text), true) .'</pre>';
 }

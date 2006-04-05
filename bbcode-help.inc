@@ -347,6 +347,14 @@ Some PHP code:<br />
 </p>
 
 <p>
+ The <strong>[abbr]</strong> tag allow you to identify text as 
+ an abbreviation and provide a description when users move their mouse 
+ over the tag. For example,
+ [abbr=World Wide Web]WWW[/abbr] produces 
+ <abbr title=\"World Wide Web\">WWW</abbr>.
+</p>
+
+<p>
  The <strong>[notag]</strong> tags prevent text inside the tags from being 
  parsed. This allows you to give examples of BBcode and not have it 
  converted to HTML. For example: [notag]These [b]tags[/b] are not 
