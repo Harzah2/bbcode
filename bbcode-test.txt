@@ -53,8 +53,13 @@ ftp://test-url.com/
 [url=http://test-url.com/]Test URL[/url]
 [anchor=TEST]URL Anchor[/anchor]
 
+More URL's:
+Within parenthesis: (http://www.test-url.com)
+End of sentence: http://www.test-url.com.
+
 Let's test some E-mail addresses:
 test@mail.com
+drupal.user@server1.drupal.com
 [email]joe@example.com[/email]
 
 Test headings:
@@ -78,7 +83,7 @@ A code block:
 [code]x := y + z;
 y := a - b;[/code]
 
-Color highlighted PHP code:
+Color highlighted PHP code block:
 [php]
 <?php
   echo "Sample PHP code";

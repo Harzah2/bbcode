@@ -22,13 +22,13 @@ Installation
     directory (suggestion: create a subdirectory .../modules/bbcode/)
 
   - Enable the module as usual from Drupal's admin pages 
-    (Administer -> Modules)
+    (Administer » Modules)
  
 Configuration
 ------------------------------------------------------------------------------
 
   - Before using BBCode you need to enable the BBCode filter in an input
-    format (see Administer -> Input formats -> add input format)
+    format (see Administer » Input formats » add input format)
 
   - You can enable/ disable the following features in the configuration page
     of the input format in which BBCode is enabled:
