@@ -56,6 +56,8 @@ ftp://test-url.com/
 More URL's:
 Within parenthesis: (http://www.test-url.com)
 End of sentence: http://www.test-url.com.
+Google link: [google]BBCode[/google]
+Wikipedia link: [wikipedia]BBCode[/wikipedia]
 
 Let's test some E-mail addresses:
 test@mail.com
@@ -90,7 +92,7 @@ Color highlighted PHP code block:
 ?>
 [/php]
 
-Quotes:
+A simple quote:
 [quote]This is a quoted message[/quote]
 
 Quote with source:

@@ -3,8 +3,8 @@
 
 function _bbcode_filter_process(&$body, $format = -1) {
   
-  $quote_text = t('Quote');
-  $quote_user = t('\\1 wrote');
+  $quote_text = t('Quote:');
+  $quote_user = t('\\1 wrote:');
 
   $mode = variable_get("bbcode_paragraph_breaks_$format", 2);
   if ($mode) {		// Apply line and paragraph breaks
@@ -100,17 +100,20 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
 
     // Acronyms & abbreviations - show description when mouse moves over tag
-    '#\[acronym=(.*?)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si'=> '<acronym title="\\1">\\2</acronym>',
-    '#\[abbr=(.*?)(?::\w+)?\](.*?)\[/abbr(?::\w+)?\]#si'=> '<abbr title="\\1">\\2</abbr>',
-
+    '#\[acronym=(.*?)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si' => '<acronym title="\\1">\\2</acronym>',
+    '#\[abbr=(.*?)(?::\w+)?\](.*?)\[/abbr(?::\w+)?\]#si'       => '<abbr title="\\1">\\2</abbr>',
     
     // Quoting with or without specifying the source
-    '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.':<div class="bb-quote-body">',
-    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote">'.$quote_user.':<div class="bb-quote-body">',
-    '#\[/quote(?::\w+)?\]#si'                                  => '</div></div>',
+    '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.'<blockquote class="bb-quote-body">',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote"><b>'.$quote_user.'</b><blockquote class="bb-quote-body">',
+    '#\[/quote(?::\w+)?\]#si'                                  => '</blockquote></div>',
 
     // PHP code blocks (syntax highlighted)
     '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag("\\1")',
+
+    // Links to popular sites
+    '#\[google(?::\w+)?\](.*?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',
+    '#\[wikipedia(?::\w+)?\](.*?)\[/wikipedia(?::\w+)?\]#si' => '<a href="http://www.wikipedia.org/wiki/\\1">\\1</a>',
     
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1',
