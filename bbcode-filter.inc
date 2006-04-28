@@ -60,14 +60,14 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
   $preg = array(
     // Implement [notag]
-    '#\[notag(?::\w+)?\](.*?)\[/notag(?::\w+)?\]#sie'        => '_bbcode_notag_tag("\\1")',
+    '#\[notag(?::\w+)?\](.*?)\[/notag(?::\w+)?\]#sie'        => '_bbcode_notag_tag(\'\\1\')',
 
     // Headings - articles will almost always need them
     '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'     => '<h\\1>\\2</h\\1>',
 
     // Font, text and alignment
     '#\[color=(.*?)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si'   => '<span style="color:\\1">\\2</span>',
-    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, "\\2")',
+    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
     '#\[font=(.*?)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si'     => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(.*?)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
     '#\[float=(.*?)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si'   => '<span style="float:\\1">\\2</span>',
@@ -109,7 +109,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[/quote(?::\w+)?\]#si'                                  => '</blockquote></div>',
 
     // PHP code blocks (syntax highlighted)
-    '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag("\\1")',
+    '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag(\'\\1\')',
 
     // Links to popular sites
     '#\[google(?::\w+)?\](.*?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',

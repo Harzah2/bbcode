@@ -3,7 +3,7 @@ This document uses (almost) all BBCode tags supported by Drupal's BBCode module.
 Normal text formatting:
 Test [b]bold[/b] text
 Test [i]italic[/i] text
-Test [u]undelined[/u] text
+Test [u]underlined[/u] text
 Test [s]strikeout[/s] text
 Test subscript text - H[sub]2[/sub]O
 Test superscript text - X[sup]3[/sup]
@@ -30,22 +30,22 @@ Test [font=Helvetica]Helvetica typeface[/font] text
 Test [font=Times New Roman]Times New Roman typeface[/font] text
 Test [font=verdana]Verdana typeface[/font] text
 
-Text allignment:
+Text alignment:
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
 [justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge you can use the justify tag.[/justify]
 
 Image:
-[img]http://drupal.org/themes/bluebeach/logo.png[/img]
+[img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
 
 Float image right:
-[float=right][img]http://drupal.org/themes/bluebeach/logo.png[/img][/float]
+[float=right][img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img][/float]
 
-Resized image:
-[img=100x50]http://drupal.org/themes/bluebeach/logo.png[/img]
+Re-sized image:
+[img=100x50]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
 
-Let's test some URL's:
+Let's test some URLs:
 www.test-url.com
 ftp.test-url.com
 http://test-url.com/
@@ -53,7 +53,7 @@ ftp://test-url.com/
 [url=http://test-url.com/]Test URL[/url]
 [anchor=TEST]URL Anchor[/anchor]
 
-More URL's:
+More URLs:
 Within parenthesis: (http://www.test-url.com)
 End of sentence: http://www.test-url.com.
 Google link: [google]BBCode[/google]
@@ -91,6 +91,10 @@ Color highlighted PHP code block:
   echo "Sample PHP code";
 ?>
 [/php]
+
+Test notag:
+[notag]These BBCode tags are [b]not[/b] converted to HTML![/notag]
+[notag][size=20]I'm happy[/size][/notag]
 
 A simple quote:
 [quote]This is a quoted message[/quote]
@@ -131,7 +135,7 @@ Numeric list (list=1):
 [*]z
 [/list]
 
-Roman lowecase list (list=i):
+Roman lowercase list (list=i):
 [list=i]
 [*]x
 [*]y
@@ -179,9 +183,6 @@ Force line break:
 Force space:
 --&gt;[sp]&lt;--
 
-Test notag:
-[notag]These BBCode tags are [b]not[/b] converted to HTML![/notag]
-
 Test tag nesting:
 [color=red][size=20]large red text[/size][/color]
 [size=20][color=red]again - large red test with different tag order[/color][/size]
@@ -202,4 +203,3 @@ Broken [b]bold text...
 [*]A broken list...
 
 [quote]A broken quote...
-
