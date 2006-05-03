@@ -234,13 +234,13 @@ function _bbcode_size_tag($size = NULL, $text = NULL) {
     $size = 6;
   if ($size > 48)
     $size = 48;
-  return '<span style="font-size:'.$size.'px">'.$text.'</span>';
+  return '<span style="font-size:'.$size.'px">'.stripslashes($text).'</span>';
 }
 
 function _bbcode_notag_tag($text = NULL) {
-  return str_replace( array('[', ']', '@'), array('&#91;', '&#93;', '&#64;'), $text);
+  return str_replace( array('[', ']', '@'), array('&#91;', '&#93;', '&#64;'), stripslashes($text));
 }
 
 function _bbcode_php_tag($text = NULL) {
-  return '<pre>'. highlight_string( str_replace('<br />', '', $text), true) .'</pre>';
+  return '<pre>'. highlight_string( str_replace('<br />', '', stripslashes($text)), true) .'</pre>';
 }

@@ -1,6 +1,6 @@
 This document uses (almost) all BBCode tags supported by Drupal's BBCode module. You can cut and paste this document into a node to test Drupal's BBCode implementation or to perform some benchmarks.
 
-Normal text formatting:
+[h3]Normal text formatting:[/h3]
 Test [b]bold[/b] text
 Test [i]italic[/i] text
 Test [u]underlined[/u] text
@@ -8,19 +8,19 @@ Test [s]strikeout[/s] text
 Test subscript text - H[sub]2[/sub]O
 Test superscript text - X[sup]3[/sup]
 
-Font colors:
+[h3]Font colors:[/h3]
 Test [color=blue]blue[/color] text
 Test [color=red]red[/color] text
 Test [color=green]green[/color] text
 Test [color=#eeff00]#eeff00[/color] text
 
-Font sizes:
+[h3]Font sizes:[/h3]
 Test [size=1]1px[/size] - too small, normalized to 6px
 Test [size=12]12px[/size] text
 Test [size=24]24px[/size] text
 Test [size=100]100px[/size] - too big, normalized to 48px
 
-Font faces:
+[h3]Font faces:[/h3]
 Test [font=arial]Arial typeface[/font] text
 Test [font=Arial Black]Arial typeface[/font] text
 Test [font=Courier]Courier typeface[/font] text
@@ -30,13 +30,15 @@ Test [font=Helvetica]Helvetica typeface[/font] text
 Test [font=Times New Roman]Times New Roman typeface[/font] text
 Test [font=verdana]Verdana typeface[/font] text
 
-Text alignment:
+[h3]Text alignment:[/h3]
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
 [justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge you can use the justify tag.[/justify]
 
-Image:
+[h3]Images:[/h3]
+
+Normal image:
 [img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
 
 Float image right:
@@ -45,7 +47,7 @@ Float image right:
 Re-sized image:
 [img=100x50]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
 
-Let's test some URLs:
+[h3]Let's test some URLs:[/h3]
 www.test-url.com
 ftp.test-url.com
 http://test-url.com/
@@ -54,34 +56,37 @@ ftp://test-url.com/
 [anchor=TEST]URL Anchor[/anchor]
 
 More URLs:
+
 Within parenthesis: (http://www.test-url.com)
 End of sentence: http://www.test-url.com.
 Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
 
-Let's test some E-mail addresses:
+[h3]Let's test some E-mail addresses:[/h3]
 test@mail.com
 drupal.user@server1.drupal.com
 [email]joe@example.com[/email]
 
-Test headings:
+[h3]Test headings:[/h3]
 [h1]Level 1 Heading[/h1]
 [h2]Level 2 Heading[/h2]
 [h3]Level 3 Heading[/h3]
 [h4]Level 4 Heading[/h4]
 
-Test acronyms and abbreviations:
+[h3]Test acronyms and abbreviations:[/h3]
+Abbreviations:
 [abbr=Application Programming Interface]API[/abbr]
 [abbr=Content Management System]CMS[/abbr]
 [abbr=World Wide Web]WWW[/abbr]
+
+Acronyms:
 [acronym=Structured Query Language]SQL[/acronym]
 [acronym=Graphics Interchange Format]GIF[/acronym]
 [acronym=Radio Detecting and Ranging]radar[/acronym]
 
-Test marquee:
-[move]Move tag - creates a scrolling display[/move]
+[h3]Code blocks:[/h3]
 
-A code block:
+Normal code block:
 [code]x := y + z;
 y := a - b;[/code]
 
@@ -96,6 +101,8 @@ Test notag:
 [notag]These BBCode tags are [b]not[/b] converted to HTML![/notag]
 [notag][size=20]I'm happy[/size][/notag]
 
+[h3]Quoting[/h3]
+
 A simple quote:
 [quote]This is a quoted message[/quote]
 
@@ -106,6 +113,8 @@ Nested quotes:
 [quote=Gabor]This is a quoted message
    [quote=Alastair]This is a nested quote[/quote]
 [/quote]
+
+[h3]Lists[/h3]
 
 A normal list (circular bullets, same as list=c):
 [list]
@@ -174,6 +183,11 @@ A nested list:
 [*]z
 [/list]
 
+[h3]Other tags[/h3]
+
+Test marquee:
+[move]Move tag - creates a scrolling display[/move]
+
 Horizontal delimiter:
 [hr]
 
@@ -183,11 +197,11 @@ Force line break:
 Force space:
 --&gt;[sp]&lt;--
 
-Test tag nesting:
+[h3]Test tag nesting:[/h3]
 [color=red][size=20]large red text[/size][/color]
 [size=20][color=red]again - large red test with different tag order[/color][/size]
 
-Test multi-line tags:
+[h3]Test multi-line tags:[/h3]
 
 [size=20]
   [color=red]
@@ -195,7 +209,8 @@ Test multi-line tags:
   [/color]
 [/size]
 
-Some broken tags - just to show that they will not disrupt your site's HTML:
+[h3]Some broken tags[/h3]
+We need to ensure that bad formating will not disrupt your site's HTML.
 
 Broken [b]bold text...
 
