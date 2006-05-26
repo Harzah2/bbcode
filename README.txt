@@ -33,6 +33,7 @@ Configuration
   - You can enable/ disable the following features in the configuration page
     of the input format in which BBCode is enabled:
 
+    * Convert web and email addresses to links
     * Javascript encoding of emails
     * Smart paragraph and line breaks
     * Print debugging info

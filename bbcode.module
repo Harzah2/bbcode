@@ -43,7 +43,13 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
         '#type' => 'fieldset', 
         '#title' => t('BBCode filter'), 
         '#collapsible' => TRUE, 
-        '#collapsed' => TRUE);
+        '#collapsed' => FALSE);
+      $form['bbcode_filter']["bbcode_make_links_$format"] = array(
+        '#type' => 'select', 
+        '#title' => t('Convert addresses to links'), 
+        '#default_value' => variable_get("bbcode_make_links_$format", 1), 
+        '#options' => array(t('Disabled'), t('Enabled')), 
+        '#description' => t('Turn web and e-mail addresses into clickable links. This is useful if content authors do not explicitly mark addresses as links with [url] and [email] tags.'));
       $form['bbcode_filter']["bbcode_encode_mailto_$format"] = array(
         '#type' => 'select', 
         '#title' => t('Email address encoding'), 
