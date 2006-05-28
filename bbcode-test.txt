@@ -50,9 +50,10 @@ Re-sized image:
 [h3]Let's test some URLs:[/h3]
 www.test-url.com
 ftp.test-url.com
-http://test-url.com/
-ftp://test-url.com/
-[url=http://test-url.com/]Test URL[/url]
+http://test-url.com:/
+ftp://test-url.com:8080/
+[url]http://test-url.com/[/url]
+[url=http://test-url.com/?q=a+b&z=c]Test URL[/url]
 [anchor=TEST]URL Anchor[/anchor]
 
 More URLs:
@@ -63,8 +64,8 @@ Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
 
 [h3]Let's test some E-mail addresses:[/h3]
-test@mail.com
-drupal.user@server1.drupal.com
+Test@Mail.com
+drupal.user@server1.drupal.org
 [email]joe@example.com[/email]
 
 [h3]Test headings:[/h3]
@@ -202,12 +203,23 @@ Force space:
 [size=20][color=red]again - large red test with different tag order[/color][/size]
 
 [h3]Test multi-line tags:[/h3]
-
 [size=20]
   [color=red]
     test
   [/color]
 [/size]
+
+[h3]Check for cross site scripting (XSS) vulnerabilities[/h3]
+User-entered text with embedded script tags <script>alert(document.cookie);</script> will be encoded.
+
+Some other exploits:
+[size=expression(alert(document.cookie));]Size tag[/size]
+[font=expression(alert(document.cookie));]Font tag[/font]
+[float=expression(alert(document.cookie));]Float tag[/float]
+[url=javascript:alert(document.cookie)]Click here to see cookie[/url]
+[anchor=javascript:alert(document.cookie)]Anchor[/anchor]
+[img]javascript:document.location='http://www.albinoblacksheep.com/flash/you.html'[/img]
+http://host.com/?act=SR&f='><script>alert(document.cookie)</script>
 
 [h3]Some broken tags[/h3]
 We need to ensure that bad formating will not disrupt your site's HTML.
@@ -218,3 +230,4 @@ Broken [b]bold text...
 [*]A broken list...
 
 [quote]A broken quote...
+

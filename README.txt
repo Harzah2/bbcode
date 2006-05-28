@@ -67,8 +67,7 @@ Credits / Contacts
   - The original author of this module is Alastair Maw, who can be reached at
     drupal-bbcode[at]almaw.com. 
 
-  - Gabor Hojtsy (goba[at]php.net) also contributed to the module and is the 
-    active maintainer.
+  - Gabor Hojtsy (goba[at]php.net) also contributed to the module.
 
   - Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
 
@@ -84,7 +83,4 @@ TODO List
    this project.
 
  - Configuration of which BBCode tags are allowed.
-
- - Do not allow users to disrupt the HTML output with malicious
-   parameters (color, url, etc.).
 
