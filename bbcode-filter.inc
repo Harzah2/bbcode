@@ -6,7 +6,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
   $quote_text = t('Quote:');
   $quote_user = t('\\1 wrote:');
 
-  // Encode all script tags to prevent XSS attacks
+  // Encode all script tags to prevent XSS html injection attacks
   $body = preg_replace(array('#<script([^>]*)>#i', '#</script([^>]*)>#i'), array('&lt;script\\1&gt;', '&lt;/script\\1&gt;'), $body);
 
   // Apply line and paragraph breaks
@@ -44,7 +44,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Step 3: Reinsert preformatted code blocks
     $cp = count($pre)-1;
     for ($i=0; $i <= $cp; $i++) 
-       $body = str_replace("***pRe_sTrInG$i***", '<pre>'.substr($pre[$i],6,-7).'</pre>', $body);
+       $body = str_replace("***pRe_sTrInG$i***", '<pre class="bb-code-block">'.substr($pre[$i],6,-7).'</pre>', $body);
   }
 
   // Add closing tags to prevent users from disruping your site's HTML
@@ -71,9 +71,9 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[h([1-4])(?::\w+)?\](.*?)\[/h[1-4](?::\w+)?\]#si'     => '<h\\1>\\2</h\\1>',
 
     // Font, text and alignment
-    '#\[color=([\#a-zA-Z0-9]*)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
+    '#\[color=([\#\w]+)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
     '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
-    '#\[font=([^;<>\*\(\)\"\'\]]*)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si' => '<span style="font-family:\\1">\\2</span>',
+    '#\[font=([\w\s]+)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si' => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(\w+)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
     '#\[float=(left|right)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si' => '<span style="float:\\1">\\2</span>',
     '#\[justify(?::\w+)?\](.*?)\[/justify(?::\w+)?\]#si'     => '<div style="text-align:justify;">\\1</div>',
@@ -88,20 +88,20 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
 
     // Links without a protocol, with a protocol and with good looking text
-//    '#\[url(?::\w+)?\]www\.([a-z0-9:;&,%+!=@\/\.\-_\#\?]*?)\[/url(?::\w+)?\]#si'        => '<a href="http://www.\\1" class="bb-url">\\1</a>',
-    '#\[url(?::\w+)?\]([a-z0-9:;&,%+!=@\/\.\-_\#\?]*?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\1</a>',
-    '#\[url=www\.([a-z0-9:;&,%+!=@\/\.\-_\#\?]*?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
-    '#\[url=([a-z0-9:;&,%+!=@\/\.\-_\#\?]*?]*?)\](.*?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\2</a>',
+    '#\[url(?::\w+)?\]www\.([\w:;&,%+!=@\/\.\-\#\?]*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\1</a>',
+    '#\[url(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]*?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\1</a>',
+    '#\[url=www\.([\w:;&,%+!=@\/\.\-\#\?]*?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
+    '#\[url=([\w:;&,%+!=@\/\.\-\#\?]*?)\](.*?)\[/url(?::\w+)?\]#si'      => '<a href="\\1" class="bb-url">\\2</a>',
 
     // Anchor tags for linking within documents
     '#\[anchor=(\w+)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
  
     // Images without or with client-side sizing
-    '#\[img(?::\w+)?\]([^;<>\*\(\)\"\'\]]*)\[/img(?::\w+)?\]#si' => '<img src="\\1" alt="" class="bb-image" />',
-    '#\[img=(\d+)x(\d+)(?::\w+)?\]([^;<>\*\(\)\"\'\]]*)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
+    '#\[img(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img src="\\1" alt="" class="bb-image" />',
+    '#\[img=(\d+)x(\d+)(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
 
     // Flash animations and other special effects
-    '#\[flash=(\d+)x(\d+)(?::\w+)?\]([^;<>\*\(\)\"\'\]*)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
+    '#\[flash=(\d+)x(\d+)(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
 
     // Acronyms & abbreviations - show description when mouse moves over tag
@@ -154,12 +154,12 @@ function _bbcode_filter_process(&$body, $format = -1) {
   // there is no way to pass the $format variable
   if (variable_get("bbcode_encode_mailto_$format", 1)) {
     // Replacing email addresses with encoded html
-    $body = preg_replace_callback('#\[email(?::\w+)?\]([\.\-\+~@_0-9a-z]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
-    $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\]([\.\-\+~@_0-9a-z]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+    $body = preg_replace_callback('#\[email(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+    $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
   }
   else {
     $body = preg_replace(
-      array('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si','#\[email=(.*?)(?::\w+)?\]([\.\-\+~@_0-9a-z]+)\[/email(?::\w+)?\]#si'),
+      array('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si','#\[email=(.*?)(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si'),
       array('<a href="mailto:\\1" class="bb-email">\\1</a>', '<a href="mailto:\\1" class="bb-email">\\2</a>'),
       $body);
   }
