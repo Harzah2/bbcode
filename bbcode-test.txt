@@ -50,7 +50,7 @@ Re-sized image:
 [h3]Let's test some URLs:[/h3]
 www.test-url.com
 ftp.test-url.com
-http://test-url.com:/
+http://test-url.com/~user/
 ftp://test-url.com:8080/
 [url]http://test-url.com/[/url]
 [url=http://test-url.com/?q=a+b&z=c]Test URL[/url]

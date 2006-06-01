@@ -88,10 +88,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
 
     // Links without a protocol, with a protocol and with good looking text
-    '#\[url(?::\w+)?\]www\.([\w:;&,%+!=@\/\.\-\#\?]*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\1</a>',
-    '#\[url(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]*?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\1</a>',
-    '#\[url=www\.([\w:;&,%+!=@\/\.\-\#\?]*?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
-    '#\[url=([\w:;&,%+!=@\/\.\-\#\?]*?)\](.*?)\[/url(?::\w+)?\]#si'      => '<a href="\\1" class="bb-url">\\2</a>',
+    '#\[url(?::\w+)?\]www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\1</a>',
+    '#\[url(?::\w+)?\]([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\1</a>',
+    '#\[url=www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
+    '#\[url=([\w:;&,%+~!=@\/\.\-\#\?]+?)\](.*?)\[/url(?::\w+)?\]#si'      => '<a href="\\1" class="bb-url">\\2</a>',
 
     // Anchor tags for linking within documents
     '#\[anchor=(\w+)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
@@ -110,15 +110,15 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.'<blockquote class="bb-quote-body">',
-    '#\[quote=(?:&quot;|"|\')?([\w\s-]*?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote"><b>'.$quote_user.'</b><blockquote class="bb-quote-body">',
+    '#\[quote=(?:&quot;|"|\')?([\w\s-]+?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote"><b>'.$quote_user.'</b><blockquote class="bb-quote-body">',
     '#\[/quote(?::\w+)?\]#si'                                  => '</blockquote></div>',
 
     // PHP code blocks (syntax highlighted)
     '#\[php(?::\w+)?\](?:[\r\n])*(.*?)\[/php(?::\w+)?\]#sie' => '_bbcode_php_tag(\'\\1\')',
 
     // Links to popular sites
-    '#\[google(?::\w+)?\]([\w\s-]*?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',
-    '#\[wikipedia(?::\w+)?\]([\w\s-]*?)\[/wikipedia(?::\w+)?\]#si' => '<a href="http://www.wikipedia.org/wiki/\\1">\\1</a>',
+    '#\[google(?::\w+)?\]([\w\s-]+?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',
+    '#\[wikipedia(?::\w+)?\]([\w\s-]+?)\[/wikipedia(?::\w+)?\]#si' => '<a href="http://www.wikipedia.org/wiki/\\1">\\1</a>',
 
     // Different kinds of lists and list items
     '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'    => '<li>\\1',
@@ -170,7 +170,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     foreach ($code_tags as $code_tag) {
       if (strpos($code_tag[1], "\n") !== FALSE) {
           $code_tag[1] = str_replace(array("\n ", '  ', "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
-          $code_block = '<span class="bb-code-block">%s</span>';
+          $code_block = '<pre class="bb-code-block">%s</pre>';
       } 
       else 
           $code_block = '<code class="bb-code">%s</code>';
@@ -184,16 +184,16 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // pad with a space so we can match things at the start of the 1st line
     $ret = ' ' . $body;
 
-    // matches an "xxxx://yyyy" URL at the start of a line, or after a space.
+    // matches an "xxx://yyyy" URL at the start of a line, or after a space.
     // xxxx can only be alpha characters.
     // yyyy is anything up to the first space, newline, comma, double quote or <
-    $ret = preg_replace("#([\t\r\n >\(])([a-z0-9]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<\)]*)?)#i", '\1<a href="\2://\3">\2://\3</a>', $ret);
+    $ret = preg_replace("#([\t\r\n >\(])([a-z]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)]*)?)#i", '\1<a href="\2://\3">\2://\3</a>', $ret);
 
     // matches a "www|ftp.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
     // zzzz is optional.. will contain everything up to the first space, newline,
     // comma, double quote or <.
-    $ret = preg_replace("#([\t\r\n >\(])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<\)]*)?)#i", '\1<a href="http://\2.\3">\2.\3</a>', $ret);
+    $ret = preg_replace("#([\t\r\n >\(])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)]*)?)#i", '\1<a href="http://\2.\3">\2.\3</a>', $ret);
 
     // matches an email@domain type address at the start of a line, or after a space.
     // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
