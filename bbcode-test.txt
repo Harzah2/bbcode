@@ -58,8 +58,8 @@ ftp://test-url.com:8080/
 
 More URLs:
 
-Within parenthesis: (http://www.test-url.com)
-End of sentence: http://www.test-url.com.
+Some URL's within a sentence: http://url1.com; www.url2.com, (www.url3.com) and www.url4.com.
+
 Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
 
@@ -184,6 +184,19 @@ A nested list:
 [*]z
 [/list]
 
+[h3]Table tags - experimental do not use![/h3]
+
+[table]
+[row]
+[col]row1col1[/col]
+[col]row1col2[/col]
+[/row]
+[row]
+[col]row2col1[/col]
+[col]row2col2[/col]
+[/row]
+[/table]
+
 [h3]Other tags[/h3]
 
 Test marquee:
@@ -219,6 +232,7 @@ Some other exploits:
 [url=javascript:alert(document.cookie)]Click here to see cookie[/url]
 [anchor=javascript:alert(document.cookie)]Anchor[/anchor]
 [img]javascript:document.location='http://www.albinoblacksheep.com/flash/you.html'[/img]
+[img]javascript:al&#x65rt('XSS')[/img]
 http://host.com/?act=SR&f='><script>alert(document.cookie)</script>
 
 [h3]Some broken tags[/h3]

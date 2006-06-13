@@ -137,6 +137,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#(?=<li>|</ol>)#si'                                    => '</li>\\1',
     '#<br />(\s+)</li>#si'                                  => '</li>\\1',
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
+
+    // Table tags - experimental do not use!
+    '#\[table\](.+?)\[/table\]#si'                          => '<table border>\\1</table>', 
+    '#\[row\](.+?)\[/row\]#si'                              => '<tr>\\1</tr>', 
+    '#\[col\](.+?)\[/col\]#si'                              => '<td>\\1</td>',
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 
@@ -187,7 +192,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // matches an "xxx://yyyy" URL at the start of a line, or after a space.
     // xxxx can only be alpha characters.
     // yyyy is anything up to the first space, newline, comma, double quote or <
-    $ret = preg_replace("#([\t\r\n >\(])([a-z]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)]*)?)#i", '\1<a href="\2://\3">\2://\3</a>', $ret);
+    $ret = preg_replace("#([\t\r\n >\(])([a-z]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\n\r\t<\)]*)?(?!\s))#i", '\1<a href="\2://\3">\2://\3</a>', $ret);
 
     // matches a "www|ftp.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
