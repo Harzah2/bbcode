@@ -9,42 +9,50 @@ function _bbcode_filter_process(&$body, $format = -1) {
   // Encode all script tags to prevent XSS html injection attacks
   $body = preg_replace(array('#<script([^>]*)>#i', '#</script([^>]*)>#i'), array('&lt;script\\1&gt;', '&lt;/script\\1&gt;'), $body);
 
-  // Apply line and paragraph breaks
+  // Find all [code] tags and check if they contain a newline. If we find a newline, 
+  // that [code] should be rendered as a block, otherwise it will still be inline
   $mode = variable_get("bbcode_paragraph_breaks_$format", 2);
+  $pre = array(); $i = 0;
+  if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
+    foreach ($code_tags as $code_tag) {
+      $code_tag[1] = str_replace(array('<', '>'), array('&lt;', '&gt;'), $code_tag[1]);
+      if (strpos($code_tag[1], "\n") === FALSE)
+        $body = str_replace($code_tag[0], '<code class="bb-code">'. $code_tag[1] .'</code>', $body);
+      elseif ($mode) {
+        // Strip preformatted code blocks from text during line break processing, replaced below
+        $body = str_replace($code_tag[0], "***pRe_sTrInG$i***", $body);
+        $pre[$i++] = '<pre class="bb-code-block">'. $code_tag[1] .'</pre>';
+      }
+      else
+        $body = str_replace($code_tag[0], '<pre class="bb-code-block">'. $code_tag[1] .'</pre>', $body);
+    }
+  }
+
+  // Apply line and paragraph breaks (skipping preformatted code)
   if ($mode) {
 
-    // Step 1: strip preformatted code blocks from text
-    $pre = array(); $i = 0;
-    while ($pre_str = stristr($body, '[code]')) {
-      $pre_str = substr($pre_str, 0, strpos(strtolower($pre_str), '[/code]')+7);
-      $body    = str_replace($pre_str, "***pRe_sTrInG$i***", $body);
-      $pre[$i] = str_replace(array('<', '>'), array('&lt;', '&gt;'), $pre_str);
-      $i++;
-    }
-
-    // Step 2: Apply line and paragraph breaks (skipping preformatted code)
     if ($mode == 1) 	// Line breaks only
       $body = nl2br($body);
+
     if ($mode == 2) {	// Line and paragraph breaks
       $body  = preg_replace("/(\r\n|\n|\r)/", "\n", $body);
       $body  = preg_replace("/\n\n+/", "\n\n", $body);
       $parts = explode("\n\n", $body);
       for ($i=0; $i<sizeof($parts); $i++) {
          // No linebreaks if paragraph starts with an HTML tag
-         if ( !preg_match("/^<.*>/", $parts[$i]) ) 
+         if ( !preg_match('/^<.*>/', $parts[$i]) ) 
            $parts[$i] = nl2br($parts[$i]);
 
          // Some tags may not be in paragraph blocks
-         if ( !preg_match("/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i", $parts[$i]) ) 
+         if ( !preg_match('/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i', $parts[$i]) ) 
            $parts[$i] = '<p>'. $parts[$i] .'</p>';
       }
       $body = implode("\n\n", $parts);
     }
 
-    // Step 3: Reinsert preformatted code blocks
-    $cp = count($pre)-1;
-    for ($i=0; $i <= $cp; $i++) 
-       $body = str_replace("***pRe_sTrInG$i***", '<pre class="bb-code-block">'.substr($pre[$i],6,-7).'</pre>', $body);
+    // Reinsert preformatted code blocks
+    foreach ($pre as $i => $code_tag) 
+       $body = str_replace("***pRe_sTrInG$i***", $code_tag, $body);
   }
 
   // Add closing tags to prevent users from disruping your site's HTML
@@ -110,7 +118,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.'<blockquote class="bb-quote-body">',
-    '#\[quote=(?:&quot;|"|\')?([\w\s-]+?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote"><b>'.$quote_user.'</b><blockquote class="bb-quote-body">',
+    '#\[quote=(?:&quot;|"|\')?(.*?)["\']?(?:&quot;|"|\')?\]#i' => '<div class="bb-quote"><b>'.$quote_user.'</b><blockquote class="bb-quote-body">',
     '#\[/quote(?::\w+)?\]#si'                                  => '</blockquote></div>',
 
     // PHP code blocks (syntax highlighted)
@@ -138,13 +146,18 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#<br />(\s+)</li>#si'                                  => '</li>\\1',
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
 
-    // Table tags - experimental do not use!
-    '#\[table\](.+?)\[/table\]#si'                          => '<table border>\\1</table>', 
+    // Table tags
+    '#\[table\](.+?)\[/table\]#si'                           => '<table border>\\1</table>', 
     '#\[row\](.+?)\[/row\]#si'                              => '<tr>\\1</tr>', 
     '#\[col\](.+?)\[/col\]#si'                              => '<td>\\1</td>',
+
+    // Cleanup table output (td, th and tr tags)
+    '#<([\/]?)t([dhr])><br />#si'                           => '<\\1t\\2>',
+    '#<table(.+?)><br />#si'                                 => '<table\\1>',
   );
   $body = preg_replace(array_keys($preg), array_values($preg), $body);
 
+  // Simple replacements (str_replace is faster than preg_replace)
   $str = array(
     // Horizontal delimiter
     '[hr]'   => '<hr class="bb-hr" />',
@@ -169,20 +182,6 @@ function _bbcode_filter_process(&$body, $format = -1) {
       $body);
   }
 
-  // Find all [code] tags and check if they contain a newline. If we find a newline, 
-  // that [code] should be rendered as a block, otherwise it will still be inline
-  if (preg_match_all('#\[code(?::\w+)?\](.*?)\[/code(?::\w+)?\]#si', $body, $code_tags, PREG_SET_ORDER)) {
-    foreach ($code_tags as $code_tag) {
-      if (strpos($code_tag[1], "\n") !== FALSE) {
-          $code_tag[1] = str_replace(array("\n ", '  ', "\n"), array('<br />&nbsp;', ' &nbsp;', '<br />'), trim($code_tag[1]));
-          $code_block = '<pre class="bb-code-block">%s</pre>';
-      } 
-      else 
-          $code_block = '<code class="bb-code">%s</code>';
-      $body = str_replace($code_tag[0], sprintf($code_block, $code_tag[1]), $body);
-    }
-  }
-
   // Turns web and e-mail addresses into clickable links
   if (variable_get("bbcode_make_links_$format", 1)) {
 
@@ -192,20 +191,20 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // matches an "xxx://yyyy" URL at the start of a line, or after a space.
     // xxxx can only be alpha characters.
     // yyyy is anything up to the first space, newline, comma, double quote or <
-    $ret = preg_replace("#([\t\r\n >\(])([a-z]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\n\r\t<\)]*)?(?!\s))#i", '\1<a href="\2://\3">\2://\3</a>', $ret);
+    $ret = preg_replace('#(?<=^|[\t\r\n >\(\[\]\|])([a-z]+?://[\w\-]+\.([\w\-]+\.)*\w+(:[0-9]+)?(/[^ "\'\(;\n\r\t<\)\[\]\|]*)?)\b#i', '<a href="\1">\1</a>', $ret);
 
     // matches a "www|ftp.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
     // zzzz is optional.. will contain everything up to the first space, newline,
     // comma, double quote or <.
-    $ret = preg_replace("#([\t\r\n >\(])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)]*)?)#i", '\1<a href="http://\2.\3">\2.\3</a>', $ret);
+    $ret = preg_replace('#([\t\r\n >\(]\[\|)(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)\[\]\|]*)?)#i', '\1<a href="http://\2.\3">\2.\3</a>', $ret);
 
     // matches an email@domain type address at the start of a line, or after a space.
     // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".
     if (variable_get("bbcode_encode_mailto_$format", 1))
       $ret = preg_replace_callback("#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
     else 
-      $ret = preg_replace("#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $ret);
+      $ret = preg_replace('#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i', '\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>', $ret);
 
     // Remove our padding
     $body = substr($ret, 1);
