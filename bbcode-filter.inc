@@ -105,11 +105,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[anchor=(\w+)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
  
     // Images without or with client-side sizing
-    '#\[img(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img src="\\1" alt="" class="bb-image" />',
-    '#\[img=(\d+)x(\d+)(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
+    '#\[img(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img src="\\1" alt="" class="bb-image" />',
+    '#\[img=(\d+)x(\d+)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
 
     // Flash animations and other special effects
-    '#\[flash=(\d+)x(\d+)(?::\w+)?\]([\w:;&,%+!=@\/\.\-\#\?]+)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
+    '#\[flash=(\d+)x(\d+)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
 
     // Acronyms & abbreviations - show description when mouse moves over tag
@@ -173,11 +173,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
   if (variable_get("bbcode_encode_mailto_$format", 1)) {
     // Replacing email addresses with encoded html
     $body = preg_replace_callback('#\[email(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
-    $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
+    $body = preg_replace_callback('#\[email=(.*?)(?::\w+)?\]([\w\s]+)\[/email(?::\w+)?\]#si', '_bbcode_encode_mailto', $body);
   }
   else {
     $body = preg_replace(
-      array('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si','#\[email=(.*?)(?::\w+)?\]([\w\.\-\+~@]+)\[/email(?::\w+)?\]#si'),
+      array('#\[email(?::\w+)?\](.*?)\[/email(?::\w+)?\]#si','#\[email=(.*?)(?::\w+)?\]([\w\s]+)\[/email(?::\w+)?\]#si'),
       array('<a href="mailto:\\1" class="bb-email">\\1</a>', '<a href="mailto:\\1" class="bb-email">\\2</a>'),
       $body);
   }
@@ -191,13 +191,13 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // matches an "xxx://yyyy" URL at the start of a line, or after a space.
     // xxxx can only be alpha characters.
     // yyyy is anything up to the first space, newline, comma, double quote or <
-    $ret = preg_replace('#(?<=^|[\t\r\n >\(\[\]\|])([a-z]+?://[\w\-]+\.([\w\-]+\.)*\w+(:[0-9]+)?(/[^ "\'\(;\n\r\t<\)\[\]\|]*)?)\b#i', '<a href="\1">\1</a>', $ret);
+    $ret = preg_replace('#(?<=^|[\t\r\n >\(\[\]\|])([a-z]+?://[\w\-]+\.([\w\-]+\.)*\w+(:[0-9]+)?(/[^ "\'\(\n\r\t<\)\[\]\|]*)?)((?<![,\.])|(?!\s))#i', '<a href="\1">\1</a>', $ret);
 
     // matches a "www|ftp.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
     // zzzz is optional.. will contain everything up to the first space, newline,
     // comma, double quote or <.
-    $ret = preg_replace('#([\t\r\n >\(]\[\|)(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\;\,\n\r\t<\)\[\]\|]*)?)#i', '\1<a href="http://\2.\3">\2.\3</a>', $ret);
+     $ret = preg_replace('#([\t\r\n >\(\[\|])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\'\(\n\r\t<\)\[\]\|]*)?)#i', '\1<a href="http://\2.\3">\2.\3</a>', $ret);
 
     // matches an email@domain type address at the start of a line, or after a space.
     // Note: Only the followed chars are valid; alphanums, "-", "_" and or ".".

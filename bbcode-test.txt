@@ -54,11 +54,11 @@ http://test-url.com/~user/,part,of,url
 ftp://test-url.com:8080/
 [url]http://test-url.com/[/url]
 [url=http://test-url.com/?q=a+b&z=c]Test URL[/url]
+
+Anchor (bookmark you can link to):
 [anchor=TEST]URL Anchor[/anchor]
 
-More URLs:
-
-Some URL's within a sentence: http://url1.com; www.url2.com, (www.url3.com) and www.url4.com.
+Some URL's within a sentence: http://url1.com; www.url2.com, (www.url3.com) and www.url4.com. And some more: ftp://url5.com/, (ftp.url6.com/) and ftp.url7.com.
 
 Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
@@ -67,6 +67,7 @@ Wikipedia link: [wikipedia]BBCode[/wikipedia]
 Test@Mail.com
 drupal.user@server1.drupal.org
 [email]joe@example.com[/email]
+[email=joe@smith.co.za]Joe Smith[/email]
 
 [h3]Test headings:[/h3]
 [h1]Level 1 Heading[/h1]
@@ -186,7 +187,7 @@ A nested list:
 [*]z
 [/list]
 
-[h3]Table tags - experimental do not use![/h3]
+[h3]Table tags[/h3]
 
 [table]
 [row]
