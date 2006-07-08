@@ -54,7 +54,8 @@ Complementing Modules
 The following optional modules may be used to enhance your BBCode 
 installation:
 
-  - BBCode Formatting Bar - http://drupal.org/node/24875 (Drupal 4.6 only!)
+  - Quicktags - http://drupal.org/project/quicktags
+    Adds a BBCode formatting bar above all your textareas. 
 
   - Smileys module - http://drupal.org/project/smileys
 
@@ -71,16 +72,13 @@ Credits / Contacts
 
   - Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
 
-  - Frank Naude converted this module to the Drupal 4.7 Forms API and added 
-    support for more BBCode tags.
+  - Frank Naude converted this module to Drupal 4.7, added some BBCode tags,
+    linebreak converter, quicktags integration, etc.
 
 TODO List
 ------------------------------------------------------------------------------
 
  - Translate this module into other languages.
-
- - Convert the BBCode Formatting Bar module to Drupal 4.7 and integrate with 
-   this project.
 
  - Configuration of which BBCode tags are allowed.
 

@@ -74,3 +74,57 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
       return $text;
   }
 }
+
+/* hook_quicktags_insert
+ * Add some BBCode icons if the quicktags module is enabled
+ */
+//function bbcode_quicktags_insert() {
+//  $path = base_path() . drupal_get_path('module','quicktags') .'/';
+//  $items = array(
+//    'ed_code' => array(
+//      'name' => 'code',
+//      'prefix' => '[code]',
+//      'suffix' => '[/code]',
+//      'accesskey' => 'c',
+//      'icon' => $path .'ed_code.png',
+//    ),
+//  );
+//  return $items;
+//}
+
+/* hook_quicktags_alter
+ * Alter icons if the quicktags module is enabled
+ */
+function bbcode_quicktags_alter($items) {
+  $path = base_path() . drupal_get_path('module','quicktags') .'/';
+  $items['ed_italic'] = array(
+      'name' => 'italic',
+      'prefix' => '[i]',
+      'suffix' => '[/i]',
+      'accesskey' => 'i',
+      'icon' => $path .'ed_italic.png',
+    );
+  $items['ed_bold'] = array(
+      'name' => 'bold',
+      'prefix' => '[b]',
+      'suffix' => '[/b]',
+      'accesskey' => 'b',
+      'icon' => $path .'ed_bold.png',
+    );
+  $items['ed_block'] = array(
+      'name' => 'quote',
+      'prefix' =>'[quote]',
+      'suffix' => '[/quote]',
+      'accesskey' => 'q',
+      'icon' => $path .'ed_block.png',
+    );
+  $items['ed_link'] = array(
+      'name' => 'link',
+      'prefix' =>'[url=http://]',
+      'suffix' => '[/url]',
+      'accesskey' => 'l',
+      'icon' => $path .'ed_link.png',
+    );
+  return $items;
+}
+
