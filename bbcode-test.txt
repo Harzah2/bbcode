@@ -34,7 +34,7 @@ Test [font=verdana]Verdana typeface[/font] text
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
-[justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge you can use the justify tag.[/justify]
+[justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge - use the justify tag.[/justify]
 
 [h3]Images:[/h3]
 
@@ -43,6 +43,9 @@ Normal image:
 
 Float image right:
 [float=right][img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img][/float]
+
+Image with ALT description:
+[img=The Drupal Logo]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
 
 Re-sized image:
 [img=100x50]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
@@ -191,13 +194,24 @@ A nested list:
 
 [table]
 [row]
-[col]row1col1[/col]
-[col]row1col2[/col]
+  [col]row1col1[/col]
+  [col]row1col2[/col]
 [/row]
 [row]
-[col]row2col1[/col]
-[col]row2col2[/col]
+  [col]row2col1[/col]
+  [col]row2col2[/col]
 [/row]
+[/table]
+
+[table]
+[r]
+  [c]row1col1[/c]
+  [c]row1col2[/c]
+[/r]
+[r]
+  [c]row2col1[/col]
+  [c]row2col2[/col]
+[/r]
 [/table]
 
 [h3]Other tags[/h3]

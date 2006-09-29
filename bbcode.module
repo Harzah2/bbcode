@@ -12,7 +12,7 @@ function bbcode_filter_tips($delta, $format, $long = false) {
     return _bbcode_filter_tip();
   }
   else 
-    return t('You can use <a href="%bbcode_help">BBCode tags</a> in the text, URLs will be automatically converted to links', array('%bbcode_help' => url("filter/tips/$format", NULL, 'filter-bbcode')));
+    return t('You can use ' . l('BBCode help', "filter/tips/$format") . ' in the text, URLs will be automatically converted to links');
 }
 
 function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
@@ -75,23 +75,6 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
   }
 }
 
-/* hook_quicktags_insert
- * Add some BBCode icons if the quicktags module is enabled
- */
-//function bbcode_quicktags_insert() {
-//  $path = base_path() . drupal_get_path('module','quicktags') .'/';
-//  $items = array(
-//    'ed_code' => array(
-//      'name' => 'code',
-//      'prefix' => '[code]',
-//      'suffix' => '[/code]',
-//      'accesskey' => 'c',
-//      'icon' => $path .'ed_code.png',
-//    ),
-//  );
-//  return $items;
-//}
-
 /* hook_quicktags_alter
  * Alter icons if the quicktags module is enabled
  */
@@ -110,6 +93,13 @@ function bbcode_quicktags_alter($items) {
       'suffix' => '[/b]',
       'accesskey' => 'b',
       'icon' => $path .'ed_bold.png',
+    );
+  $items['ed_code'] = array(
+      'name' => 'code',
+      'prefix' =>'[code]',
+      'suffix' => '[/code]',
+      'accesskey' => 'c',
+      'icon' => $path .'ed_code.png',
     );
   $items['ed_block'] = array(
       'name' => 'quote',

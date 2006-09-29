@@ -18,8 +18,7 @@ Installation
  
   - Download the BBCode module from http://drupal.org/project/bbcode
 
-  - Copy bbcode.module, bbcode-help.inc and bbcode-filter.inc to your modules
-    directory (suggestion: create a subdirectory .../modules/bbcode/)
+  - Create a .../modules/bbcode/ subdirectory and copy the files into it.
 
   - Enable the module as usual from Drupal's admin pages 
     (Administer » Modules)
@@ -72,8 +71,8 @@ Credits / Contacts
 
   - Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
 
-  - Frank Naude converted this module to Drupal 4.7, added some BBCode tags,
-    linebreak converter, quicktags integration, etc.
+  - Frank Naude converted this module to Drupal 4.7 and 5.0, added several
+    BBCode tags, a linebreak converter, quicktags integration, etc.
 
 TODO List
 ------------------------------------------------------------------------------
