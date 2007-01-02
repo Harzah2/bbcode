@@ -83,6 +83,7 @@ Abbreviations:
 [abbr=Application Programming Interface]API[/abbr]
 [abbr=Content Management System]CMS[/abbr]
 [abbr=World Wide Web]WWW[/abbr]
+[abbr=2.54cm]1 inch[/abbr]
 
 Acronyms:
 [acronym=Structured Query Language]SQL[/acronym]

@@ -114,8 +114,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si'           => '<marquee>\\1</marquee>',
 
     // Acronyms & abbreviations - show description when mouse moves over tag
-    '#\[acronym=([\w\s-]+)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si' => '<acronym title="\\1">\\2</acronym>',
-    '#\[abbr=([\w\s-]+)(?::\w+)?\](.*?)\[/abbr(?::\w+)?\]#si'       => '<abbr title="\\1">\\2</abbr>',
+    '#\[acronym=([\w\s-,\.]+)(?::\w+)?\](.*?)\[/acronym(?::\w+)?\]#si' => '<acronym title="\\1">\\2</acronym>',
+    '#\[abbr=([\w\s-,\.]+)(?::\w+)?\](.*?)\[/abbr(?::\w+)?\]#si'       => '<abbr title="\\1">\\2</abbr>',
 
     // Quoting with or without specifying the source
     '#\[quote(?::\w+)?\]#i'                                    => '<div class="bb-quote">'.$quote_text.'<blockquote class="bb-quote-body">',
