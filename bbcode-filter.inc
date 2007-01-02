@@ -205,7 +205,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     if (variable_get("bbcode_encode_mailto_$format", 1))
       $ret = preg_replace_callback("#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", '_bbcode_encode_mailto', $ret);
     else 
-      $ret = preg_replace('#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i', '\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>', $ret);
+      $ret = preg_replace('#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i', '\\1<a href="mailto:\\2@\\3">\\2@\\3</a>', $ret);
 
     // Remove our padding
     $body = substr($ret, 1);
@@ -224,7 +224,7 @@ function _bbcode_encode_mailto($matches) {
   for ($x = 0; $x < strlen($link); $x++) 
     $js_encode .= '%' . bin2hex($link{$x});
 
-  $link = '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+  $link = '<script type="text/javascript">eval(unescape(\''.$js_encode.'\'))</script>';
   if (isset($matches[3]))
     $link = $matches[1] . $link;
 
