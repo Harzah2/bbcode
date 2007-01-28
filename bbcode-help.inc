@@ -4,8 +4,6 @@
 function _bbcode_filter_tip() {
   return t("<a id=\"filter-bbcode\"></a><h2>BBCode Guide</h2>
 
-<h3>Introduction</h3>
-
 <p>
  BBCode allows you to specify formatting rules for your text,
  even if you are not allowed to use HTML in your posts. BBCode
