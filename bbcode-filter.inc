@@ -31,10 +31,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
   // Apply line and paragraph breaks (skipping preformatted code)
   if ($mode) {
 
-    if ($mode == 1) 	// Line breaks only
+    if ($mode == 1) 	// Line breaks only (starting with PHP 4.0.5, nl2br() is XHTML compliant)
       $body = nl2br($body);
 
-    if ($mode == 2) {	// Line and paragraph breaks
+    if ($mode == 2) {	// Line and paragraph breaks (may not always be XHTML compliant)
       $body  = preg_replace("/(\r\n|\n|\r)/", "\n", $body);
       $body  = preg_replace("/\n\n+/", "\n\n", $body);
       $parts = explode("\n\n", $body);
@@ -43,7 +43,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
          if ( !preg_match('/^<.*>/', $parts[$i]) ) 
            $parts[$i] = nl2br($parts[$i]);
 
-         // Some tags may not be in paragraph blocks
+         // Some tags should not be in paragraph blocks
          if ( !preg_match('/^(?:<|\[)(?:table|list|ol|ul|pre|select|form|blockquote|hr)/i', $parts[$i]) ) 
            $parts[$i] = '<p>'. $parts[$i] .'</p>';
       }
@@ -75,8 +75,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Implement [notag]
     '#\[notag(?::\w+)?\](.*?)\[/notag(?::\w+)?\]#sie'        => '_bbcode_notag_tag(\'\\1\')',
 
-    // Headings - articles will almost always need them
-    '#\[h([1-6])(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#si'     => '<h\\1>\\2</h\\1>',
+    // Headings and indexes - articles will almost always need them
+    '#\[h([1-6])(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#sie'    => '_bbcode_generate_heading(\\1, \'\\2\')',
+    '#\[index\s*/?\]#sie'                                    => '_bbcode_generate_index($body)',
+    # '#\[h([1-6]) anchor=(\w+)(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#si' => '<a name="\\2"><h\\1>\\3</h\\1></a>',
 
     // Font, text and alignment
     '#\[color=([\#\w]+)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
@@ -95,7 +97,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[left(?::\w+)?\](.*?)\[/left(?::\w+)?\]#si'           => '<div style="text-align:left">\\1</div>',
     '#\[right(?::\w+)?\](.*?)\[/right(?::\w+)?\]#si'         => '<div style="text-align:right">\\1</div>',
 
-    // Links without a protocol, with a protocol and with good looking text
+    // Links without a protocol, with a protocol, and with good looking text
     '#\[url(?::\w+)?\]www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\1</a>',
     '#\[url(?::\w+)?\]([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si'   => '<a href="\\1" class="bb-url">\\1</a>',
     '#\[url=www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
@@ -108,6 +110,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[img(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img src="\\1" alt="" class="bb-image" />',
     '#\[img=(\d+)x(\d+)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img width="\\1" height="\\2" alt="" src="\\3" class="bb-image" />',
     '#\[img=([\w\s:;,\.\-\'\(\)]+)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img alt="\\1" src="\\2" class="bb-image" />',
+    '#\[img align=(left|right|center)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/img(?::\w+)?\]#si' => '<img src="\\2" alt="" align="\\1" class="bb-image" />',
 
     // Flash animations and other special effects
     '#\[flash=(\d+)x(\d+)(?::\w+)?\]([\w:;&,~%+!=@\/\.\-\#\?]+)\[/flash(?::\w+)?\]#si' => '<object type="application/x-shockwave-flash" data="\\3" width="\\1" height="\\2"><param name="movie" value="\\3" /></object>', 
@@ -212,6 +215,48 @@ function _bbcode_filter_process(&$body, $format = -1) {
   }
 
   return $body;
+}
+
+function _bbcode_generate_heading($level, $text) {
+  $anchor = str_replace(' ', '_', $text);
+  $anchor = preg_replace('/([\W]+)/', '', $anchor);
+  return '<a name="'. $anchor .'"><h'. $level .'>'. $text .'</h'. $level .'></a>';
+}
+
+function _bbcode_generate_index($body) {
+  $level = 0;
+  $index = "<ol>\n";
+  $close_tags = 0;
+
+  if (preg_match_all('#\[h([1-6]).*?\](.*?)\[/h([1-6]).*?\]#si', $body, $head_tags, PREG_SET_ORDER)) {
+    foreach ($head_tags as $head_tag) {
+      if ($level == 0) $level = $head_tag[1];
+      $anchor = str_replace(' ', '_', $head_tag[2]);
+      $anchor = preg_replace('/([\W]+)/', '', $anchor);
+
+      if ($head_tag[1] > $level) {
+        $index .= "<ol>\n";
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $close_tags++;
+        $level = $head_tag[1];
+      } else if ($head_tag[1] < $level) {
+        while ($close_tags > 0) {
+           $index .= "</ol>\n";
+           $close_tags--;
+        }
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $level = $head_tag[1];
+      } else {
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $level = $head_tag[1];
+      }
+    }
+  }
+  while ($close_tags >= 0) {
+    $index .= "</ol>\n";
+    $close_tags--;
+  }
+  return $index;
 }
 
 function _bbcode_encode_mailto($matches) {

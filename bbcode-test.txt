@@ -1,6 +1,9 @@
 This document uses (almost) all BBCode tags supported by Drupal's BBCode module. You can cut and paste this document into a node to test Drupal's BBCode implementation or to perform some benchmarks.
 
-[h3]Normal text formatting:[/h3]
+[index]
+[hr]
+
+[h3]Normal text formatting[/h3]
 Test [b]bold[/b] text
 Test [i]italic[/i] text
 Test [u]underlined[/u] text
@@ -8,19 +11,19 @@ Test [s]strikeout[/s] text
 Test subscript text - H[sub]2[/sub]O
 Test superscript text - X[sup]3[/sup]
 
-[h3]Font colors:[/h3]
+[h3]Font colors[/h3]
 Test [color=blue]blue[/color] text
 Test [color=red]red[/color] text
 Test [color=green]green[/color] text
 Test [color=#eeff00]#eeff00[/color] text
 
-[h3]Font sizes:[/h3]
+[h3]Font sizes[/h3]
 Test [size=1]1px[/size] - too small, normalized to 6px
 Test [size=12]12px[/size] text
 Test [size=24]24px[/size] text
 Test [size=100]100px[/size] - too big, normalized to 48px
 
-[h3]Font faces:[/h3]
+[h3]Font faces[/h3]
 Test [font=arial]Arial typeface[/font] text
 Test [font=Arial Black]Arial typeface[/font] text
 Test [font=Courier]Courier typeface[/font] text
@@ -30,27 +33,27 @@ Test [font=Helvetica]Helvetica typeface[/font] text
 Test [font=Times New Roman]Times New Roman typeface[/font] text
 Test [font=verdana]Verdana typeface[/font] text
 
-[h3]Text alignment:[/h3]
+[h3]Text alignment[/h3]
 [left]Left hand side of the screen[/left]
 [right]Right hand side of the screen[/right]
 [center]Centered[/center]
 [justify]This paragraph is justified on both sided on the page. By default most browsers render text with a jagged right edge. If you want all text rendered like in a book with an even right edge - use the justify tag.[/justify]
 
-[h3]Images:[/h3]
+[h3]Images[/h3]
 
 Normal image:
-[img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
+[img]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
 
-Float image right:
-[float=right][img]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img][/float]
+Align image right:
+[img align=right]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
 
 Image with ALT description:
-[img=The Drupal Logo]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
+[img=The Dripal Logo]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
 
 Re-sized image:
-[img=100x50]http://upload.wikimedia.org/wikipedia/en/0/0b/Drupallogo.png[/img]
+[img=100x50]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
 
-[h3]Let's test some URLs:[/h3]
+[h3]URL's[/h3]
 www.test-url.com
 ftp.test-url.com
 http://test-url.com/~user/,part,of,url
@@ -66,19 +69,19 @@ Some URL's within a sentence: http://url1.com; www.url2.com, (www.url3.com) and 
 Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
 
-[h3]Let's test some E-mail addresses:[/h3]
+[h3]E-mail addresses[/h3]
 Test@Mail.com
 drupal.user@server1.drupal.org
 [email]joe@example.com[/email]
 [email=joe@smith.co.za]Joe Smith[/email]
 
-[h3]Test headings:[/h3]
+[h3]Headings[/h3]
 [h1]Level 1 Heading[/h1]
 [h2]Level 2 Heading[/h2]
 [h3]Level 3 Heading[/h3]
 [h4]Level 4 Heading[/h4]
 
-[h3]Test acronyms and abbreviations:[/h3]
+[h3]Acronyms and abbreviations[/h3]
 Abbreviations:
 [abbr=Application Programming Interface]API[/abbr]
 [abbr=Content Management System]CMS[/abbr]
@@ -90,7 +93,7 @@ Acronyms:
 [acronym=Graphics Interchange Format]GIF[/acronym]
 [acronym=Radio Detecting and Ranging]radar[/acronym]
 
-[h3]Code blocks:[/h3]
+[h3]Code blocks[/h3]
 
 Normal code block:
 [code]x := y + z;
@@ -229,7 +232,7 @@ Force line break:
 Force space:
 --&gt;[sp]&lt;--
 
-[h3]Test tag nesting:[/h3]
+[h3]Tag nesting[/h3]
 [color=red][size=20]large red text[/size][/color]
 [size=20][color=red]again - large red test with different tag order[/color][/size]
 
@@ -240,7 +243,7 @@ Force space:
   [/color]
 [/size]
 
-[h3]Check for cross site scripting (XSS) vulnerabilities[/h3]
+[h3]Cross site scripting (XSS) vulnerabilities[/h3]
 User-entered text with embedded script tags <script>alert(document.cookie);</script> will be encoded.
 
 Some other exploits:
@@ -253,7 +256,7 @@ Some other exploits:
 [img]javascript:al&#x65rt('XSS')[/img]
 http://host.com/?act=SR&f='><script>alert(document.cookie)</script>
 
-[h3]Some broken tags[/h3]
+[h3]Broken tags[/h3]
 We need to ensure that bad formating will not disrupt your site's HTML.
 
 Broken [b]bold text...
