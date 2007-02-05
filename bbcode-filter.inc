@@ -78,7 +78,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Headings and indexes - articles will almost always need them
     '#\[h([1-6])(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#sie'    => '_bbcode_generate_heading(\\1, \'\\2\')',
     '#\[index\s*/?\]#sie'                                    => '_bbcode_generate_index($body)',
-    # '#\[h([1-6]) anchor=(\w+)(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#si' => '<a name="\\2"><h\\1>\\3</h\\1></a>',
+    '#\[index tag=(ol|ul)\]#sie'                             => '_bbcode_generate_index($body, \'\\1\')',
 
     // Font, text and alignment
     '#\[color=([\#\w]+)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
@@ -151,9 +151,11 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
 
     // Table tags
-    '#\[table\](.+?)\[/table\]#si'                          => '<table border>\\1</table>', 
-    '#\[(row|r|tr)\](.+?)\[/(row|r|tr)\]#si'                => '<tr>\\2</tr>', 
-    '#\[(col|c|td)\](.+?)\[/(col|c|td)\]#si'                => '<td>\\2</td>',
+    '#\[table\](.+?)\[/table\]#si'                           => '<table border>\\1</table>', 
+    '#\[(row|r|tr)\](.+?)\[/(row|r|tr)\]#si'                 => '<tr>\\2</tr>', 
+    '#\[(row|r|tr) color=([\#\w]+)\](.+?)\[/(row|r|tr)\]#si' => '<tr bgcolor=\\2>\\3</tr>', 
+    '#\[(header|head|h)\](.+?)\[/(header|head|h)\]#si'       => '<th>\\2</th>',
+    '#\[(col|c|td)\](.+?)\[/(col|c|td)\]#si'                 => '<td valign="top">\\2</td>',
 
     // Cleanup table output (td, th and tr tags)
     '#<([\/]?)t([dhr])><br />#si'                           => '<\\1t\\2>',
@@ -218,42 +220,42 @@ function _bbcode_filter_process(&$body, $format = -1) {
 }
 
 function _bbcode_generate_heading($level, $text) {
-  $anchor = str_replace(' ', '_', $text);
-  $anchor = preg_replace('/([\W]+)/', '', $anchor);
+  $anchor = preg_replace('/([\s]+)/', '_', $text);
+  $anchor = preg_replace('/([\W]+)/', '',  $anchor);
   return '<a name="'. $anchor .'"><h'. $level .'>'. $text .'</h'. $level .'></a>';
 }
 
-function _bbcode_generate_index($body) {
+function _bbcode_generate_index($body, $tag = 'ol') {
   $level = 0;
-  $index = "<ol>\n";
+  $index = '<'. $tag .">\n";
   $close_tags = 0;
 
   if (preg_match_all('#\[h([1-6]).*?\](.*?)\[/h([1-6]).*?\]#si', $body, $head_tags, PREG_SET_ORDER)) {
     foreach ($head_tags as $head_tag) {
       if ($level == 0) $level = $head_tag[1];
-      $anchor = str_replace(' ', '_', $head_tag[2]);
-      $anchor = preg_replace('/([\W]+)/', '', $anchor);
+      $anchor = preg_replace('/([\s]+)/', '_', $head_tag[2]);
+      $anchor = preg_replace('/([\W]+)/', '',  $anchor);
 
       if ($head_tag[1] > $level) {
-        $index .= "<ol>\n";
-        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $index .= '<'. $tag .">\n";
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a>\n";
         $close_tags++;
         $level = $head_tag[1];
       } else if ($head_tag[1] < $level) {
         while ($close_tags > 0) {
-           $index .= "</ol>\n";
+           $index .= '</'. $tag .">\n";
            $close_tags--;
         }
-        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a>\n";
         $level = $head_tag[1];
       } else {
-        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a></li>\n";
+        $index .= '<li><a href="#'. $anchor .'">'. $head_tag[2] ."</a>\n";
         $level = $head_tag[1];
       }
     }
   }
   while ($close_tags >= 0) {
-    $index .= "</ol>\n";
+    $index .= '</'. $tag .">\n";
     $close_tags--;
   }
   return $index;
