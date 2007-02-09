@@ -8,7 +8,7 @@ function bbcode_help($section) {
 
 function bbcode_filter_tips($delta, $format, $long = false) {
   if ($long) {
-    include_once 'bbcode-help.inc';
+    include_once(drupal_get_path('module', 'bbcode') .'/bbcode-help.inc');
     return _bbcode_filter_tip();
   }
   else 
@@ -24,7 +24,7 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
       return t('Converts BBCode to HTML.');
 
     case 'process':
-      include_once 'bbcode-filter.inc';
+      include_once(drupal_get_path('module', 'bbcode') .'/bbcode-filter.inc');
       if (variable_get("bbcode_debug_$format", 0)) {
         $timing_start = explode(' ', microtime());
         $ret = _bbcode_filter_process($text, $format);
