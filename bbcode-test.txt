@@ -4,8 +4,8 @@ This document uses (almost) all BBCode tags supported by Drupal's BBCode module.
 [hr]
 
 [h3]Normal text formatting[/h3]
-Test [b]bold[/b] text
-Test [i]italic[/i] text
+Test [b]bold[/b] / [strong]strong[/strong] text
+Test [i]italic[/i] / [em]emphasised[/em] text
 Test [u]underlined[/u] text
 Test [s]strikeout[/s] text
 Test subscript text - H[sub]2[/sub]O

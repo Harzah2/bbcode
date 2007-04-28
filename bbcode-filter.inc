@@ -78,7 +78,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Headings and indexes - articles will almost always need them
     '#\[h([1-6])(?::\w+)?\](.*?)\[/h[1-6](?::\w+)?\]#sie'    => '_bbcode_generate_heading(\\1, \'\\2\')',
     '#\[index\s*/?\]#sie'                                    => '_bbcode_generate_index($body)',
-    '#\[index tag=(ol|ul)\]#sie'                             => '_bbcode_generate_index($body, \'\\1\')',
+    '#\[index style=(ol|ul)\]#sie'                           => '_bbcode_generate_index($body, \'\\1\')',
 
     // Font, text and alignment
     '#\[color=([\#\w]+)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
@@ -87,8 +87,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[align=(\w+)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
     '#\[float=(left|right)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si' => '<span style="float:\\1">\\2</span>',
     '#\[justify(?::\w+)?\](.*?)\[/justify(?::\w+)?\]#si'     => '<div style="text-align:justify;">\\1</div>',
-    '#\[b(?::\w+)?\](.*?)\[/b(?::\w+)?\]#si'                 => '<span style="font-weight:bold">\\1</span>',
-    '#\[i(?::\w+)?\](.*?)\[/i(?::\w+)?\]#si'                 => '<span style="font-style:italic">\\1</span>',
+    '#\[(b|strong)(?::\w+)?\](.*?)\[/(b|strong)(?::\w+)?\]#si' => '<span style="font-weight:bold">\\1</span>',
+    '#\[(i|em)(?::\w+)?\](.*?)\[/(i|em)(?::\w+)?\]#si'       => '<span style="font-style:italic">\\1</span>',
     '#\[u(?::\w+)?\](.*?)\[/u(?::\w+)?\]#si'                 => '<span style="text-decoration:underline">\\1</span>',
     '#\[s(?::\w+)?\](.*?)\[/s(?::\w+)?\]#si'                 => '<s>\\1</s>',
     '#\[sup(?::\w+)?\](.*?)\[/sup(?::\w+)?\]#si'             => '<sup>\\1</sup>',
