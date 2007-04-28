@@ -12,7 +12,7 @@ function bbcode_filter_tips($delta, $format, $long = false) {
     return _bbcode_filter_tip();
   }
   else 
-    return t('You can use ' . l('BBCode help', "filter/tips/$format") . ' in the text, URLs will be automatically converted to links');
+    return t('You can use !BBCode tags in the text, URLs will automatically be converted to links.', array('!BBCode' =>  l(t('BBCode'), "filter/tips/$format", NULL, NULL, 'filter-bbcode-' . $delta)));
 }
 
 function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
