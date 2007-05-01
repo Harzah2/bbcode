@@ -7,14 +7,14 @@
 #                          Takafumi      ( jp.drupal@imagine **reverse order**)
 #
 # Generated from file:
-#  bbcode-filter.inc,v 1.52 2007/01/02 18:21:13 naudefj
-#  bbcode-help.inc,v 1.7 2006/04/05 16:21:14 naudefj
-#  bbcode.module,v 1.42 2006/09/29 15:30:44 naudefj
+#  bbcode.module,v 1.44 2007/04/28 12:12:03 naudefj
+#  bbcode-filter.inc,v 1.56 2007/04/29 07:39:06 naudefj
+#  bbcode-help.inc,v 1.8 2007/01/28 21:18:45 naudefj
 #
 # -----------------------------------------------------------------------------
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2007-03-19 21:06+0900\n"
+"POT-Creation-Date: 2007-05-02 01:01+0900\n"
 "Last-Translator: Takafumi <jp.drupal@imagine **reverse order**>\n"
 "Language-Team: Drupal Japan / Drupal Nippon\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,12 @@ msgstr ""
 
 # 設定次第でリンクの変換は無効にできるので、その箇所は削除
 #: bbcode.module:15
-msgid "You can use !BBCode tags in the text, URLs will be automatically converted to links."
+msgid "You can use !BBCode tags in the text, URLs will automatically be converted to links."
 msgstr "テキストに !BBCode タグを使用できます。"
+
+#: bbcode.module:15;21 bbcode.info:0
+msgid "BBCode"
+msgstr "BBCode"
 
 #: bbcode.module:24
 msgid "Converts BBCode to HTML."
@@ -39,10 +43,12 @@ msgstr "BBCode フィルタ"
 msgid "Convert addresses to links"
 msgstr "アドレスをリンクに変換"
 
+# ----------
 #: bbcode.module:51;57;63;69
 #msgid "Disabled"
 #msgstr "無効"
 
+# ----------
 #: bbcode.module:51;57;69
 #msgid "Enabled"
 #msgstr "有効"
@@ -98,8 +104,6 @@ msgstr "\\1 さんの書き込み："
 #: bbcode-help.inc:5
 msgid ""
 "<a id=\"filter-bbcode\"></a><h2>BBCode Guide</h2>\n"
-"\n"
-"<h3>Introduction</h3>\n"
 "\n"
 "<p>\n"
 " BBCode allows you to specify formatting rules for your text,\n"
@@ -478,8 +482,6 @@ msgid ""
 "</p>"
 msgstr ""
 "<a id=\"filter-bbcode\"></a><h2>BBCode ガイド</h2>\n"
-"<br />\n"
-"<h3>はじめに</h3>\n"
 "\n"
 "<p>\n"
 "BBCode は、HTML タグの使用が禁止されている場合でも、投稿するテキストに HTML と同じような書式指定をできるようにします。\n"
@@ -695,8 +697,4 @@ msgstr ""
 #: bbcode.module:6 bbcode.info:0
 msgid "Allow the use of BBCode in your posts."
 msgstr "投稿で BBCode 書式が使えるようにします。"
-
-#: bbcode.module:21 bbcode.info:0
-msgid "BBCode"
-msgstr "BBCode"
 
