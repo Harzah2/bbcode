@@ -14,7 +14,7 @@
 # -----------------------------------------------------------------------------
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2007-05-02 01:01+0900\n"
+"POT-Creation-Date: 2007-05-23 23:01+0900\n"
 "Last-Translator: Takafumi <jp.drupal@imagine **reverse order**>\n"
 "Language-Team: Drupal Japan / Drupal Nippon\n"
 "MIME-Version: 1.0\n"
@@ -22,10 +22,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-# 設定次第でリンクの変換は無効にできるので、その箇所は削除
 #: bbcode.module:15
-msgid "You can use !BBCode tags in the text, URLs will automatically be converted to links."
+msgid "You can use !BBCode tags in the text."
 msgstr "テキストに !BBCode タグを使用できます。"
+
+#: bbcode.module:17
+msgid "URLs will automatically be converted to links."
+msgstr "URLは自動的にリンクに変換されます。"
 
 #: bbcode.module:15;21 bbcode.info:0
 msgid "BBCode"
@@ -45,13 +48,13 @@ msgstr "アドレスをリンクに変換"
 
 # ----------
 #: bbcode.module:51;57;63;69
-#msgid "Disabled"
-#msgstr "無効"
+msgid "Disabled"
+msgstr "無効"
 
 # ----------
 #: bbcode.module:51;57;69
-#msgid "Enabled"
-#msgstr "有効"
+msgid "Enabled"
+msgstr "有効"
 
 #: bbcode.module:52
 msgid "Turn web and e-mail addresses into clickable links. This is useful if content authors do not explicitly mark addresses as links with [url] and [email] tags."
@@ -64,6 +67,14 @@ msgstr "メールアドレスのエンコード"
 #: bbcode.module:58
 msgid "Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them."
 msgstr "javascript による、メールアドレスのエンコードを行うかどうかを指定してください。 有効にすると、スパムロボットによるメールアドレスの収集は多少困難になります。 ただし、閲覧する側で javascript が無効になっていると、そのメールアドレスが表示されないことに留意してください。"
+
+#: bbcode.module:60
+msgid "Spam link deterrent"
+msgstr "検索エンジンに対するリンク効果の抑止"
+
+#: bbcode.module:63
+msgid "If enabled, BBCode will add rel=\"nofollow\" to all links, as a measure to reduce the effectiveness of spam links. Note: this will also prevent valid links from being followed by search engines, therefore it is likely most effective when enabled for anonymous users."
+msgstr "リンクに <b>rel=\"nofollow\"</b> を追加するかどうかを指定してください。 チェックを入れると、以下のようにリンクのためのアンカータグに rel=\"nofollow\" が追加されます。<pre>&lt;a href=\"http://drupal.jp/\" rel=\"nofollow\"&gt;≡ Drupal Japan ≡&lt;/a&gt;</pre>これは、Google をはじめとする多くの検索サイトでの、検索結果の上位にリストアップされる条件の1つを抑止する働きがあり、主にスパムリンクの効果を減少させるために利用されます。 これは同時に、登録ユーザが投稿したコンテンツ内の正当なリンクに対しても働くことになりますので、匿名ユーザのみが使用できる入力書式に適用することが、おそらく最も効果的です。"
 
 #: bbcode.module:61
 msgid "Smart paragraph and line breaks"
@@ -561,7 +572,7 @@ msgstr ""
 "\n"
 "<p>\n"
 "順序付きリストを作成するには、どのタイプの順序付けリストにしたいのかを指定する引数を <strong>[list]</strong> タグに加えます。\n"
-" 指定できる引数は、最初のリスト要素の番号を表す、「i」「I」「1」「a」「A」「c」「d」、または「s」などです。\n"
+" 指定できる引数は、最初のリスト要素の番号を表す、「i」「I」「1」「a」「A」「c」「d」「s」です。\n"
 "詳しくは下記の例を参照してください。\n"
 "</p>\n"
 "\n"
