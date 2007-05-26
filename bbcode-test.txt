@@ -224,9 +224,6 @@ A nested list:
 
 [h3]Other tags[/h3]
 
-Test marquee:
-[move]Move tag - creates a scrolling display[/move]
-
 Horizontal delimiter:
 [hr]
 

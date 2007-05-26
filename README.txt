@@ -61,6 +61,14 @@ installation:
 Note: these are independent projects. Please do not report issues with them 
 as BBCode problems!
 
+Additional tags:
+------------------------------------------------------------------------------
+
+Here are some tags that's not part of the official BBCode implementation. 
+You may want to add them to your bbcode-filter.inc 
+
+  - '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si' => '<marquee>\\1</marquee>',
+
 Credits / Contacts
 ------------------------------------------------------------------------------
 
