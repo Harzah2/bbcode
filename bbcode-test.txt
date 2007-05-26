@@ -234,8 +234,9 @@ Force space:
 --&gt;[sp]&lt;--
 
 [h3]Tag nesting[/h3]
-[color=red][size=20]large red text[/size][/color]
-[size=20][color=red]again - large red test with different tag order[/color][/size]
+[size=10]10px [size=20]20px [size=30]30px [/size]20px [/size]10px[/size]
+[size=20][color=blue]BLUE [color=red]RED [/color][color=green]GREEN [/color]BLUE[/color] [/size]
+[size=20][font=Arial]Arial [font=Century]Century [/font][font=Comic sans MS]Comic sans MS [/font]Arial [font=Arial Bold Italic]Arial Bold Italic [/font]Arial [/font][/size]
 
 [h3]Test multi-line tags:[/h3]
 [size=20]

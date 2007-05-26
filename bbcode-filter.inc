@@ -70,6 +70,36 @@ function _bbcode_filter_process(&$body, $format = -1) {
   for ($i = 0; $i < $unclosed; $i++) 
      $body .= '[/list]';
 
+  // begin processing for [size] 
+  if (stristr($body, '[size=') !== FALSE) { // prevent useless processing
+    $arr = array(
+      'tag'         => 'size',
+      'pattern'     => '#\[\x07=([\d]+)(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi',
+      'replacement' => '"<span style=\"font-size:". _bbcode_round_size_val("$1") ."px\">". stripslashes("$2") ."</span>"',
+      'text'        => $body);
+    $body = _bbcode_replace_nest_tag($arr);
+  } // end processing for [size]
+
+  // begin processing for [color]
+  if (stristr($body, '[color=') !== FALSE) { // prevent useless processing
+    $arr = array(
+      'tag'         => 'color',
+      'pattern'     => '#\[\x07=([\#\w]+)(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#si',
+      'replacement' => '<span style="color:$1">$2</span>',
+      'text'        => $body);
+    $body = _bbcode_replace_nest_tag($arr);
+  } // end processing for [color]
+
+  // begin processing for [font]
+  if (stristr($body, '[font=') !== FALSE) { // prevent useless processing
+    $arr = array(
+      'tag'         => 'font',
+      'pattern'     => '#\[\x07=([\w\s]+)(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#si',
+      'replacement' => '<span style="font-family:$1">$2</span>',
+      'text'        => $body);
+    $body = _bbcode_replace_nest_tag($arr);
+  } // end processing for [font]
+
   // Define BBCode tags
   $preg = array(
     // Implement [notag]
@@ -81,9 +111,6 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[index style=(ol|ul)\]#sie'                           => '_bbcode_generate_index($body, \'\\1\')',
 
     // Font, text and alignment
-    '#\[color=([\#\w]+)(?::\w+)?\](.*?)\[/color(?::\w+)?\]#si' => '<span style="color:\\1">\\2</span>',
-    '#\[size=(\d+)(?::\w+)?\](.*?)\[/size(?::\w+)?\]#sie'    => '_bbcode_size_tag(\\1, \'\\2\')',
-    '#\[font=([\w\s]+)(?::\w+)?\](.*?)\[/font(?::\w+)?\]#si' => '<span style="font-family:\\1">\\2</span>',
     '#\[align=(\w+)(?::\w+)?\](.*?)\[/align(?::\w+)?\]#si'   => '<span style="text-align:\\1">\\2</span>',
     '#\[float=(left|right)(?::\w+)?\](.*?)\[/float(?::\w+)?\]#si' => '<span style="float:\\1">\\2</span>',
     '#\[justify(?::\w+)?\](.*?)\[/justify(?::\w+)?\]#si'     => '<div style="text-align:justify;">\\1</div>',
@@ -284,15 +311,6 @@ function _bbcode_encode_mailto($matches) {
   return $link;
 }
 
-function _bbcode_size_tag($size = NULL, $text = NULL) {
-  $size = intval($size);
-  if ($size < 6)
-    $size = 6;
-  if ($size > 48)
-    $size = 48;
-  return '<span style="font-size:'.$size.'px">'.stripslashes($text).'</span>';
-}
-
 function _bbcode_notag_tag($text = NULL) {
   return str_replace( array('[', ']', '@'), array('&#91;', '&#93;', '&#64;'), stripslashes($text));
 }
@@ -300,3 +318,22 @@ function _bbcode_notag_tag($text = NULL) {
 function _bbcode_php_tag($text = NULL) {
   return '<pre>'. highlight_string( str_replace('<br />', '', stripslashes($text)), true) .'</pre>';
 }
+
+function _bbcode_round_size_val($size) {
+  if ($size < 6)
+      return 6;
+  elseif ($size > 48)
+      return 48;
+  else
+     return $size;
+}
+
+function _bbcode_replace_nest_tag($arr = NULL) {
+  $text = preg_replace('#(\[[/]*)'. $arr['tag'] .'(.*?\])#si', "$1\x07$2", $arr['text']);
+  // It will be better to use &count and do-while, if php 5 or higher.
+  while (preg_match($arr['pattern'], $text)) {
+    $text = preg_replace($arr['pattern'], $arr['replacement'], $text);
+  }
+  return $text;
+}
+
