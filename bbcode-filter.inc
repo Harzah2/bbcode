@@ -100,6 +100,40 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $body = _bbcode_replace_nest_tag($arr);
   } // end processing for [font]
 
+  // begin processing for [list] and [*]
+  if (stristr($body, '[list') !== FALSE) { // prevent useless processing
+    $l_type = array(
+      NULL   => array('style' => 'circle', 'tag' => 'ul'),
+      'c'    => array('style' => 'circle', 'tag' => 'ul'),
+      'd'    => array('style' => 'disc', 'tag' => 'ul'),
+      's'    => array('style' => 'square', 'tag' => 'ul'),
+      '1'    => array('style' => 'decimal', 'tag' => 'ol'),
+      'a'    => array('style' => 'lower-alpha', 'tag' => 'ol'),
+      'A'    => array('style' => 'upper-alpha', 'tag' => 'ol'),
+      'i'    => array('style' => 'lower-roman', 'tag' => 'ol'),
+      'I'    => array('style' => 'upper-roman', 'tag' => 'ol')
+      );
+    $body = preg_replace('#(\[[/]*)list(.*?\])#si', "$1\x07$2", $body);
+
+    // replace to <li> tags - [*]..[*]|[*]..[/list]
+    $body = preg_replace('#\[\*(?::\w+)?\]([^\x07]*?)(?=\s*?(\[\*(?::\w+)?\]|\[/\x07(?::\w+)?\]))#si', '<li>$1</li>', $body);
+    // add </li> tags to nested <li> - [/list]..[/list]
+    $body = preg_replace('#(\[/\x07(?::\w+)?\])(?=[^\x07]*?\[/\x07(?::\w+)?\])#si', '$1</li>', $body);
+    // add </li> tags to nested <li> - [/list]..[*]..[list]
+    $body = preg_replace('#(\[/\x07(?::\w+)?\])(?=[^\x07]*?\[\*(?::\w+)?\][^\x07]*?\[\x07.*(?::\w+)?\])#si', '$1</li>', $body);
+    // replace to <li> tags for nested <li> - [*]..[list]
+    $body = preg_replace('#\[\*(?::\w+)?\]([^\x07]*)?(?=\[\x07.*(?::\w+)?\])#si', '<li>$1', $body);
+
+    // replace to <ol>/<ul> and </ol>/</ul> tags
+    // It will be better to use &count and do-while, if php 5 or higher.
+    while (preg_match("#\[\x07[=]*((?-i)[cds1aAiI])*(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#si", $body)) {
+      $body = preg_replace("#\[\x07[=]*((?-i)[cds1aAiI])*(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi", '"<". $l_type["$1"]["tag"] ." class=\"bb-list\" style=\"list-style-type:". $l_type["$1"]["style"] .";\">". "$2" ."</". $l_type["$1"]["tag"] .">"', $body);
+    }
+
+    // remove <br /> tags
+    $body = preg_replace('#(<[/]*([uo]l|li).*>.*)<br />#i', '$1', $body);
+  } // end processing for [list] and [*]
+
   // Define BBCode tags
   $preg = array(
     // Implement [notag]
@@ -157,24 +191,6 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Links to popular sites
     '#\[google(?::\w+)?\]([\w\s-]+?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',
     '#\[wikipedia(?::\w+)?\]([\w\s-]+?)\[/wikipedia(?::\w+)?\]#si' => '<a href="http://www.wikipedia.org/wiki/\\1">\\1</a>',
-
-    // Different kinds of lists and list items
-    '#\[\*(?::\w+)?\](.+)(?=\[\*(?::\w+)?\]|\[/list)#Usi'   => '<li>\\1',
-    '#\[list(?::\w+)?\]#si'                                 => '<ol class="bb-list" style="list-style-type:circle;">',
-    '#\[list=c(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:circle;">',
-    '#\[list=d(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:disc;">',
-    '#\[list=s(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:square;">',
-    '#\[list=1(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:decimal;">',
-    '#\[list=i(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:lower-roman;">',
-    '#\[list=I(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:upper-roman;">',
-    '#\[list=a(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
-    '#\[list=A(?::\w+)?\]#si'                               => '<ol class="bb-list" style="list-style-type:upper-alpha;">',
-    '#\[/list(?::\w+)?\]#si'                                => '</ol>',
-
-    // Clean up list output and add closing </li> tags
-    '#(?=<li>|</ol>)#si'                                    => '</li>\\1',
-    '#<br />(\s+)</li>#si'                                  => '</li>\\1',
-    '#<ol(.*?)>(?:.*?)<li(.*?)>#si'                         => '<ol\\1><li\\2>',
 
     // Table tags
     '#\[table\](.+?)\[/table\]#si'                           => '<table border>\\1</table>', 

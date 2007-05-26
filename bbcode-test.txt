@@ -128,7 +128,10 @@ Nested quotes:
 [h3]Lists[/h3]
 
 A normal list (circular bullets, same as list=c):
-[list]
+[list][*]foo[*]bar[*]baz[/list]
+
+List with circular buttets (list=c):
+[list=c]
 [*]x
 [*]y
 [*]z
@@ -183,15 +186,35 @@ Alfa uppercase list (list=A):
 [*]z
 [/list]
 
-A nested list:
-[list=s]
-[*]x
-[*][list=d]
-   [*]x.1
-   [*]x.2
-   [/list]
-[*]y
-[*]z
+Simple nested lists:
+[list][*]foo[list][*]bar[/list][*]baz[/list]
+
+Complex nexted list:
+[list=1]
+  [*]list=foo
+    [list=s]
+      [*]list=s
+      [*]list=s
+    [/list]
+    [list=a]
+      [*]list=a
+        [list=I]
+          [*]list=I
+          [*]list=I
+        [/list]
+      [*]list=a
+    [/list]
+  [*]list=bar
+    [list=A]
+      [*]list=A
+      [*]list=A
+      [*]list=A
+    [/list]
+  [*]list=baz
+    [list=d]
+      [*]list=d
+      [*]list=d
+    [/list]
 [/list]
 
 [h3]Table tags[/h3]
