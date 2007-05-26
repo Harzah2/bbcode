@@ -55,6 +55,12 @@ function bbcode_filter($op, $delta = 0, $format = -1, $text = '') {
         '#default_value' => variable_get("bbcode_make_links_$format", 1), 
         '#options' => array(t('Disabled'), t('Enabled')), 
         '#description' => t('Turn web and e-mail addresses into clickable links. This is useful if content authors do not explicitly mark addresses as links with [url] and [email] tags.'));
+      $form['bbcode_filter']["bbcode_filter_nofollow_$format"] = array(
+        '#type' => 'select', 
+        '#title' => t('Spam link deterrent'),
+        '#default_value' => variable_get("bbcode_filter_nofollow_$format", 0),
+        '#options' => array(t('Disabled'), t('Enabled')), 
+        '#description' => t('If enabled, BBCode will add rel="nofollow" to all links, as a measure to reduce the effectiveness of spam links. Note: this will also prevent valid links from being followed by search engines, therefore it is likely most effective when enabled for anonymous users.'));
       $form['bbcode_filter']["bbcode_encode_mailto_$format"] = array(
         '#type' => 'select', 
         '#title' => t('Email address encoding'), 

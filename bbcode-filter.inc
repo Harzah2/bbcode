@@ -215,6 +215,10 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $body = substr($ret, 1);
   }
 
+  if (variable_get("bbcode_filter_nofollow_$format", 0)) {
+    $body = preg_replace('#<a([^>]+)>#i', '<a\\1 rel="nofollow">', $body);
+  }
+
   return $body;
 }
 
