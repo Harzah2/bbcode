@@ -192,6 +192,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
 
     // pad with a space so we can match things at the start of the 1st line
     $ret = ' ' . $body;
+    // padding to already filtered links
+    $ret = preg_replace('#(<a.+>)(.+</a>)#i', "$1\x07$2", $ret);
 
     // matches an "xxx://yyyy" URL at the start of a line, or after a space.
     // xxxx can only be alpha characters.
@@ -212,6 +214,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
       $ret = preg_replace('#([\t\r\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i', '\\1<a href="mailto:\\2@\\3">\\2@\\3</a>', $ret);
 
     // Remove our padding
+    $ret = str_replace("\x07", '', $ret);
     $body = substr($ret, 1);
   }
 
