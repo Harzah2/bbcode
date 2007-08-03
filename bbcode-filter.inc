@@ -75,7 +75,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     $arr = array(
       'tag'         => 'size',
       'pattern'     => '#\[\x07=([\d]+)(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi',
-      'replacement' => '"<span style=\"font-size:". _bbcode_round_size_val("$1") ."px\">". stripslashes("$2") ."</span>"',
+      'replacement' => '"<span style=\"font-size:". _bbcode_round_size_val(\'$1\') ."px\">". str_replace(\'\"\', \'"\', \'$2\') ."</span>"',
       'text'        => $body);
     $body = _bbcode_replace_nest_tag($arr);
   } // end processing for [size]
@@ -127,7 +127,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // replace to <ol>/<ul> and </ol>/</ul> tags
     // It will be better to use &count and do-while, if php 5 or higher.
     while (preg_match("#\[\x07[=]*((?-i)[cds1aAiI])*(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#si", $body)) {
-      $body = preg_replace("#\[\x07[=]*((?-i)[cds1aAiI])*(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi", '"<". $l_type["$1"]["tag"] ." class=\"bb-list\" style=\"list-style-type:". $l_type["$1"]["style"] .";\">". "$2" ."</". $l_type["$1"]["tag"] .">"', $body);
+      $body = preg_replace("#\[\x07[=]*((?-i)[cds1aAiI])*(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi", '"<". $l_type[\'$1\']["tag"] ." class=\"bb-list\" style=\"list-style-type:". $l_type[\'$1\']["style"] .";\">". str_replace(\'\"\', \'"\', \'$2\') ."</". $l_type[\'$1\']["tag"] .">"', $body);
     }
 
     // remove <br /> tags

@@ -65,7 +65,7 @@ Additional tags:
 ------------------------------------------------------------------------------
 
 Here are some tags that's not part of the official BBCode implementation. 
-You may want to add them to your bbcode-filter.inc 
+You may want to add them to your bbcode-filter.inc file:
 
   - '#\[move(?::\w+)?\](.*?)\[/move(?::\w+)?\]#si' => '<marquee>\\1</marquee>',
 

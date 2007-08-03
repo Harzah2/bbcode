@@ -22,6 +22,7 @@ Test [size=1]1px[/size] - too small, normalized to 6px
 Test [size=12]12px[/size] text
 Test [size=24]24px[/size] text
 Test [size=100]100px[/size] - too big, normalized to 48px
+[size=10] $_SERVER[PHP_SELF] "quoted" \\e\s\c\aped\" [/size] - watch out for eval
 
 [h3]Font faces[/h3]
 Test [font=arial]Arial typeface[/font] text
@@ -172,14 +173,14 @@ Roman uppercase list (list=I):
 [*]z
 [/list]
 
-Alfa lowercase list (list=a):
+Alpha lowercase list (list=a):
 [list=a]
 [*]x
 [*]y
 [*]z
 [/list]
 
-Alfa uppercase list (list=A):
+Alpha uppercase list (list=A):
 [list=A]
 [*]x
 [*]y
@@ -216,6 +217,9 @@ Complex nexted list:
       [*]list=d
     [/list]
 [/list]
+
+List with php content (watch out for eval):
+[list][*] {$var $_SERVER[PHP_SELF] "quoted" \\e\s\c\aped\" [/list]
 
 [h3]Table tags[/h3]
 
