@@ -87,5 +87,10 @@ TODO List
 
  - Translate this module into other languages.
 
- - Configuration of which BBCode tags are allowed.
+ - Fix non-compliant HTML when "Smart paragraph and line breaks:" is set to 
+   "Line and paragraph breaks". If HTML validation is important to you, use 
+   one of the other options or submit a patch.
+
+ - Configuration of which BBCode tags are allowed 
+   (will require a complete rewrite).
 
