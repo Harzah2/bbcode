@@ -69,6 +69,7 @@ Some URL's within a sentence: http://url1.com; www.url2.com, (www.url3.com) and 
 
 Google link: [google]BBCode[/google]
 Wikipedia link: [wikipedia]BBCode[/wikipedia]
+Youtube video: [youtube]0Q2aPi9ZEgs[/youtube]
 
 [h3]E-mail addresses[/h3]
 Test@Mail.com
