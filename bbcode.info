@@ -1,2 +1,3 @@
 name = BBCode
 description = Allow the use of BBCode in your posts.
+core = 6.x
