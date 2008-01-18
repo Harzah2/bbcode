@@ -97,6 +97,7 @@ function bbcode_quicktags_alter($items) {
       'prefix' => '[i]',
       'suffix' => '[/i]',
       'accesskey' => 'i',
+      'weight' => 10,
       'icon' => $path .'ed_italic.png',
     );
   $items['ed_bold'] = array(
@@ -104,6 +105,7 @@ function bbcode_quicktags_alter($items) {
       'prefix' => '[b]',
       'suffix' => '[/b]',
       'accesskey' => 'b',
+      'weight' => 20,
       'icon' => $path .'ed_bold.png',
     );
   $items['ed_code'] = array(
@@ -111,6 +113,7 @@ function bbcode_quicktags_alter($items) {
       'prefix' =>'[code]',
       'suffix' => '[/code]',
       'accesskey' => 'c',
+      'weight' => 30,
       'icon' => $path .'ed_code.png',
     );
   $items['ed_block'] = array(
@@ -118,6 +121,7 @@ function bbcode_quicktags_alter($items) {
       'prefix' =>'[quote]',
       'suffix' => '[/quote]',
       'accesskey' => 'q',
+      'weight' => 40,
       'icon' => $path .'ed_block.png',
     );
   $items['ed_link'] = array(
@@ -125,6 +129,7 @@ function bbcode_quicktags_alter($items) {
       'prefix' =>'[url=http://]',
       'suffix' => '[/url]',
       'accesskey' => 'l',
+      'weight' => 50,
       'icon' => $path .'ed_link.png',
     );
   return $items;
