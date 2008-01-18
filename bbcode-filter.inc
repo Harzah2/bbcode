@@ -194,7 +194,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[youtube\]([0-9a-zA-Z]+)\[/youtube\]#si'                    => '<object width="425" height="366"><param name="movie" value="http://www.youtube.com/v/\\1"></param><embed src="http://www.youtube.com/v/\\1" type="application/x-shockwave-flash" width="425" height="366"></embed></object>',
 
     // Table tags
-    '#\[table\](.+?)\[/table\]#si'                           => '<table border>\\1</table>', 
+    '#\[table\](.+?)\[/table\]#si'                           => '<table class="bb-table">\\1</table>', 
     '#\[(row|r|tr)\](.+?)\[/(row|r|tr)\]#si'                 => '<tr>\\2</tr>', 
     '#\[(row|r|tr) color=([\#\w]+)\](.+?)\[/(row|r|tr)\]#si' => '<tr bgcolor=\\2>\\3</tr>', 
     '#\[(header|head|h)\](.+?)\[/(header|head|h)\]#si'       => '<th>\\2</th>',
