@@ -272,7 +272,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
 function _bbcode_generate_heading($level, $text) {
   $anchor = preg_replace('/([\s]+)/', '_', $text);
   $anchor = preg_replace('/([\W]+)/', '',  $anchor);
-  return '<a name="'. $anchor .'"><h'. $level .'>'. $text .'</h'. $level .'></a>';
+  return '<h'. $level .'><a name="'. $anchor .'">'. $text .'</a></h'. $level .'>';
 }
 
 function _bbcode_generate_index($body, $tag = 'ol') {
