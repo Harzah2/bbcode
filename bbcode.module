@@ -12,8 +12,8 @@ function bbcode_filter_tips($delta, $format, $long = false) {
     return _bbcode_filter_tip();
   }
   else {
-    $output = t('You can use !BBCode tags in the text.', array('!BBCode' =>  l(t('BBCode'), "filter/tips/$format", NULL, NULL, 'filter-bbcode-' . $delta)));
-    #D6: $output = t('You can use !BBCode tags in the text.', array('!BBCode' =>  l(t('BBCode'), "filter/tips/$format", array('fragment' => 'filter-bbcode-' . $delta))));
+    # D5: $output = t('You can use !BBCode tags in the text.', array('!BBCode' =>  l(t('BBCode'), "filter/tips/$format", NULL, NULL, 'filter-bbcode-' . $delta)));
+    $output = t('You can use !BBCode tags in the text.', array('!BBCode' =>  l(t('BBCode'), "filter/tips/$format", array('fragment' => 'filter-bbcode-' . $delta))));
     if (variable_get("bbcode_make_links_$format", FALSE)) {
       $output .= ' '. t('URLs will automatically be converted to links.');
     }
