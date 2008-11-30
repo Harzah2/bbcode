@@ -1,4 +1,8 @@
-/* Test CSS file to show what CSS attributes can be changed */
+/* Test CSS file to show what CSS attributes can be changed.
+ *
+ * This CSS file is not automatically included in your HTML, you
+ * need to copy the required properties to your site's CSS file.
+ */
 
 .bb-code {
   width: 100%;
