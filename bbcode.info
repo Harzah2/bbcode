@@ -1,3 +1,4 @@
 name = BBCode
 description = Allow the use of BBCode in your posts.
+package = "Input filters"
 core = 6.x
