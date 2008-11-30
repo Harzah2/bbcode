@@ -45,7 +45,10 @@ Configuration
     enable Drupal's "HTML filter" to remove or escape user entered HTML tags.
 
   - If you've enabled multiple filters, you may need to rearrange them to
-    ensure they execute in the correct order.
+    ensure they execute in the correct order. For example, if HTML filtering 
+    is enabled, it is essential that BBCode be sorted AFTER the HTML filter. 
+    If not this module will change the BBCode into HTML, and the HTML filter 
+    will disallow and remove the code again.
 
 Complementing Modules
 ------------------------------------------------------------------------------
