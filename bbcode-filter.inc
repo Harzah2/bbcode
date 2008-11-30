@@ -191,7 +191,7 @@ function _bbcode_filter_process(&$body, $format = -1) {
     // Links to popular sites
     '#\[google(?::\w+)?\]([\w\s-]+?)\[/google(?::\w+)?\]#si'       => '<a href="http://www.google.com/search?q=\\1">\\1</a>',
     '#\[wikipedia(?::\w+)?\]([\w\s-]+?)\[/wikipedia(?::\w+)?\]#si' => '<a href="http://www.wikipedia.org/wiki/\\1">\\1</a>',
-    '#\[youtube\]([0-9a-zA-Z]+)\[/youtube\]#si'                    => '<object width="425" height="366"><param name="movie" value="http://www.youtube.com/v/\\1"></param><embed src="http://www.youtube.com/v/\\1" type="application/x-shockwave-flash" width="425" height="366"></embed></object>',
+    '#\[youtube\]([0-9a-zA-Z_\-]+)\[/youtube\]#si'                 => '<object width="425" height="366"><param name="movie" value="http://www.youtube.com/v/\\1"></param><embed src="http://www.youtube.com/v/\\1" type="application/x-shockwave-flash" width="425" height="366"></embed></object>',
 
     // Table tags
     '#\[table\](.+?)\[/table\]#si'                           => '<table class="bb-table">\\1</table>', 
