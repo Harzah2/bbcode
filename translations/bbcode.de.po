@@ -14,99 +14,17 @@
 # -----------------------------------------------------------------------------
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2007-05-23 23:01+0900\n"
-"Last-Translator: Mario Perabo <mario@einfach-trainieren.de>\n"
-"Language-Team: Drupal Japan / Drupal Nippon\n"
+"Project-Id-Version: German translation of bbcode module\n"
+"POT-Creation-Date: 2009-08-06 00:44+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Alexander Haß\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"Project-Id-Version: \n"
-"PO-Revision-Date: \n"
-
-#: bbcode.module:15
-msgid "You can use !BBCode tags in the text."
-msgstr "In diesem Textfeld kann !BBCodeverwendet werden."
-
-#: bbcode.module:17
-msgid "URLs will automatically be converted to links."
-msgstr "URLs werden automatisch in Links umgewandelt."
-
-#: bbcode.module:15;21
-#: bbcode.info:0
-msgid "BBCode"
-msgstr "BBCode"
-
-#: bbcode.module:24
-msgid "Converts BBCode to HTML."
-msgstr "Wandelt BBCode in HTML um."
-
-#: bbcode.module:44
-msgid "BBCode filter"
-msgstr "BBCode Filter"
-
-#: bbcode.module:49
-msgid "Convert addresses to links"
-msgstr "Adressen in Links umwandeln"
-
-# ----------
-#: bbcode.module:51;57;63;69
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-# ----------
-#: bbcode.module:51;57;69
-msgid "Enabled"
-msgstr "Aktiviert"
-
-#: bbcode.module:52
-msgid "Turn web and e-mail addresses into clickable links. This is useful if content authors do not explicitly mark addresses as links with [url] and [email] tags."
-msgstr "Web- und Emailadressen in anklickbare Links umwandeln. Dies ist nützlich, wenn Redakteure Adressen nicht explizit durch [URL] und [email] als Links markieren."
-
-#: bbcode.module:55
-msgid "Email address encoding"
-msgstr "Email Adressen verschlüsseln"
-
-#: bbcode.module:58
-msgid "Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them."
-msgstr "Email Adressen werden mit Javascript verschlüsselt. Dadurch werden immer noch anklickbare mailto-Links erzeugt, aber es wird für Spambots etwas schwieriger, sie aufzuspüren."
-
-#: bbcode.module:60
-msgid "Spam link deterrent"
-msgstr "Spam Link Abwehr"
-
-#: bbcode.module:63
-msgid "If enabled, BBCode will add rel=\"nofollow\" to all links, as a measure to reduce the effectiveness of spam links. Note: this will also prevent valid links from being followed by search engines, therefore it is likely most effective when enabled for anonymous users."
-msgstr "Wenn diese Option aktiviert wurde, werden alle Links auf \"nofollow\" gesetzt, wodurch die Effektivität von Spamlinks reduziert wird. Hinweis: Dies verhindert auch die Nachverfolgung von legitimen Links durch die Robots von Suchmaschinen. Ein effektiver Weg um beides zu haben, ist, diese Option für Gäste zu aktivieren und Robotern einen Benutzer zuzuweisen."
-
-#: bbcode.module:61
-msgid "Smart paragraph and line breaks"
-msgstr "Intelligente Absätze und Zeilenumbrüche"
-
-#: bbcode.module:63
-msgid "Line breaks only"
-msgstr "Nur Zeilenumbrüche"
-
-#: bbcode.module:63
-msgid "Line and paragraph breaks"
-msgstr "Zeilen- und Absatzumbrüche"
-
-#: bbcode.module:64
-msgid "Add line and paragraph breaks to text, excluding text in preformatted code blocks. If you disable this option, you need to enable Drupal's \"Line break converter\". Don't use both together!"
-msgstr "Zeilen- und Absatzumbrüche hinzufügen, ausgenommen bei vorformatierten Code-Blöcken. Wenn diese Option deaktiviert wird, sollte Drupals \"Zeilenumbruchkonverter\" aktiviert werden. Es dürfen niemals beide aktiviert werden!"
-
-#: bbcode.module:67
-msgid "Print debugging info"
-msgstr "Debug INfos ausgeben"
-
-#: bbcode.module:70
-msgid "Print BBCode parse date and execution time. This option should be disabled on production sites. You may need to clear the cache after changing this option."
-msgstr "BBCode Umwandlungsdatum und Ausführungszeit ausgeben. Diese Option sollte auf Produktionsseiten deaktiviert sein. Der Cache muss evtl. nach der Änderung dieser Option geleert werden."
-
-#: bbcode.module:0
-#: bbcode.info:0
-msgid "bbcode"
-msgstr "bbcode"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 
 #: bbcode-filter.inc:6
 msgid "Quote:"
@@ -501,4 +419,89 @@ msgstr ""
 #: bbcode.info:0
 msgid "Allow the use of BBCode in your posts."
 msgstr "Erlaubt BBCode in Beiträgen."
+
+#: bbcode.module:16
+msgid "You can use !BBCode tags in the text."
+msgstr "In diesem Text können !BBCode-Tags verwendet werden."
+
+#: bbcode.module:16;27
+#: bbcode.info:0
+msgid "BBCode"
+msgstr "BBCode"
+
+#: bbcode.module:18
+msgid "URLs will automatically be converted to links."
+msgstr "URLs werden automatisch in Links umgewandelt."
+
+#: bbcode.module:30
+msgid "Converts BBCode to HTML."
+msgstr "Wandelt BBCode in HTML um."
+
+#: bbcode.module:50
+msgid "BBCode filter"
+msgstr "BBCode-Filter"
+
+#: bbcode.module:55
+msgid "Convert addresses to links"
+msgstr "Adressen in Links umwandeln"
+
+#: bbcode.module:57;63;69;75;81
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: bbcode.module:57;63;69;81
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: bbcode.module:58
+msgid "Turn web and e-mail addresses into clickable links. This is useful if content authors do not explicitly mark addresses as links with [url] and [email] tags."
+msgstr "Web- und E-Mail-Adressen in klickbare Links umwandeln. Dies ist nützlich, wenn Autoren die Adressen nicht explizit als Links mit den [url] und [email]-Tags markieren."
+
+#: bbcode.module:61
+msgid "Spam link deterrent"
+msgstr "Spam-Link-Abschreckung"
+
+#: bbcode.module:64
+msgid "If enabled, BBCode will add rel=\"nofollow\" to all links, as a measure to reduce the effectiveness of spam links. Note: this will also prevent valid links from being followed by search engines, therefore it is likely most effective when enabled for anonymous users."
+msgstr "Sobald diese Option aktiviert wurde, wird BBCode zu allen Links rel=\"nofollow\" hinzufügen, um die Effektivität von Spamlinks zu reduzieren. Hinweis: Dies verhindert auch die Nachverfolgung von legitimen Links durch die Robots von Suchmaschinen. Deshalb ist es wohl am effektivsten, wenn dies für Gäste aktiviert wird."
+
+#: bbcode.module:67
+msgid "Email address encoding"
+msgstr "E-Mail-Adressen-Verschlüsselung"
+
+#: bbcode.module:70
+msgid "Whether to encode email addresses with javascript. With this method you will have clickable mailto links, but it will be a bit harder for spam robots to collect them."
+msgstr "E-Mail-Adressen werden mit Javascript verschlüsselt. Dadurch werden immer noch anklickbare mailto-Links erzeugt, aber es wird für Spambots etwas schwieriger diese zu sammeln."
+
+#: bbcode.module:73
+msgid "Smart paragraph and line breaks"
+msgstr "Intelligente Absätze und Zeilenumbrüche"
+
+#: bbcode.module:75
+msgid "Line breaks only"
+msgstr "Nur Zeilenumbrüche"
+
+#: bbcode.module:75
+msgid "Line and paragraph breaks"
+msgstr "Zeilen- und Absatzumbrüche"
+
+#: bbcode.module:76
+msgid "Add line and paragraph breaks to text, excluding text in preformatted code blocks. If you disable this option, you need to enable Drupal's \"Line break converter\". Don't use both together!"
+msgstr "Zeilen- und Absatzumbrüche zum Text hinzufügen, ausgenommen Text in vorformatierten Code-Blöcken. Sollte diese Option deaktiviert werden, sollte Drupals „Zeilenumbruchkonverter“ aktiviert werden. Diese beiden dürfen nicht gleichzeitig verwendet werden!"
+
+#: bbcode.module:79
+msgid "Print debugging info"
+msgstr "Debug-Infos ausgeben"
+
+#: bbcode.module:82
+msgid "Print BBCode parse date and execution time. This option should be disabled on production sites. You may need to clear the cache after changing this option."
+msgstr "BBCode-Umwandlungsdatum und Ausführungszeit ausgeben. Diese Option sollte auf Produktionsseiten deaktiviert sein. Der Cache muss evtl. nach der Änderung dieser Option geleert werden."
+
+#: bbcode.module:0
+msgid "bbcode"
+msgstr "bbcode"
+
+#: bbcode.info:0
+msgid "Input filters"
+msgstr "Eingabefilter"
 
