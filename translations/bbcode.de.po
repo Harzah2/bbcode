@@ -1,10 +1,5 @@
 # $Id$
 # -----------------------------------------------------------------------------
-# Japanese translation of Drupal (bbcode.module)
-#
-# Copyright (c) 2006-2007  Drupal Japan  ( http://drupal.jp/ )  /
-#                          Drupal Nippon ( http://drupon.org/ ) /
-#                          Takafumi      ( jp.drupal@imagine **reverse order**)
 #
 # Generated from file:
 #  bbcode.module,v 1.44 2007/04/28 12:12:03 naudefj
