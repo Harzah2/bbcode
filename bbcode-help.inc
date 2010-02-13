@@ -163,7 +163,7 @@ function _bbcode_filter_tip() {
  [url=http://example.com][img]http://example.com/screenshot.png[/img][/url]</code>.
 </p>
 
-<h3>Ordered and unordered lists</h3>
+<h3>Ordered and unordered lists and indentation</h3>
 
 <p>
  The simplest list type is the unordered list, which means that there is
@@ -180,6 +180,11 @@ function _bbcode_filter_tip() {
  \"a\", \"A\", \"c\", \"d\" and \"s\" which all correspond to the display 
  of the first list element.
 </p>
+
+<p>
+ To indent some text, you need to follow this syntax - [indent]TEXT[/indent].
+ You can use nested indentation to show various indentation levels.
+ [indent]TEXT1<br>[indent]TEXT2[/indent]<br>[/indent]
 
 <table width=\"98%\">
  <tr>
@@ -239,6 +244,18 @@ I love
    </ol>
   </td>
  </tr>
+ <tr>
+ <td>
+ <pre>
+ I love
+ [indent]computing
+ [indent]and I am a geek[/indent]
+ [/indent]
+ </pre>
+ </td>
+   <td>I love<div style=\"padding-left: 20px;\">computing<div style=\"padding-left:20px;\">and I am a geek</div></div>
+   </td>
+  </tr>
 </table>
 
 <h3>Fixed-width text and block formatting</h3>

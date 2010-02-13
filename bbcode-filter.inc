@@ -200,6 +200,8 @@ function _bbcode_filter_process(&$body, $format = -1) {
     '#\[(header|head|h)\](.+?)\[/(header|head|h)\]#si'       => '<th>\\2</th>',
     '#\[(col|c|td)\](.+?)\[/(col|c|td)\]#si'                 => '<td valign="top">\\2</td>',
 
+	'#\[indent\](.+?)\[\/indent\]#i' 						 => '<div style="padding-left: 20px;">\\1</div>', 
+
     // Cleanup table output (td, th and tr tags)
     '#<([\/]?)t([dhr])><br />#si'                           => '<\\1t\\2>',
     '#<table(.+?)><br />#si'                                => '<table\\1>',
