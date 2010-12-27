@@ -1,4 +1,8 @@
 name = BBCode
 description = Allow the use of BBCode in your posts.
 package = "Input filters"
-core = 6.x
+core = 7.x
+
+files[] = bbcode.module
+files[] = bbcode-filter.inc
+files[] = bbcode-help.inc

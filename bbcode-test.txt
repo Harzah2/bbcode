@@ -43,16 +43,16 @@ Test [font=verdana]Verdana typeface[/font] text
 [h3]Images[/h3]
 
 Normal image:
-[img]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
+[img]http://upload.wikimedia.org/wikipedia/commons/7/7c/Drupal.ru-Logo.png[/img]
 
 Align image right:
-[img align=right]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
+[img align=right]http://upload.wikimedia.org/wikipedia/commons/7/7c/Drupal.ru-Logo.png[/img]
 
 Image with ALT description:
-[img=The Dripal Logo]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
+[img=The Drupal Logo]http://upload.wikimedia.org/wikipedia/commons/7/7c/Drupal.ru-Logo.png[/img]
 
 Re-sized image:
-[img=100x50]http://drupal.org/themes/bluebeach/logos/drupal.org.png[/img]
+[img=100x50]http://upload.wikimedia.org/wikipedia/commons/7/7c/Drupal.ru-Logo.png[/img]
 
 [h3]URL's[/h3]
 www.test-url.com
@@ -191,7 +191,7 @@ Alpha uppercase list (list=A):
 Simple nested lists:
 [list][*]foo[list][*]bar[/list][*]baz[/list]
 
-Complex nexted list:
+Complex nested list:
 [list=1]
   [*]list=foo
     [list=s]
@@ -287,7 +287,7 @@ Some other exploits:
 http://host.com/?act=SR&f='><script>alert(document.cookie)</script>
 
 [h3]Broken tags[/h3]
-We need to ensure that bad formating will not disrupt your site's HTML.
+We need to ensure that bad formatting will not disrupt your site's HTML.
 
 Broken [b]bold text...
 

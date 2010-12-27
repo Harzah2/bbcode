@@ -83,7 +83,7 @@ Credits / Contacts
 
   - Javascript encoding of emails by László Bácsi (lackac[at]math.bme.hu).
 
-  - Frank Naude converted this module to Drupal 4.7 and 5.0, added several
+  - Frank Naude converted this module to Drupal 4.7, 5.x and 7.x added several
     BBCode tags, a linebreak converter, quicktags integration, etc.
 
 TODO List
