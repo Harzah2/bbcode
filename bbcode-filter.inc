@@ -87,7 +87,7 @@ function _bbcode_filter_process(&$body, $settings) {
     $arr = array(
       'tag' => 'size',
       'pattern' => '#\[\x07=([\d]+)(?::\w+)?\]([^\x07]*)\[/\x07(?::\w+)?\]#esi',
-      'replacement' => '"<span style=\"font-size:". _bbcode_round_size_val(\'$1\') ."px\">". str_replace(\'\"\', \'"\', \'$2\') ."</span>"',
+      'replacement' => '"<span style=\"font-size:". _bbcode_size_val(\'$1\') ."\">". str_replace(\'\"\', \'"\', \'$2\') ."</span>"',
       'text' => $body,
     );
     $body = _bbcode_replace_nest_tag($arr);
@@ -385,16 +385,13 @@ function _bbcode_php_tag($text = NULL) {
   return '<pre>' . highlight_string( str_replace('<br />', '', stripslashes($text)), TRUE) . '</pre>';
 }
 
-function _bbcode_round_size_val($size) {
-  if ($size < 6) {
-    return 6;
-  }
-  elseif ($size > 48) {
-    return 48;
-  }
-  else {
-    return $size;
-  }
+function _bbcode_size_val($size) {
+   if ($size < 6)
+      return '6px';
+  elseif ($size <= 48)
+      return $size . 'px';
+   else
+     return $size . '%';
 }
 
 function _bbcode_replace_nest_tag($arr = NULL) {
