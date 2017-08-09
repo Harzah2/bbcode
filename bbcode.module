@@ -17,7 +17,7 @@ function bbcode_filter_info() {
       'bbcode_debug'            => 0,
     ),
     'tips callback'     => '_bbcode_tips',
-    'cache'             => FALSE,
+    'cache'             => (bool)variable_get('bbcode_cache_enable', 1),
   );
   return $filters;
 }
