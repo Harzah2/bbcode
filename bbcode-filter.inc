@@ -211,7 +211,7 @@ function _bbcode_filter_process(&$body, $settings) {
     '#\[url(?::\w+)?\]www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\1</a>',
     '#\[url(?::\w+)?\]([\w:;&,%+~!=@\/\.\-\#\?]+?)\[/url(?::\w+)?\]#si' => '<a href="\\1" class="bb-url">\\1</a>',
     '#\[url=www\.([\w:;&,%+~!=@\/\.\-\#\?]+?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="http://www.\\1" class="bb-url">\\2</a>',
-    '#\[url=([\w:;&,%+~!=@\/\.\-\#\?]+?)\](.*?)\[/url(?::\w+)?\]#si' => '<a href="\\1" class="bb-url">\\2</a>',
+    '#\[url="?\'?([\w:;&,%+~!=@\/\.\-\#\?]+?)"?\'?\](.*?)\[/url(?::\w+)?\]#si' => '<a href="\\1" class="bb-url">\\2</a>',
     // Anchor tags for linking within documents
     '#\[anchor=(\w+)(?::\w+)?\](.*?)\[/anchor(?::\w+)?\]#si' => '<a name="\\1">\\2</a>',
     // Images without or with client-side sizing
