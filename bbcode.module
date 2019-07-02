@@ -26,7 +26,7 @@ function bbcode_filter_info() {
  * Implement hook_filter_FILTER_process
  */
 function _bbcode_process($text, $filter, $format) {
-  include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'bbcode') . '/bbcode-filter.inc';
+  include_once backdrop_get_path('module', 'bbcode') . '/bbcode-filter.inc';
   if ($filter->settings['bbcode_debug']) {
     $start_time = microtime(true);
     $ret        = _bbcode_filter_process($text, $format->format);
@@ -42,8 +42,7 @@ function _bbcode_process($text, $filter, $format) {
 /**
  * Implement hook_filter_FILTER_settings
  */
-function _bbcode_settings($form, &$form_state, $filter, $format, $defaults, $filters) {
-  $filter->settings += $defaults;
+function _bbcode_settings($form, &$form_state, $filter, $format) {
 
   $form = array();
   $form['bbcode_make_links'] = array(
@@ -89,7 +88,7 @@ function _bbcode_settings($form, &$form_state, $filter, $format, $defaults, $fil
  */
 function _bbcode_tips($filter, $format, $long = FALSE) {
   if ($long) {
-    include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'bbcode') . '/bbcode-help.inc';
+    include_once backdrop_get_path('module', 'bbcode') . '/bbcode-help.inc';
     return _bbcode_filter_tip();
   }
   else {
@@ -106,7 +105,7 @@ function _bbcode_tips($filter, $format, $long = FALSE) {
  * Alter icons if the quicktags module is enabled.
  */
 function bbcode_quicktags_alter($items) {
-  $path = base_path() . drupal_get_path('module', 'quicktags') . '/';
+  $path = base_path() . backdrop_get_path('module', 'quicktags') . '/';
   $items['ed_italic'] = array(
     'name'      => 'italic',
     'prefix'    => '[i]',
