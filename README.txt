@@ -1,7 +1,7 @@
-Drupal bbcode.module README.txt
+Backdrop bbcode.module README.txt
 ==============================================================================
 
-The Drupal bbcode.module adds a BBCode filter to Drupal. This allows you
+The Drupal bbcode.module adds a BBCode filter to Backdrop. This allows you
 to use HTML-like tags as an alternative to HTML itself for adding markup
 to your posts. BBCode is easier to use than HTML and helps to prevent
 malicious users from disrupting your site's formatting.
@@ -16,7 +16,7 @@ to links automatically.
 Installation
 ------------------------------------------------------------------------------
  
-  - Download the BBCode module from http://drupal.org/project/bbcode
+  - Download from here
 
   - Create a .../modules/bbcode/ subdirectory and copy the files into it.
 
@@ -42,7 +42,7 @@ Configuration
     together!
 
   - If you would like to use BBCode as a replacement for HTML, you could
-    enable Drupal's "HTML filter" to remove or escape user entered HTML tags.
+    enable Backdrops's "HTML filter" to remove or escape user entered HTML tags.
 
   - If you've enabled multiple filters, you may need to rearrange them to
     ensure they execute in the correct order. For example, if HTML filtering 
@@ -56,13 +56,8 @@ Complementing Modules
 The following optional modules may be used to enhance your BBCode 
 installation:
 
-  - Quicktags - http://drupal.org/project/quicktags
-    Adds a BBCode formatting bar above all your textareas. 
-
-  - Smileys module - http://drupal.org/project/smileys
-
-Note: these are independent projects. Please do not report issues with them 
-as BBCode problems!
+  
+  - Adds a BBCode formatting bar above all your textareas. 
 
 Additional tags:
 ------------------------------------------------------------------------------
