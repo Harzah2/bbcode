@@ -1,9 +1,16 @@
+type = module
 name = BBCode
-description = Allow the use of BBCode in your posts.
-package = "Input filters"
-core = 7.x
-configure = admin/config/content/formats
+description = Allows users to comment on and discuss published content.
+package = User Interface
+tags[] = Administration
+version = BACKDROP_VERSION
+backdrop = 1.x
 
 files[] = bbcode.module
 files[] = bbcode-filter.inc
 files[] = bbcode-help.inc
+
+; Added by Backdrop CMS packaging script on 2019-05-31
+project = backdrop
+version = 1.13.2
+timestamp = 1502377745
